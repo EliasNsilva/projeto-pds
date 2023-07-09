@@ -1,6 +1,6 @@
 # Projeto
 
-Para a UFAL, cuja falta de de visibiladade e conhecimento dos projestos de extensão, o projeto é uma plataforma,que diferentemente da aba de extensão site da UFAL o nosso produto oferece um meio de centralizar e divulgar os projetos e ações da universidade.
+Para a UFAL, cuja falta de de visibiladade e conhecimento dos projetos de extensão, o projeto é uma plataforma,que diferentemente da aba de extensão site da UFAL o nosso produto oferece um meio de centralizar e divulgar os projetos e ações da universidade.
 
 ### Problemas
 
