@@ -108,7 +108,7 @@ Criação do Feed (HomePage) onde os projetos são divulgados.
 
 ### Aplicativo Web 
 Sistema similar a uma rede social para divulgação dos projetos. Os usuários podem criar uma conta e, caso sejam professores, podem cadastrar seus projetos.
-[LINK]
+[[LINK](https://github.com/EliasNsilva/projeto-pds)]
 
 ## Stakeholders
 
@@ -128,7 +128,7 @@ José Arthur Lopes <br />
 *E-mail* <br />
 
 Elias Nogueira da Silva <br />
-*E-mail* <br />
+*ens@ic.ufal.br* <br />
 
 Pedro Henrique Mesquita <br />
 *E-mail* <br />
