@@ -95,11 +95,11 @@ Criação do Feed (HomePage) onde os projetos são divulgados.
 	- Entrar em contato com professores e secretarias dos cursos
 	- Apoio da UFAL
 
-3.**Falta de hospedagem para a plataforma** Não conseguir hospedagem para a plataforma. *Severidade baixa e probabalidade baixa*
+3. **Falta de hospedagem para a plataforma** Não conseguir hospedagem para a plataforma. *Severidade baixa e probabalidade baixa*
    Ações para mitigação do risco:
 	- Procurar alternativas de hospedagem
 
-4.**Dificuldade para desenvolver** Não possuir conhecimento técnico. *Severidade média e probabilidade média*
+4. **Dificuldade para desenvolver** Não possuir conhecimento técnico. *Severidade média e probabilidade média*
    Ações para mitigação do risco:
 	- Manter contato entre os membros
 
