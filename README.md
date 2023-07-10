@@ -1,38 +1,33 @@
 # Projeto
 
-Para a UFAL, cuja falta de de visibiladade e conhecimento dos projetos de extensão, o projeto é uma plataforma,que diferentemente da aba de extensão site da UFAL o nosso produto oferece um meio de centralizar e divulgar os projetos e ações da universidade.
+Para a UFAL, cuja falta de visibilidade e conhecimento dos projetos de extensão, propomos um projeto de plataforma que centraliza e divulga os projetos e ações da universidade. Essa plataforma será um complemento à aba de extensão do site da UFAL, porém de forma diferente, pois estaremos oferecendo um meio mais eficiente de acesso e divulgação dos projetos.
 
 ### Problemas
 
-1) Pouca divulgação
-2) Desconhecimento sobre projetos de outros blocos
-3) Dificuldade de ingressar (Falta de conhecimento como ingressar)
+1) Pouca divulgação: Os projetos de extensão da UFAL têm baixa visibilidade, o que dificulta o conhecimento por parte da comunidade acadêmica e externa.
+2) Desconhecimento sobre projetos de outros blocos: Alunos e professores de determinado bloco não têm conhecimento dos projetos de extensão em outros blocos, o que limita a colaboração e participação conjunta em iniciativas.
+3) Dificuldade de ingresso: Há uma falta de conhecimento sobre como ingressar nos projetos de extensão, o que pode desencorajar alunos interessados em participar.
 
 ### Expectativas
 
-1) Facilitar acesso
-2) Centralizar informações
-3) Aumentar divulgação
+1) Facilitar o acesso: A plataforma proporcionará um meio fácil e intuitivo para acessar os projetos de extensão da UFAL, permitindo que alunos e professores encontrem informações relevantes.
+2) Centralizar informações: Todos os projetos serão centralizados em uma única plataforma, facilitando a busca, a comunicação e a colaboração entre diferentes projetos e áreas de conhecimento.
+3) Aumentar a divulgação: A plataforma permitirá a ampla divulgação dos projetos de extensão da UFAL, alcançando um público maior e promovendo a participação da comunidade acadêmica e externa.
 
 ## Personas
 
-Uma persona representa um usuário do produto e essa descrição deve falar não só o papel, mas também suas necessidades e seus objetivos. Isso cria uma representação realista dos usuários, auxiliando a equipe a descrever funcionalidades a partir do ponto de vista de quem vai usar o produto (Aguiar, 2021).
-
-### Professores
-
-Terão a possibilidade de cadastrar projetos que gerem.
-
-Poderão atualizar seus projetos com ações, divulgar para a comunidade e se conectar com alunos interessados.
-
-### Alunos Membros
-
-Ao serem selecionados por um professor responsável, podem ajudar na atualização da página do projeto.
-
-Simultaneamente podem usar a plataforma para conhecer outros projetos.
-
-### Alunos
-
-Podem usar a plataforma e se conectar com projetos para conhecer e obter informações.
+1) Professores:
+   - Professores que tem projetos ou os gerenciam, para poder inserir/remover ou atualizar situação de um projeto de extensão.
+- Possibilidade de cadastrar projetos de extensão.
+- Atualizar projetos com ações e divulgá-los para a comunidade.
+- Conectar-se com alunos interessados em participar.
+2) Alunos membros:
+  - Alunos que já participam de um projeto de extensão, estão engajados, e poderão atualizar a página do projeto juntamente aos professores.
+- Ao serem selecionados por um professor responsável, poderão ajudar na atualização da página do projeto.
+- Usar a plataforma para conhecer outros projetos e se envolver em iniciativas diversas.
+3) Alunos:
+  - Alunos que desejam ingressar em algum projeto de extensão e não tem fontes de informações adequadas para esse ingresso.
+- Usar a plataforma para obter informações sobre projetos de extensão e se conectar com eles para participação.
 
 ## Marcos
 
@@ -107,7 +102,7 @@ Criação do Feed (HomePage) onde os projetos são divulgados.
 ## Componentes
 
 ### Aplicativo Web 
-Sistema similar a uma rede social para divulgação dos projetos. Os usuários podem criar uma conta e, caso sejam professores, podem cadastrar seus projetos.
+Aplicativo Web: Uma plataforma similar a uma rede social para divulgação dos projetos de extensão da UFAL. Os usuários poderão criar uma conta, cadastrar projetos, atualizar informações e interagir com outros membros da comunidade acadêmica.
 [[LINK](https://github.com/EliasNsilva/projeto-pds)]
 
 ## Stakeholders
