@@ -17,16 +17,16 @@ Para a UFAL, cuja falta de visibilidade e conhecimento dos projetos de extensão
 ## Personas
 
 1) Professores:
-   - Professores que tem projetos ou os gerenciam, para poder inserir/remover ou atualizar situação de um projeto de extensão.
+	- Professores que tem projetos ou os gerenciam, para poder inserir/remover ou atualizar situação de um projeto de extensão.
 - Possibilidade de cadastrar projetos de extensão.
 - Atualizar projetos com ações e divulgá-los para a comunidade.
 - Conectar-se com alunos interessados em participar.
 2) Alunos membros:
-  - Alunos que já participam de um projeto de extensão, estão engajados, e poderão atualizar a página do projeto juntamente aos professores.
+  	- Alunos que já participam de um projeto de extensão, estão engajados, e poderão atualizar a página do projeto juntamente aos professores.
 - Ao serem selecionados por um professor responsável, poderão ajudar na atualização da página do projeto.
 - Usar a plataforma para conhecer outros projetos e se envolver em iniciativas diversas.
 3) Alunos:
-  - Alunos que desejam ingressar em algum projeto de extensão e não tem fontes de informações adequadas para esse ingresso.
+  	- Alunos que desejam ingressar em algum projeto de extensão e não tem fontes de informações adequadas para esse ingresso.
 - Usar a plataforma para obter informações sobre projetos de extensão e se conectar com eles para participação.
 
 ## Marcos
