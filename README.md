@@ -1,119 +1,127 @@
 # Projeto
 
-Para a UFAL, cuja falta de visibilidade e conhecimento dos projetos de extensão, propomos um projeto de plataforma que centraliza e divulga os projetos e ações da universidade. Essa plataforma será um complemento à aba de extensão do site da UFAL, porém de forma diferente, pois estaremos oferecendo um meio mais eficiente de acesso e divulgação dos projetos.
+Para estudantes e professores, cujo problema que precisa ser resolvido é a dificuldade de encontrar materiais de estudo relevantes e de livre acesso, o projeto é um sistema de recomendação de conteúdo externo baseado em materiais de livre acesso, com a capacidade de gerar um planejamento de estudo personalizado. Diferentemente de outras alternativas disponíveis, o nosso produto se destaca pela abordagem específica de selecionar materiais de estudo de alta qualidade de texto, vídeo e áudio, de acesso gratuito e pela capacidade de oferecer um planejamento de estudo personalizado para cada usuário.
 
 ### Problemas
 
-1) Pouca divulgação: Os projetos de extensão da UFAL têm baixa visibilidade, o que dificulta o conhecimento por parte da comunidade acadêmica e externa.
-2) Desconhecimento sobre projetos de outros blocos: Alunos e professores de determinado bloco não têm conhecimento dos projetos de extensão em outros blocos, o que limita a colaboração e participação conjunta em iniciativas.
-3) Dificuldade de ingresso: Há uma falta de conhecimento sobre como ingressar nos projetos de extensão, o que pode desencorajar alunos interessados em participar.
+1) Sobrecarga de informações, tornando difícil identificar os recursos mais adequados
+2) Dificuldade em encontrar materiais de estudo relevantes e gratuitos.
+3) Falta de um planejamento de estudo personalizado para cada usuário.
+4) Desmotivação por parte dos estudantes. Quando os alunos não possuem materiais de estudos aptos às suas preferências, eles perdem o interesse no processo de aprendizagem.
+5) Estagnação do conhecimento. A falta de atualização frequente dos materiais de estudo pode levar a um conhecimento desatualizado.
 
 ### Expectativas
 
-1) Facilitar o acesso: A plataforma proporcionará um meio fácil e intuitivo para acessar os projetos de extensão da UFAL, permitindo que alunos e professores encontrem informações relevantes.
-2) Centralizar informações: Todos os projetos serão centralizados em uma única plataforma, facilitando a busca, a comunicação e a colaboração entre diferentes projetos e áreas de conhecimento.
-3) Aumentar a divulgação: A plataforma permitirá a ampla divulgação dos projetos de extensão da UFAL, alcançando um público maior e promovendo a participação da comunidade acadêmica e externa.
+1) Facilidade em encontrar materiais de estudo relevantes na atualidade e de livre acesso.
+2) Receber um planejamento de estudo personalizado de acordo com seus objetivos.
+3) Ter acesso a uma variedade de conteúdos confiáveis e bem selecionados.
+
 
 ## Personas
 
-1) Professores:
-	- Professores que tem projetos ou os gerenciam, para poder inserir/remover ou atualizar situação de um projeto de extensão.
-- Possibilidade de cadastrar projetos de extensão.
-- Atualizar projetos com ações e divulgá-los para a comunidade.
-- Conectar-se com alunos interessados em participar.
-2) Alunos membros:
-  	- Alunos que já participam de um projeto de extensão, estão engajados, e poderão atualizar a página do projeto juntamente aos professores.
-- Ao serem selecionados por um professor responsável, poderão ajudar na atualização da página do projeto.
-- Usar a plataforma para conhecer outros projetos e se envolver em iniciativas diversas.
-3) Alunos:
-  	- Alunos que desejam ingressar em algum projeto de extensão e não tem fontes de informações adequadas para esse ingresso.
-- Usar a plataforma para obter informações sobre projetos de extensão e se conectar com eles para participação.
+### Persona X
+
+*O que ela faz?* Persona X é uma estudante. Ela tem um cronograma apertado devido a estágios, atividades extracurriculares e as próprias aulas.
+
+*O que ela espera?* Ela espera encontrar materiais de estudo específicos para seus cursos e um planejamento de estudo que se ajuste à sua agenda ocupada.
+
+### Persona Y
+
+*O que ela faz?* Persona Y é um professor que deseja criar um material de livre acesso para seus alunos, auxiliando no planejamento das aulas.
+
+*O que ela espera?* Ela espera encontrar recursos de aprendizagem gratuitos de alta qualidade, direcionados para suas necessidades profissionais específicas.
 
 ## Marcos
 
-Devemos entregar **pequenas versões frequentes**. A equipe deve definir os marcos do projeto (*milestones)*, definindo os prazos de entrega e quais funcionalidades serão implementados até o final de cada marco. No final de cada marco devemos distribuir uma nova versão do produto, pronta para produção.
+Devemos entregar **pequenas versões frequentes**. A equipe deve definir os marcos do projeto (*milestones)*, definindo os prazos de entrega e quais funcionalidades serão implementadas até o final de cada marco. No final de cada marco, devemos distribuir uma nova versão do produto, pronta para produção.
 
-Podemos pensar nessas pequenas versões como MVPs (do inglês, *minimum viable product*). MVP é a versão mais simples de um produto que pode ser disponibilizada para a validação de um pequeno conjunto de hipóteses sobre o negócio. Após ser **construído,** o MVP é colocado à prova. Com isso, teremos dados que possibilitam **medir** o seu uso e, portanto, gerar o **aprendizado** desejado (Caroli, 2018).
+Podemos pensar nessas pequenas versões como MVPs (do inglês, *minimum viable product*). MVP é a versão mais simples de um produto que pode ser disponibilizada para a validação de um pequeno conjunto de hipóteses sobre o negócio. Após ser **construído**, o MVP é colocado à prova. Com isso, teremos dados que possibilitam **medir** o seu uso e, portanto, gerar o **aprendizado** desejado (Caroli, 2018).
 
-### Marco 1 - DD/MM/2023
+### Marco 1 - XX/XX/2023
 
-Montar um CRUD capaz de cadastrar um projeto na plataforma
+Acreditamos que esse `Marco 1` seja a possibilidade de logar no sistema, juntamente com isso teríamos definido as bases de busca e selecionado o algoritmo mais adequado para a recomendação.
+
 #### Funcionalidades
 
-- [Criar um projeto] Funcionalidade 1.
-- [Consultar um projeto] Funcionalidade 2
-- [Remover um projeto] Funcionalidade 3.
-- [Atualizar dados de um projeto] Funcionalidade 4.
+- [x] Perfil do usuário para personalização das recomendações.
 
-[Release Notes ](release_notes_1.md)
+[Release Notes](release_notes_1.md)
 
-### Marco 2 - DD/01/2023
+### Marco 2 - XX/XX/2023
 
-Criação do sistema de Login
+Acreditamos que esse `Marco 2` vai conseguir `facilitar a descoberta de materiais de estudo relevantes` e `oferecer recomendações personalizadas para os usuários`. 
 
-#### Funcionalidades 
+#### Funcionalidades
 
-- [Criar usuário] Funcionalidade 1.
-- [Recuperar senha] Funcionalidade 2.
-- [Login] Funcionalidade 3.
+- [x] Sistema de recomendação de conteúdo externo.
+- [x] Funcionalidade de pesquisa avançada.
 
-### Marco 3 - DD/01/2023
+[Release Notes](release_notes_2.md)
 
-Cadastro de usuários relacianados a projetos
 
-#### Funcionalidades 
+### Marco 3 - XX/XX/2023
 
-- [Vincular usuário] Funcionalidade 1.
-- [Consultar usuário] Funcionalidade 2.
-- [Remover do projeto] Funcionalidade 3.
-
-### Marco 4 - DD/01/2023
-
-Criação do Feed (HomePage) onde os projetos são divulgados.
+Acreditamos que esse `Marco 3` vai conseguir `oferecer um planejamento de estudo personalizado` fornecendo não só o material, como também, como consumi-lo.
 
 #### Funcionalidades 
 
-- [Atualização do feed] Funcionalidade 1.
-- [Rolagem] Funcionalidade 2.
+- [x] Planejamento de estudo personalizado.
+- [x] Acompanhamento do progresso do estudo.
+- [x] Aperfeiçoamento do sistema de recomendação.
 
-[Release Notes ](release_notes_1.md)
+[Release Notes](release_notes_3.md)
 
 ## Riscos
 
-1. **Não conseguir cumprir o prazo** Não conseguir desenvolver as funcionalidades. *Severidade alta e Probabilidade baixa*
-   Ações para mitigação do risco:
-	- Organização
-	- Reuniões frequentes
+1. **Risco 1**: Alguns recursos externos recomendados podem não estar mais disponíveis, causando frustração aos usuários. *Severidade Baixa e Probabilidade Alta*.
 
-2. **Baixo uso dos usuários** Sistema não ser utilizado. *Severidade Média e Probabilidade Alta*.
    Ações para mitigação do risco:
-	- Entrar em contato com professores e secretarias dos cursos
-	- Apoio da UFAL
 
-3. **Falta de hospedagem para a plataforma** Não conseguir hospedagem para a plataforma. *Severidade baixa e probabalidade baixa*
-   Ações para mitigação do risco:
-	- Procurar alternativas de hospedagem
+   * Monitorar periodicamente os links recomendados e atualizá-los conforme necessário.
 
-4. **Dificuldade para desenvolver** Não possuir conhecimento técnico. *Severidade média e probabilidade média*
+2. **Risco 2**: A personalização do planejamento de estudo pode não atender às expectativas dos usuários. *Severidade Média e Probabilidade Alta*.
+
    Ações para mitigação do risco:
-	- Manter contato entre os membros
+
+   * Coletar feedback constante dos usuários e realizar ajustes no algoritmo de personalização
+.
+3. **Risco 3** - Dificuldades técnicas na implementação do algoritmo de recomendação de conteúdo. Severidade Média e Probabilidade Alta.
+
+Ações para mitigação do risco:
+
+Ação de mitigação 1 - Realizar uma análise detalhada dos requisitos e restrições técnicas antes de iniciar a implementação do algoritmo.
+
+Ação de mitigação 2 - Realizar testes e validações iterativas durante o desenvolvimento do algoritmo para identificar e corrigir problemas o mais cedo possível.
+
+4. **Risco 4** - Risco de baixa adesão dos usuários ao sistema de recomendação. Severidade Média e Probabilidade Alta.
+
+Ações para mitigação do risco:
+
+Ação de mitigação 2.1: Buscar apoio de centros academidos de universidades.
+Ação de mitigação 2.2: Oferecer incentivos aos usuários para que convidem outras pessoas a utilizar o sistema.
 
 
 ## Componentes
 
 ### Aplicativo Web 
-Aplicativo Web: Uma plataforma similar a uma rede social para divulgação dos projetos de extensão da UFAL. Os usuários poderão criar uma conta, cadastrar projetos, atualizar informações e interagir com outros membros da comunidade acadêmica.
-[[LINK](https://github.com/EliasNsilva/projeto-pds)]
+Um aplicativo web responsivo que permite aos usuários pesquisar e receber recomendações de materiais de estudo relevantes.
+
+[Descrição detalhada](https://github.com/edgebr/templates-artefatos)
 
 ## Stakeholders
 
 Stakeholder 1 <br />
-*Key User - Cargo na Empresa X* <br />
+*Rodrigo Paes - Cargo na Empresa X* <br />
 *E-mail* <br />
 (xx) xxxxx-xxxx
 
 Stakeholder 2 <br />
-*Key User - Cargo na Empresa X* <br />
+*Willy Tiengo - Cargo na Empresa X* <br />
+*E-mail* <br />
+(xx) xxxxx-xxxx
+
+Stakeholder 3 <br />
+*Ranilson Paiva - Cargo na Empresa X* <br />
 *E-mail* <br />
 (xx) xxxxx-xxxx
 
