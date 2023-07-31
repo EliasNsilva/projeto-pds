@@ -54,6 +54,7 @@ Funcionalidades:
 
 2. Planejamento de Estudo Personalizado:
    - Desenvolver um mecanismo para gerar um planejamento de estudo personalizado com base nas metas do usuário e sua disponibilidade de tempo.
+   - Nisso levariamos em conta o nível de experiência do usuário com o assunto para recomendar contéudos que melhor se adequam.
 
 3. Integração de Conteúdo Adicional:
    - Ampliar a base de dados de materiais de estudo (aqui tentaremos adicionar conteúdo externo via alguma integração dinâmica, para poder termos conteúdo sempre atualizado), incluindo novas fontes de conteúdo relevante e confiável para oferecer uma variedade mais abrangente de recursos.
@@ -64,6 +65,7 @@ Funcionalidades:
 1. Refinamento do Algoritmo de Recomendação:
    - Melhorar o algoritmo de recomendação com base no nosso resultado do Marco 1.
    - Aperfeiçoar a precisão e relevância das recomendações com base nas interações do usuário com o sistema (provavelmente um feedback simples, aguardar o completo do Marco 3).
+   - Para o planejamento de estudos, o sistema passaria a recomendar os conteúdos os separando por "módulos" respeitando o nível do usuário e sua disponibilidade de tempo.
 
 2. Melhorias na Interface do Usuário:
    - Realizar melhorias na interface do usuário para torná-la mais intuitiva e amigável.
@@ -76,13 +78,10 @@ Funcionalidades:
 Marco 4 - XX/XX/2023
 
 Funcionalidades:
-1. Personalização Avançada:
-   - Implementar recursos de personalização avançada, permitindo aos usuários ajustar ainda mais suas preferências de recomendação.
-
-2. Preparação para Produção:
+1. Preparação para Produção:
    - Realizar os últimos ajustes e verificações para preparar o produto para o lançamento oficial.
 
-4. Testes Beta:
+3. Testes Beta:
    - Realizar testes beta com um grupo maior de usuários para validar as melhorias e correções feitas até o momento e validar se nossa preparação de produção está indo bem.
 
 Marco 5 - XX/XX/2023
