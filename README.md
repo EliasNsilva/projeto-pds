@@ -32,36 +32,71 @@ Para estudantes e professores, cujo problema que precisa ser resolvido é a difi
 *O que ela espera?* Ela espera encontrar recursos de aprendizagem gratuitos de alta qualidade, direcionados para suas necessidades profissionais específicas.
 
 ## Marcos
+Marco 1 - XX/XX/2023
 
-Devemos entregar **pequenas versões frequentes**. A equipe deve definir os marcos do projeto (*milestones)*, definindo os prazos de entrega e quais funcionalidades serão implementadas até o final de cada marco. No final de cada marco, devemos distribuir uma nova versão do produto, pronta para produção.
+Funcionalidades:
+1. Sistema de Autenticação:
+   - Implementar a funcionalidade de login e registro para permitir que os usuários criem contas
 
-Podemos pensar nessas pequenas versões como MVPs (do inglês, *minimum viable product*). MVP é a versão mais simples de um produto que pode ser disponibilizada para a validação de um pequeno conjunto de hipóteses sobre o negócio. Após ser **construído**, o MVP é colocado à prova. Com isso, teremos dados que possibilitam **medir** o seu uso e, portanto, gerar o **aprendizado** desejado (Caroli, 2018).
+2. Perfil do Usuário:
+   - Criar um perfil do usuário onde ele possa inserir informações relevantes, como área de estudo, metas de aprendizado e disponibilidade de tempo.
 
-### Marco 1 - XX/XX/2023
-
-Acreditamos que esse `Marco 1` seja a possibilidade de logar no sistema, juntamente com isso teríamos definido as bases de busca e selecionado o algoritmo mais adequado para a recomendação.
-
-#### Funcionalidades
-
-- [x] Perfil do usuário para personalização das recomendações.
-
-[Release Notes](release_notes_1.md)
-
-### Marco 2 - XX/XX/2023
-
-Acreditamos que esse `Marco 2` vai conseguir `facilitar a descoberta de materiais de estudo relevantes` e `oferecer recomendações personalizadas para os usuários`. 
-
-#### Funcionalidades
-
-- [x] Sistema de recomendação de conteúdo externo.
-- [x] Funcionalidade de pesquisa avançada.
-
-[Release Notes](release_notes_2.md)
+3. Base de Dados Inicial:
+   - Montar uma base de dados inicial (avaliar sites que colocaremos na plataforma) com uma seleção de materiais de estudo relevantes e de livre acesso, categorizados de acordo com áreas de conhecimento.
 
 
-### Marco 3 - XX/XX/2023
 
-Acreditamos que esse `Marco 3` vai conseguir `oferecer um planejamento de estudo personalizado` fornecendo não só o material, como também, como consumi-lo.
+Marco 2 - XX/XX/2023
+
+Funcionalidades:
+1. Algoritmo de Recomendação:
+   - Desenvolver um algoritmo inicial de recomendação que leve em conta as preferências iniciais do usuário e selecione materiais de estudo relevantes para o perfil informado.
+
+2. Planejamento de Estudo Personalizado:
+   - Desenvolver um mecanismo para gerar um planejamento de estudo personalizado com base nas metas do usuário e sua disponibilidade de tempo.
+
+3. Integração de Conteúdo Adicional:
+   - Ampliar a base de dados de materiais de estudo (aqui tentaremos adicionar conteúdo externo via alguma integração dinâmica, para poder termos conteúdo sempre atualizado), incluindo novas fontes de conteúdo relevante e confiável para oferecer uma variedade mais abrangente de recursos.
+
+Marco 3 - XX/XX/2023
+
+Funcionalidades:
+1. Refinamento do Algoritmo de Recomendação:
+   - Melhorar o algoritmo de recomendação com base no nosso resultado do Marco 1.
+   - Aperfeiçoar a precisão e relevância das recomendações com base nas interações do usuário com o sistema (provavelmente um feedback simples, aguardar o completo do Marco 3).
+
+2. Melhorias na Interface do Usuário:
+   - Realizar melhorias na interface do usuário para torná-la mais intuitiva e amigável.
+   - Implementar recursos de filtragem e busca para facilitar a descoberta de materiais de estudo.
+
+3. Feedback do Usuário:
+   - Adicionar uma funcionalidade de feedback para que os usuários possam avaliar e comentar sobre os materiais de estudo recomendados.
+   - Utilizar esses dados de feedback para otimizar ainda mais o sistema de recomendação.
+
+Marco 4 - XX/XX/2023
+
+Funcionalidades:
+1. Personalização Avançada:
+   - Implementar recursos de personalização avançada, permitindo aos usuários ajustar ainda mais suas preferências de recomendação.
+
+2. Preparação para Produção:
+   - Realizar os últimos ajustes e verificações para preparar o produto para o lançamento oficial.
+
+4. Testes Beta:
+   - Realizar testes beta com um grupo maior de usuários para validar as melhorias e correções feitas até o momento e validar se nossa preparação de produção está indo bem.
+
+Marco 5 - XX/XX/2023
+
+Funcionalidades:
+1. Versão Pronta para Produção:
+   - Disponibilizar a versão final do sistema, pronta para uso público.
+
+2. Suporte e Atendimento ao Usuário:
+   - Estabelecer uma equipe de suporte para ajudar os usuários com possíveis problemas e dúvidas.
+
+3. Divulgação e Marketing:
+   - Iniciar uma campanha de divulgação e marketing para atrair mais usuários e promover o produto.
+
 
 #### Funcionalidades 
 
