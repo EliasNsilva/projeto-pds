@@ -177,6 +177,16 @@ Túlio Cerqueira Lopes <br />
 
 ![image](https://github.com/EliasNsilva/projeto-pds/assets/83170114/abfe530e-72eb-4f3e-9cb2-393dc9738f4a)
 
+Estudantes: São usuários estudantes;
+
+Professores: São usuários professores;
+
+Dono do Produto: É o professor de PDS que exercerá a funcão de dono do produto que será produzido pela equipe;
+
+Programadores: São os membros do grupo;
+
+Líder: É um membro do grupo que exercerá a função de líder da equipe.
+
 
 ## Status Reports
 
