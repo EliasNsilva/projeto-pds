@@ -173,6 +173,11 @@ Pedro Henrique Mesquita <br />
 Túlio Cerqueira Lopes <br />
 *E-mail* <br />
 
+## Stakeholders - Poder x Interesse
+
+![image](https://github.com/EliasNsilva/projeto-pds/assets/83170114/abfe530e-72eb-4f3e-9cb2-393dc9738f4a)
+
+
 ## Status Reports
 
 [Status Report 1 (20/12/2022)](status_report_1.md)
