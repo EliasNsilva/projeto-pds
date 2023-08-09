@@ -1,146 +1,84 @@
 # Projeto
 
-Para estudantes e professores, cujo problema que precisa ser resolvido é a dificuldade de encontrar materiais de estudo relevantes e de livre acesso, o projeto é um sistema de recomendação de conteúdo externo baseado em materiais de livre acesso, com a capacidade de gerar um planejamento de estudo personalizado. Diferentemente de outras alternativas disponíveis, o nosso produto se destaca pela abordagem específica de selecionar materiais de estudo de alta qualidade de texto, vídeo e áudio, de acesso gratuito e pela capacidade de oferecer um planejamento de estudo personalizado para cada usuário.
+Nossa plataforma visa facilitar e resolver a dificuldade de aprendizado para pessoas que tem seu primeiro contato com programação, sendo pessoas que tem dificuldade de acompanhar a teoria separada da prática, e nossa vai visar unificar isso. Facilitando o aprendizado (nossa meta principal) teremos uma nova ferramenta de logs para que alunos com o primeiro contato com programação não deem de cara com a saída do compilador e sim com uma mensagem explicativa do erro/lógica, além disso, por ser algo unificado, teremos suporte para acompanhar o aprendizado através de atividades parciais (durante o assunto) consolidando o conhecimento teório e prático em conjunto. A abordagem do nosso sistema busca melhorar a curva de aprendizado que é muito íngreme e desafiadora, e queremos uma maneira mais amigável de aprender, porém com uma boa base teórica e prática, simplificando o aprendizado e melhorando a curva de aprendizado. Por fim, algo organizacional seria um plano de estudos simples para que os alunos tenham uma sequência de aula/atividades e sejam possibilitados de progredir na plataforma de forma sequencial.
 
 ### Problemas
 
-1) Sobrecarga de informações, tornando difícil identificar os recursos mais adequados
-2) Dificuldade em encontrar materiais de estudo relevantes e gratuitos.
-3) Falta de um planejamento de estudo personalizado para cada usuário.
-4) Desmotivação por parte dos estudantes. Quando os alunos não possuem materiais de estudos aptos às suas preferências, eles perdem o interesse no processo de aprendizagem.
-5) Estagnação do conhecimento. A falta de atualização frequente dos materiais de estudo pode levar a um conhecimento desatualizado.
+1) Dificuldade de acompanhar teoria separada da prática.
+2) Falta de suporte automatizado (erros explicados).
 
 ### Expectativas
 
-1) Facilidade em encontrar materiais de estudo relevantes na atualidade e de livre acesso.
-2) Receber um planejamento de estudo personalizado de acordo com seus objetivos.
-3) Ter acesso a uma variedade de conteúdos confiáveis e bem selecionados.
+1) Nossa plataforma vai visar ter o conjunto teoria + prática em um único lugar e que seja de forma sequencial para ter um apoio e uma base firme de aprendizado em um único local.
+2) Erros comuns encontrados no começo do aprendizado, que não tem suporte/explicação rápida/fácil ou no mesmo lugar, como por exemplo, erros de saída do compilador complexos que fazem termos que buscar ajuda em outros lugares (como por exemplo, depender de monitores ou sites que no momento seriam desconhecidos).
 
 
 ## Personas
 
-### Persona X
+### Persona 1
 
-*O que ela faz?* Persona X é uma estudante. Ela tem um cronograma apertado devido a estágios, atividades extracurriculares e as próprias aulas.
+*O que ela faz?* Persona 1 é um aluno no seu primeiro período. Ele tem um cronograma fechado pois as matérias de primeiro período são fixas e não tem ou tem pouco conhecimento sobre programação.
 
-*O que ela espera?* Ela espera encontrar materiais de estudo específicos para seus cursos e um planejamento de estudo que se ajuste à sua agenda ocupada.
+*O que ela espera?* Ela espera encontrar materiais de estudo centralizados e de fácil entedimento, ajudando também no problema de gerência de nível de estudo por matéria. 
 
-### Persona Y
+### Persona 2
 
-*O que ela faz?* Persona Y é um professor que deseja criar um material de livre acesso para seus alunos, auxiliando no planejamento das aulas.
+*O que ela faz?* Persona 2 é um aluno no seu primeiro período. Ele tem um cronograma fechado pois as matérias de primeiro período são fixas, porém já tem um conhecimento relevante sobre programação.
 
-*O que ela espera?* Ela espera encontrar recursos de aprendizagem gratuitos de alta qualidade, direcionados para suas necessidades profissionais específicas.
+*O que ela espera?* Ela espera encontrar de forma centralizada e simples o que acontecerá durante aquela matéria, para poder suprir algum conhecimento faltante.
 
 ## Marcos
-Marco 1 - XX/XX/2023
 
-Funcionalidades:
-1. Sistema de Autenticação:
-   - Implementar a funcionalidade de login e registro para permitir que os usuários criem contas
+# Marco 1 - XX/XX/2023
 
-2. Perfil do Usuário:
-   - Criar um perfil do usuário onde ele possa inserir informações relevantes, como área de estudo, metas de aprendizado e disponibilidade de tempo.
+Modelagem do banco de dados (base de problemas) - Para possibilitar a plataforma ter exercícios salvos
 
-3. Base de Dados Inicial:
-   - Montar uma base de dados inicial (avaliar sites que colocaremos na plataforma) com uma seleção de materiais de estudo relevantes e de livre acesso, categorizados de acordo com áreas de conhecimento.
+Base de problemas simples - Problemas básicos para possibilitar a ideia de exercícios na plataforma.
 
+Submissão de código com saída - Os usuários podem enviar suas soluções para os problemas propostos. 
 
+# Marco 2 - XX/XX/2023
 
-Marco 2 - XX/XX/2023
+Verificar soluções de submissão - A plataforma verifica a precisão e a eficiência das soluções e fornece feedback instantâneo sobre os resultados.
 
-Funcionalidades:
-1. Algoritmo de Recomendação:
-   - Desenvolver um algoritmo inicial de recomendação que leve em conta as preferências iniciais do usuário e selecione materiais de estudo relevantes para o perfil informado.
+Logs e erros avaliados por IA - A plataforma em caso de soluções com erro, vai avaliar a lógica e a sintaxe do código, e fornecer uma mensagem gerada por uma IA (consumida da API) explicando o erro.
 
-2. Planejamento de Estudo Personalizado:
-   - Desenvolver um mecanismo para gerar um planejamento de estudo personalizado com base nas metas do usuário e sua disponibilidade de tempo.
-   - Nisso levariamos em conta o nível de experiência do usuário com o assunto para recomendar contéudos que melhor se adequam.
+# Marco 3 - XX/XX/2023
 
-3. Integração de Conteúdo Adicional:
-   - Ampliar a base de dados de materiais de estudo (aqui tentaremos adicionar conteúdo externo via alguma integração dinâmica, para poder termos conteúdo sempre atualizado), incluindo novas fontes de conteúdo relevante e confiável para oferecer uma variedade mais abrangente de recursos.
+Completar modelagem do banco de dados - Para possibilitar usuários diferentes, e salvar o material de estudo. (Possibilita futuramente gerar estatística e desempenho)
 
-Marco 3 - XX/XX/2023
+Material de estudo: Cadastrar na plataforma material de estudo (em teoria cobrir toda matéria de programação 1, inclusive lógica de programação), oferecer conteúdo educacional, como tutoriais, dicas e exemplos, para auxiliar os usuários em seu aprendizado. Aqui o nosso foco sera estruturar o material e fazer um visual atrativo e agradável.
 
-Funcionalidades:
-1. Refinamento do Algoritmo de Recomendação:
-   - Melhorar o algoritmo de recomendação com base no nosso resultado do Marco 1.
-   - Aperfeiçoar a precisão e relevância das recomendações com base nas interações do usuário com o sistema (provavelmente um feedback simples, aguardar o completo do Marco 3).
-   - Para o planejamento de estudos, o sistema passaria a recomendar os conteúdos os separando por "módulos" respeitando o nível do usuário e sua disponibilidade de tempo.
+Dicas parciais: Oferecer dicas graduais durante a resolução de problemas que poderia ajudar os usuários a avançarem, sem fornecer respostas completas imediatamente, incentivando-os a pensar mais criticamente.
 
-2. Melhorias na Interface do Usuário:
-   - Realizar melhorias na interface do usuário para torná-la mais intuitiva e amigável.
-   - Implementar recursos de filtragem e busca para facilitar a descoberta de materiais de estudo.
+Exercícios parciais: Durante o conteúdo de aprendizado, fazer exercícios simples para não ficar só na teoria, comprovando que ele está acompanhando o conteúdo e está entendendo.
 
-3. Feedback do Usuário:
-   - Adicionar uma funcionalidade de feedback para que os usuários possam avaliar e comentar sobre os materiais de estudo recomendados.
-   - Utilizar esses dados de feedback para otimizar ainda mais o sistema de recomendação.
+# Marco 4 - XX/XX/2023
 
-Marco 4 - XX/XX/2023
+Sistema de usuários: A plataforma deve diferenciar seus usuários para permitir/negar funcionalidades específicas.
 
-Funcionalidades:
-1. Preparação para Produção:
-   - Realizar os últimos ajustes e verificações para preparar o produto para o lançamento oficial.
+Cadastro de problemas: A plataforma deve permitir usuários (específicos) cadastrarem problemas (exercícios e questões).
 
-3. Testes Beta:
-   - Realizar testes beta com um grupo maior de usuários para validar as melhorias e correções feitas até o momento e validar se nossa preparação de produção está indo bem.
-
-Marco 5 - XX/XX/2023
-
-Funcionalidades:
-1. Versão Pronta para Produção:
-   - Disponibilizar a versão final do sistema, pronta para uso público.
-
-2. Suporte e Atendimento ao Usuário:
-   - Estabelecer uma equipe de suporte para ajudar os usuários com possíveis problemas e dúvidas.
-
-3. Divulgação e Marketing:
-   - Iniciar uma campanha de divulgação e marketing para atrair mais usuários e promover o produto.
-
-
-#### Funcionalidades 
-
-- [x] Planejamento de estudo personalizado.
-- [x] Acompanhamento do progresso do estudo.
-- [x] Aperfeiçoamento do sistema de recomendação.
-
-[Release Notes](release_notes_3.md)
 
 ## Riscos
 
-1. **Risco 1**: Alguns recursos externos recomendados podem não estar mais disponíveis, causando frustração aos usuários. *Severidade Baixa e Probabilidade Alta*.
+1. **Risco 1**: Sistema genérico -> Plataforma pode ficar muito genérico ou similar a outras plataformas existentes.
 
    Ações para mitigação do risco:
 
-   * Monitorar periodicamente os links recomendados e atualizá-los conforme necessário.
-
-2. **Risco 2**: A personalização do planejamento de estudo pode não atender às expectativas dos usuários. *Severidade Média e Probabilidade Alta*.
+   * Adicionar funcionalidades únicas e atrativas (como o log gerado por IA)
+  
+2. **Risco 2**: Baixa adoção -> Plataforma não atrativa fazendo com que usuários não busquem acessar.
 
    Ações para mitigação do risco:
 
-   * Coletar feedback constante dos usuários e realizar ajustes no algoritmo de personalização
-.
-3. **Risco 3** - Dificuldades técnicas na implementação do algoritmo de recomendação de conteúdo. Severidade Média e Probabilidade Alta.
-
-Ações para mitigação do risco:
-
-Ação de mitigação 1 - Realizar uma análise detalhada dos requisitos e restrições técnicas antes de iniciar a implementação do algoritmo.
-
-Ação de mitigação 2 - Realizar testes e validações iterativas durante o desenvolvimento do algoritmo para identificar e corrigir problemas o mais cedo possível.
-
-4. **Risco 4** - Risco de baixa adesão dos usuários ao sistema de recomendação. Severidade Média e Probabilidade Alta.
-
-Ações para mitigação do risco:
-
-Ação de mitigação 2.1: Buscar apoio de centros academidos de universidades.
-Ação de mitigação 2.2: Oferecer incentivos aos usuários para que convidem outras pessoas a utilizar o sistema.
+   * Alterar visualização/metodologia de abordagem dos assuntos para novos alunos
 
 
 ## Componentes
 
 ### Aplicativo Web 
-Um aplicativo web responsivo que permite aos usuários pesquisar e receber recomendações de materiais de estudo relevantes.
-
-[Descrição detalhada](https://github.com/edgebr/templates-artefatos)
+Um aplicativo web que permite os usuários acessarem a plataforma, o conteúdo e submeter soluções para exercícios/questões.
 
 ## Stakeholders
 
@@ -189,5 +127,4 @@ Líder: É um membro do grupo que exercerá a função de líder da equipe.
 
 
 ## Status Reports
-
 [Status Report 1 (20/12/2022)](status_report_1.md)
