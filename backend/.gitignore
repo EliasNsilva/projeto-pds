@@ -13,6 +13,7 @@ migrations/
 .venv
 env/
 env_api/
+app_env/
 venv/
 ENV/
 env.bak/
