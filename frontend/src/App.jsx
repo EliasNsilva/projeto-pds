@@ -1,34 +1,30 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { BrowserRouter as Router, Link, Routes, Route } from 'react-router-dom'
+import Header from './components/Header'
+// Rotas
+import Home from './pages/Home'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Pra quem nunca usou React, olha na <code>src/App.jsx</code> edita o texto e salva pra ver o hot reload.
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Grupo 6 - PDS
-      </p>
-    </>
+    <Router>
+      <nav>
+        <Header />
+      </nav>
+      <Routes>
+        <Route path="/" element={<Home />} />
+
+        {/*
+        Exemplo de rotas para quem nunca usou React Router antes
+        <Route path="login" element={<Login />} />
+        <Route path="products" element={<Products />}>
+          <Route path="search" element={<Search />} />
+          <Route path="list" element={<ListProducts />} />
+          <Route path="add" element={<AddProduct />} />
+          <Route path=":id" element={<ProductDisplay />} />
+        </Route> 
+        */}
+
+      </Routes>
+    </Router>
   )
 }
 
