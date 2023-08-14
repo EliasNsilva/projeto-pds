@@ -10,9 +10,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@codemirror/lang-cpp": "^6.0.2",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.3",
+    "@mui/material": "^5.14.5",
+    "@uiw/react-codemirror": "^4.21.9",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.15.0"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",
