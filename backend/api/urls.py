@@ -18,6 +18,19 @@ from django.urls import include, path
 from rest_framework import routers
 
 from app.storage.views import ProblemViewSet, submissionView
+from drf_yasg.views import get_schema_view
+from drf_yasg import openapi
+
+schema_view = get_schema_view(
+   openapi.Info(
+      title="PiOne API",
+      default_version='v1',
+      description="A very good description",
+      contact=openapi.Contact(email="pioneplatform@gmail.com"),
+      #license=openapi.License(name="BSD License"),
+   ),
+   public=True,
+)
 
 router = routers.DefaultRouter()
 
@@ -26,5 +39,6 @@ router.register(r'problem', ProblemViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('admin/', admin.site.urls),
-    path('submission', submissionView.as_view(), name='submission')
+    path('submission/', submissionView.as_view(), name='submission'),
+    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
 ]
