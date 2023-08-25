@@ -2,6 +2,8 @@ import { BrowserRouter as Router, Link, Routes, Route } from 'react-router-dom'
 import Header from './components/Header'
 // Rotas
 import Home from './pages/Home'
+import HuxleyRun from './pages/HuxleyRun'
+import HuxleySubmit from './pages/HuxleySubmit'
 
 function App() {
   return (
@@ -10,7 +12,12 @@ function App() {
         <Header />
       </nav>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home />}>
+          <Route path=":id" element={<Home />} />
+        </Route>
+
+        <Route path="/run" element={<HuxleyRun />} />
+        <Route path="/submit" element={<HuxleySubmit />} />
 
         {/*
         Exemplo de rotas para quem nunca usou React Router antes
