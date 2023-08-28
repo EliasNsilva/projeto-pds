@@ -11,7 +11,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Typography from '@mui/material/Typography';
-import Paper from '@mui/material/Paper'; // Import Paper for chat-like styling
+import Paper from '@mui/material/Paper'; 
 
 function Home() {
   const { id } = useParams();
@@ -66,9 +66,21 @@ function Home() {
     // Add more messages here
   ];
 
+  if(!id){
+    return (
+      <h1 className='text-center mt-4 font-medium'>Sem problema selecionado</h1>
+    )
+  }
+
+  const [expanded, setExpanded] = useState(true);
+
+  const handleExpanded = () => {
+    setExpanded(!expanded);
+  };
+
   return (
     <div className="h-screen bg-blue-500 pt-4">
-      <Grid container justifyContent="center" spacing={4}>
+      <Grid container justifyContent="center" spacing={4} className="bg-blue-500">
         {/* First Grid */}
         <Grid item xs={10} sm={6} md={4}>
           {problem && (
@@ -76,13 +88,13 @@ function Home() {
               <h2 className="text-xl font-semibold text-white mb-4">Informações do Problema</h2>
 
               {/* Description Accordion */}
-              <Accordion>
+              <Accordion expanded={expanded} onChange={handleExpanded}>
                 <AccordionSummary
                   expandIcon={<ExpandMoreIcon />}
                   aria-controls="description-panel"
                   id="description-header"
                 >
-                  <Typography>Descrição</Typography>
+                  <Typography sx={{fontWeight: 'bold'}}>Descrição</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                   <Typography>{problem.description}</Typography>
@@ -96,7 +108,7 @@ function Home() {
                   aria-controls="input-format-panel"
                   id="input-format-header"
                 >
-                  <Typography>Formato de Entrada</Typography>
+                  <Typography sx={{fontWeight: 'bold'}}>Formato de Entrada</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                   <Typography>{problem.inputFormat}</Typography>
@@ -110,7 +122,7 @@ function Home() {
                   aria-controls="output-format-panel"
                   id="output-format-header"
                 >
-                  <Typography>Formato de Saída</Typography>
+                  <Typography sx={{fontWeight: 'bold'}}>Formato de Saída</Typography>
                 </AccordionSummary>
                 <AccordionDetails>
                   <Typography>{problem.outputFormat}</Typography>
