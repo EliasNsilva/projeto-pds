@@ -9,6 +9,9 @@
 ## Instale a dependencias
     pip install -r requirements.txt
 
+## Rode as migraçôes do banco
+    python3 manage.py makemigrations
+    python3 manage.py migrate
 ## Rode o servidor
     python3 manage.py runserver
 
