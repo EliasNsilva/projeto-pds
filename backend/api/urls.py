@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers
 
-from app.storage.views import ProblemViewSet, submissionView
+from app.storage.views import ProblemViewSet, submissionView, HuxleyProblemView
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 
@@ -39,6 +39,7 @@ router.register(r'problem', ProblemViewSet)
 urlpatterns = [
     path('', include(router.urls)),
     path('admin/', admin.site.urls),
-    path('submission/', submissionView.as_view(), name='submission'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
+    path('submission/', submissionView.as_view(), name='submission'),
+    path(r'huxley/problem/<int:problem_id>/', HuxleyProblemView.as_view(), name='huxley-probems')
 ]
