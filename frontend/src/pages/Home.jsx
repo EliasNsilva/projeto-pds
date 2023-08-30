@@ -11,7 +11,7 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Typography from '@mui/material/Typography';
-import Input from '@mui/material/Input';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 import Sidebar from '../components/Sidebar';
 
@@ -80,6 +80,13 @@ function Home() {
     setProblemGrid(!problemGrid);
   };
 
+  const [executeGrid, setExecuteGrid] = useState(true);
+
+  const handleExecuteGrid = () => {
+    setExecuteGrid(!executeGrid);
+  };
+
+
   const [executeText, setExecuteText] = useState({ executeinput: "", executeoutput: "" });
 
   const handleExecuteText = (id, value) => {
@@ -88,63 +95,69 @@ function Home() {
 
   return (
     <div>
-      <Sidebar handleProblemGrid={handleProblemGrid} />
-      <div className="h-screen bg-blue-500 pt-4 pt-24">
-        <Grid container justifyContent="center" spacing={4} className="bg-blue-500">
-          {/* First Grid */}
-          {problemGrid ? <Grid item xs={10} sm={6} md={4}>
-            {problem && (
-              <div>
-                <h2 className="text-xl font-semibold text-white mb-4">Informações do Problema</h2>
+      <Sidebar handleProblemGrid={handleProblemGrid} handleExecuteGrid={handleExecuteGrid} />
+      <div className="first-color h-screen pt-20 pl-4 pr-4">
+        <Grid container justifyContent="center" spacing={4} className="first-color">
+          {/* Problem Grid */}
+          {problemGrid && (
+            <Grid item xs={12} md={4}>
+              {problem && (
+                <div>
+                  <div className="flex justify-between">
+                    <h2 className="text-xl font-semibold text-white">Informações do Problema</h2>
+                    <div onClick={() => handleProblemGrid()} style={{ cursor: 'pointer', color: 'white' }}>
+                      <VisibilityIcon />
+                    </div>
 
-                {/* Description Accordion */}
-                <Accordion expanded={expanded} onChange={handleExpanded}>
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="description-panel"
-                    id="description-header"
-                  >
-                    <Typography sx={{ fontWeight: 'bold' }}>Descrição</Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Typography>{problem.description}</Typography>
-                  </AccordionDetails>
-                </Accordion>
+                  </div>
+                  {/* Description Accordion */}
+                  <Accordion expanded={expanded} onChange={handleExpanded}>
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      aria-controls="description-panel"
+                      id="description-header"
+                    >
+                      <Typography sx={{ fontWeight: 'bold' }}>Descrição</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <Typography>{problem.description}</Typography>
+                    </AccordionDetails>
+                  </Accordion>
 
-                {/* Input Format Accordion */}
-                <Accordion>
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="input-format-panel"
-                    id="input-format-header"
-                  >
-                    <Typography sx={{ fontWeight: 'bold' }}>Formato de Entrada</Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Typography>{problem.inputFormat}</Typography>
-                  </AccordionDetails>
-                </Accordion>
+                  {/* Input Format Accordion */}
+                  <Accordion>
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      aria-controls="input-format-panel"
+                      id="input-format-header"
+                    >
+                      <Typography sx={{ fontWeight: 'bold' }}>Formato de Entrada</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <Typography>{problem.inputFormat}</Typography>
+                    </AccordionDetails>
+                  </Accordion>
 
-                {/* Output Format Accordion */}
-                <Accordion>
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="output-format-panel"
-                    id="output-format-header"
-                  >
-                    <Typography sx={{ fontWeight: 'bold' }}>Formato de Saída</Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Typography>{problem.outputFormat}</Typography>
-                  </AccordionDetails>
-                </Accordion>
+                  {/* Output Format Accordion */}
+                  <Accordion>
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon />}
+                      aria-controls="output-format-panel"
+                      id="output-format-header"
+                    >
+                      <Typography sx={{ fontWeight: 'bold' }}>Formato de Saída</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <Typography>{problem.outputFormat}</Typography>
+                    </AccordionDetails>
+                  </Accordion>
+                </div>
+              )}
+            </Grid>
+          )}
 
-              </div>
-            )}
-          </Grid> : null}
-
-          {/* Second Grid */}
-          <Grid item xs={10} sm={6} md={4}>
+          {/* Code Editor */}
+          <Grid item xs={12} md={4}>
             <div>
               <h2 className="text-xl font-semibold text-white mb-4">Sua solução</h2>
               <CodeMirror
@@ -162,20 +175,26 @@ function Home() {
             </div>
           </Grid>
 
-          <Grid item xs={10} sm={6} md={4}>
+          {/* Execution Input and Output */}
+          {executeGrid && <Grid item xs={12} md={4}>
             <div>
-              <h2 className="text-xl font-semibold text-white mb-4">Execução</h2>
 
+              <div className="flex justify-between">
+                <h2 className="text-xl font-semibold text-white mb-4">Execução</h2>
+                <div onClick={() => handleExecuteGrid()} style={{ cursor: 'pointer', color: 'white' }}>
+                  <VisibilityIcon />
+                </div>
+              </div>
               <textarea
                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 mb-4"
                 rows="4"
                 id="executeinput"
                 name="executeinput"
-                placeholder='Entrada'
+                placeholder="Valores de entrada para seu código"
                 value={executeText.executeinput}
                 onChange={(e) => {
-                  console.log(e.target.id, e.target.value)
-                  handleExecuteText(e.target.id, e.target.value)
+                  console.log(e.target.id, e.target.value);
+                  handleExecuteText(e.target.id, e.target.value);
                 }}
               />
 
@@ -184,15 +203,16 @@ function Home() {
                 rows="4"
                 id="executeoutput"
                 name="executeoutput"
-                placeholder='Saída'
+                placeholder="Submeta e veja a saída aqui"
+                readOnly={true}
                 value={executeText.executeoutput}
                 onChange={(e) => {
-                  console.log(e.target.id, e.target.value)
-                  handleExecuteText(e.target.id, e.target.value)
+                  console.log(e.target.id, e.target.value);
+                  handleExecuteText(e.target.id, e.target.value);
                 }}
               />
             </div>
-          </Grid>
+          </Grid>}
         </Grid>
       </div>
     </div>

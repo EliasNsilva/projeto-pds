@@ -19,7 +19,7 @@ import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
@@ -28,6 +28,8 @@ const AppBar = styled(MuiAppBar, {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
+  backgroundColor: "#455d7a",
+  color: "#e3e3e3",
   ...(open && {
     width: `calc(100% - ${drawerWidth}px)`,
     marginLeft: `${drawerWidth}px`,
@@ -35,6 +37,7 @@ const AppBar = styled(MuiAppBar, {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
+    
   }),
 }));
 
@@ -45,9 +48,11 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
   justifyContent: 'flex-end',
+  backgroundColor: "#455d7a",
+  color: "#e3e3e3",
 }));
 
-export default function Sidebar({ handleProblemGrid }) {
+export default function Sidebar({ handleProblemGrid, handleExecuteGrid }) {
   const theme = useTheme();
 
   const [open, setOpen] = useState(false);
@@ -70,7 +75,7 @@ export default function Sidebar({ handleProblemGrid }) {
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             edge="start"
-            sx={{ mr: 2, ...(open && { display: 'none' }) }}
+            sx={{ mr: 2, ...(open && { display: 'none' }), }}
           >
             <MenuIcon />
           </IconButton>
@@ -86,6 +91,7 @@ export default function Sidebar({ handleProblemGrid }) {
           '& .MuiDrawer-paper': {
             width: drawerWidth,
             boxSizing: 'border-box',
+            backgroundColor: "#e3e3e3",
           },
         }}
         variant="persistent"
@@ -120,6 +126,15 @@ export default function Sidebar({ handleProblemGrid }) {
                 <InboxIcon />
               </ListItemIcon>
               <ListItemText primary={"Informações do Problema"} />
+            </ListItemButton>
+          </ListItem>
+
+          <ListItem key={"OcultarExecucao"} disablePadding onClick={() => handleExecuteGrid()}>
+            <ListItemButton>
+              <ListItemIcon>
+                <InboxIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Valores de Execução"} />
             </ListItemButton>
           </ListItem>
         </List>
