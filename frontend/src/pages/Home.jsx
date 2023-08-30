@@ -154,14 +154,13 @@ function Home() {
             </Grid>
           )}
 
-
           {/* Code Editor */}
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={problemGrid ? executeGrid ? 4 : 6 : 8}>
             <div>
               <h2 className="text-xl font-semibold text-white mb-4">Sua solução</h2>
               <CodeMirror
                 value={code}
-                height="500px"
+                height="400px"
                 width="100%"
                 extensions={cpp()}
                 onChange={onChange}
