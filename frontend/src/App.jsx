@@ -8,9 +8,9 @@ import HuxleySubmit from './pages/HuxleySubmit'
 function App() {
   return (
     <Router>
-      <nav>
-        <Header />
-      </nav>
+      {/* <nav>
+            <Header />
+          </nav> */}
       <Routes>
         <Route path="/" element={<Home />}>
           <Route path=":id" element={<Home />} />
