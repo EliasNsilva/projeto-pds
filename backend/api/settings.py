@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'app.controller',
     'app.storage',
     'rest_framework',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [
