@@ -99,62 +99,61 @@ function Home() {
       <div className="first-color h-screen pt-20 pl-4 pr-4">
         <Grid container justifyContent="center" spacing={4} className="first-color">
           {/* Problem Grid */}
-          {problemGrid && (
+          {problemGrid && problem && (
             <Grid item xs={12} md={4}>
-              {problem && (
-                <div>
-                  <div className="flex justify-between">
-                    <h2 className="text-xl font-semibold text-white">Informações do Problema</h2>
-                    <div onClick={() => handleProblemGrid()} style={{ cursor: 'pointer', color: 'white' }}>
-                      <VisibilityIcon />
-                    </div>
-
+              <div>
+                <div className="flex justify-between">
+                  <h2 className="text-xl font-semibold text-white">Informações do Problema</h2>
+                  <div onClick={() => handleProblemGrid()} style={{ cursor: 'pointer', color: 'white' }}>
+                    <VisibilityIcon />
                   </div>
-                  {/* Description Accordion */}
-                  <Accordion expanded={expanded} onChange={handleExpanded}>
-                    <AccordionSummary
-                      expandIcon={<ExpandMoreIcon />}
-                      aria-controls="description-panel"
-                      id="description-header"
-                    >
-                      <Typography sx={{ fontWeight: 'bold' }}>Descrição</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                      <Typography>{problem.description}</Typography>
-                    </AccordionDetails>
-                  </Accordion>
 
-                  {/* Input Format Accordion */}
-                  <Accordion>
-                    <AccordionSummary
-                      expandIcon={<ExpandMoreIcon />}
-                      aria-controls="input-format-panel"
-                      id="input-format-header"
-                    >
-                      <Typography sx={{ fontWeight: 'bold' }}>Formato de Entrada</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                      <Typography>{problem.inputFormat}</Typography>
-                    </AccordionDetails>
-                  </Accordion>
-
-                  {/* Output Format Accordion */}
-                  <Accordion>
-                    <AccordionSummary
-                      expandIcon={<ExpandMoreIcon />}
-                      aria-controls="output-format-panel"
-                      id="output-format-header"
-                    >
-                      <Typography sx={{ fontWeight: 'bold' }}>Formato de Saída</Typography>
-                    </AccordionSummary>
-                    <AccordionDetails>
-                      <Typography>{problem.outputFormat}</Typography>
-                    </AccordionDetails>
-                  </Accordion>
                 </div>
-              )}
+                {/* Description Accordion */}
+                <Accordion expanded={expanded} onChange={handleExpanded}>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="description-panel"
+                    id="description-header"
+                  >
+                    <Typography sx={{ fontWeight: 'bold' }}>Descrição</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography>{problem.description}</Typography>
+                  </AccordionDetails>
+                </Accordion>
+
+                {/* Input Format Accordion */}
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="input-format-panel"
+                    id="input-format-header"
+                  >
+                    <Typography sx={{ fontWeight: 'bold' }}>Formato de Entrada</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography>{problem.inputFormat}</Typography>
+                  </AccordionDetails>
+                </Accordion>
+
+                {/* Output Format Accordion */}
+                <Accordion>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="output-format-panel"
+                    id="output-format-header"
+                  >
+                    <Typography sx={{ fontWeight: 'bold' }}>Formato de Saída</Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography>{problem.outputFormat}</Typography>
+                  </AccordionDetails>
+                </Accordion>
+              </div>
             </Grid>
           )}
+
 
           {/* Code Editor */}
           <Grid item xs={12} md={4}>
@@ -167,10 +166,17 @@ function Home() {
                 extensions={cpp()}
                 onChange={onChange}
               />
-              <div className="mt-2 pb-2 text-center">
-                <Button variant="contained" size="small" endIcon={<ArrowForwardIcon />} onClick={handleSubmit}>
-                  Submeter
-                </Button>
+              <div className="mt-2 pb-2 text-center justify-center flex gap-x-3">
+                <div>
+                  <Button variant="contained" size="small" endIcon={<ArrowForwardIcon />} onClick={handleSubmit}>
+                    Executar Código
+                  </Button>
+                </div>
+                <div>
+                  <Button variant="contained" size="small" endIcon={<ArrowForwardIcon />} onClick={handleSubmit}>
+                    Enviar Reposta
+                  </Button>
+                </div>
               </div>
             </div>
           </Grid>
@@ -178,7 +184,6 @@ function Home() {
           {/* Execution Input and Output */}
           {executeGrid && <Grid item xs={12} md={4}>
             <div>
-
               <div className="flex justify-between">
                 <h2 className="text-xl font-semibold text-white mb-4">Execução</h2>
                 <div onClick={() => handleExecuteGrid()} style={{ cursor: 'pointer', color: 'white' }}>
