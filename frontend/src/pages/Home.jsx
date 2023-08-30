@@ -15,6 +15,9 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 
 import Sidebar from '../components/Sidebar';
 
+import MonitorTip from '../components/MonitorTip';
+import HelpIcon from '@mui/icons-material/Help';
+
 function Home() {
   const { id } = useParams();
   const [problem, setProblem] = useState(null);
@@ -86,12 +89,13 @@ function Home() {
     setExecuteGrid(!executeGrid);
   };
 
-
   const [executeText, setExecuteText] = useState({ executeinput: "", executeoutput: "" });
 
   const handleExecuteText = (id, value) => {
     setExecuteText({ ...executeText, [id]: value });
   };
+
+  const [showHelpBox, setShowHelpBox] = useState(false);
 
   return (
     <div>
@@ -219,7 +223,17 @@ function Home() {
           </Grid>}
         </Grid>
       </div>
-    </div>
+
+      <div>
+        <div
+          className="floating-help-button"
+          onClick={() => setShowHelpBox(!showHelpBox)}
+        >
+          <HelpIcon fontSize="large" />
+        </div>
+        {showHelpBox && <MonitorTip showHelpBox={showHelpBox} />}
+      </div>
+    </div >
   );
 }
 
