@@ -1,3 +1,4 @@
+import io
 import time
 import requests
 from rest_framework.views import APIView
@@ -7,8 +8,8 @@ from drf_yasg.utils import swagger_auto_schema
 class submissionView(APIView):
     def post(self, request):
         #TO DO
-        # - Usar FormData para submeter o code
-        # - Usar requisição port XMLHTTP
+        # - Usar token da view nova de login
+        # - Fazer Aguardar resposta da execução
         
         code = self.request.data['code']
         huxley_login_url = 'https://www.thehuxley.com/api/login'
@@ -22,15 +23,14 @@ class submissionView(APIView):
 
         header = {'Authorization' : f'Bearer {auth.json()["access_token"]}'}
         print("header ", header)
-
-        binary_representation = ' '.join(format(byte, '08b') for byte in bytearray(code, 'utf-8'))
-        print(binary_representation)
-
-        payload = {'language': '1', 
-                'file': binary_representation}
-        response = requests.post(url=huxley_submission_url, json=payload, headers=header)
+        
+        payload = {'language': 1}
+        
+        files = {'file': ('2.c', io.StringIO(code))}
+        
+        response = requests.post(url=huxley_submission_url, data=payload, files=files, headers=header)
         print(response)
-        return Response(data='tudo ok')
+        return Response(data=response.json())
     
 class HuxleyProblemView(APIView):
     @swagger_auto_schema(operation_description="Retorna um problema da API do The Huxley",
