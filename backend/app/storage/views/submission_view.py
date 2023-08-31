@@ -6,31 +6,50 @@ from rest_framework.response import Response
 from drf_yasg.utils import swagger_auto_schema
 
 class submissionView(APIView):
-    def post(self, request):
+    @swagger_auto_schema(operation_description="Submete um problema para ser avaliado pela API do the Huxley",
+        responses={
+            200: 'Sucesso.',
+        }
+    )
+    def post(self, request, problem_id):
         #TO DO
-        # - Usar token da view nova de login
-        # - Fazer Aguardar resposta da execução
-        
+        # - Usar token da view nova de login        
         code = self.request.data['code']
         huxley_login_url = 'https://www.thehuxley.com/api/login'
-        huxley_submission_url = 'https://www.thehuxley.com/api/v1/user/problems/691/submissions'
-        print(code)
+        base_url_huxley = 'https://www.thehuxley.com/api/v1/'
+
         payload_auth = {"username": "Elias",
                         "password": "tardis40"}
 
         auth = requests.post(url=huxley_login_url, json=payload_auth)
-        print("auth ", auth)
 
         header = {'Authorization' : f'Bearer {auth.json()["access_token"]}'}
-        print("header ", header)
         
         payload = {'language': 1}
         
         files = {'file': ('2.c', io.StringIO(code))}
         
-        response = requests.post(url=huxley_submission_url, data=payload, files=files, headers=header)
-        print(response)
-        return Response(data=response.json())
+        responseSubmission = requests.post(url= base_url_huxley + f'user/problems/{problem_id}/submissions', 
+                                            data=payload, 
+                                            files=files, 
+                                            headers=header
+                                            )
+        
+        if responseSubmission.status_code == 200:
+            submissionId = responseSubmission.json()['id']
+
+            responseEvaluation = requests.get(url= base_url_huxley + f'submissions/{submissionId}/evaluation', headers=header)
+
+            while responseEvaluation.json()['evaluation'] == 'WAITING':
+                time.sleep(3)
+                responseEvaluation = requests.get(url= base_url_huxley + f'submissions/{submissionId}/evaluation', headers=header)
+            
+            response = requests.get(url= base_url_huxley + f'submissions/{submissionId}', headers=header)
+            data = response.json()
+        else:
+            data = responseSubmission.json()
+
+        return Response(data=data)
     
 class HuxleyProblemView(APIView):
     @swagger_auto_schema(operation_description="Retorna um problema da API do The Huxley",
