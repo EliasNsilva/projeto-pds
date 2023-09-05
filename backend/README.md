@@ -9,6 +9,21 @@
 ## Instale a dependencias
     pip install -r requirements.txt
 
+## Crie o .env na pasta raiz
+    mkdir .env
+* exemplo de .env
+
+    ```python
+    DEBUG = True
+    SECRET_KEY = 'umasecretykeybemboa'
+    DB_ENGINE = 'django.db.backends.postgresql_psycopg2'
+    DB_NAME = 'apiDB'
+    DB_USER= 'postgres'
+    DB_PASSWORD= 'postgres'
+    DB_HOST = 'localhost'
+    DB_PORT = 5432
+    ```
+
 ## Rode as migraçôes do banco
     python3 manage.py makemigrations
     python3 manage.py migrate
