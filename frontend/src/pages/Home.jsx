@@ -14,9 +14,10 @@ import Typography from '@mui/material/Typography';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 
 import Sidebar from '../components/Sidebar';
-
+import AspectRatioIcon from '@mui/icons-material/AspectRatio';
 import MonitorTip from '../components/MonitorTip';
 import HelpIcon from '@mui/icons-material/Help';
+
 
 function Home() {
   const { id } = useParams();
@@ -96,6 +97,42 @@ function Home() {
   };
 
   const [showHelpBox, setShowHelpBox] = useState(false);
+
+
+  // Inicio de tudo relacionado ao acordeao dos casos de testes
+  const [executionAccordionExpanded, setExecutionAccordionExpanded] = useState(false);
+
+
+  const handleExecutionAccordion = () => {
+    setExecutionAccordionExpanded(!executionAccordionExpanded);
+  };
+
+  const handleButtonClick = (buttonNumber) => {
+    setClickCount((prevCount) => prevCount + 1);
+    setSelectedTestCase(clickCount % 2 !== 0 ? buttonNumber : null);
+  };
+
+
+  const casosDeTestes = [
+    { correto: true, numero: 1, conteudo: 'Olá, sou o caso de teste 1' },
+    { correto: false, numero: 2, conteudo: 'Olá, sou o caso de teste 2' },
+    { correto: true, numero: 3, conteudo: 'Olá, sou o caso de teste 3' },
+    { correto: true, numero: 3, conteudo: 'Olá, sou o caso de teste 3' },
+    { correto: true, numero: 3, conteudo: 'Olá, sou o caso de teste 3' },
+    { correto: true, numero: 3, conteudo: 'Olá, sou o caso de teste 3' },
+    { correto: true, numero: 3, conteudo: 'Olá, sou o caso de teste 3' },
+    { correto: true, numero: 3, conteudo: 'Olá, sou o caso de teste 3' },
+    { correto: true, numero: 3, conteudo: 'Olá, sou o caso de teste 3' },
+    { correto: true, numero: 3, conteudo: 'Olá, sou o caso de teste 3' },
+    { correto: true, numero: 3, conteudo: 'Olá, sou o caso de teste 3' },
+  ];
+
+  const [selectedTestCase, setSelectedTestCase] = useState(null);
+  const [clickCount, setClickCount] = useState(1);
+
+
+  // Fim de tudo relacionado ao acordeao dos casos de testes
+
 
   return (
     <div>
@@ -219,6 +256,66 @@ function Home() {
                   handleExecuteText(e.target.id, e.target.value);
                 }}
               />
+
+              {/* Acordeão dos casos de testes */}
+              <Accordion expanded={executionAccordionExpanded} onChange={handleExecutionAccordion}>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="execution-panel"
+                  id="execution-header"
+                  sx={{
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    position: 'relative',
+                  }}
+                >
+                  <Typography sx={{ fontWeight: 'bold', marginLeft: executionAccordionExpanded ? 'auto' : 0 }}>
+                    Casos de testes
+                  </Typography>
+                  {executionAccordionExpanded && (
+                    <Button
+                      size="small"
+                      variant="outlined"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                      }}
+                      sx={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                      }}
+                    >
+                      <AspectRatioIcon />
+                    </Button>
+                  )}
+                </AccordionSummary>
+                <AccordionDetails style={{ display: 'flex', flexWrap: 'wrap' }}>
+                  {casosDeTestes.map((caso, index) => (
+                    <button
+                      key={index}
+                      onClick={() => handleButtonClick(index + 1)}
+                      style={{
+                        borderRadius: '50%',
+                        backgroundColor: caso.correto ? 'green' : 'red',
+                        color: 'white',
+                        padding: '10px 20px',
+                        margin: '5px',
+                        border: 'none',
+                        cursor: 'pointer',
+                      }}
+                    >
+                      {index + 1}
+                    </button>
+                  ))}
+                </AccordionDetails>
+                {selectedTestCase !== null && (
+                  <div>
+                    <p>{casosDeTestes[selectedTestCase - 1].conteudo}</p>
+                  </div>
+                )}
+              </Accordion>
+
             </div>
           </Grid>}
         </Grid>
