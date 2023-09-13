@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'app.storage',
     'rest_framework',
     'drf_yasg',
+    #botei isso aqui tbm
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
@@ -51,6 +53,14 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    #coloquei isso aqui (tulio)
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware'
+]
+
+#não tenho certeza se é isso mesmo
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3030',
 ]
 
 ROOT_URLCONF = 'api.urls'
