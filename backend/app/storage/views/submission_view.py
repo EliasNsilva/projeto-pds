@@ -4,6 +4,7 @@ import requests
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from drf_yasg.utils import swagger_auto_schema
+from decouple import config
 
 class submissionView(APIView):
     @swagger_auto_schema(operation_description="Submete um problema para ser avaliado pela API do the Huxley",
@@ -18,8 +19,8 @@ class submissionView(APIView):
         huxley_login_url = 'https://www.thehuxley.com/api/login'
         base_url_huxley = 'https://www.thehuxley.com/api/v1/'
 
-        payload_auth = {"username": "Elias",
-                        "password": "tardis40"}
+        payload_auth = {"username": config('HUXLEY_USER'),
+                        "password": config('HUXLEY_PASSWORD')}
 
         auth = requests.post(url=huxley_login_url, json=payload_auth)
 
