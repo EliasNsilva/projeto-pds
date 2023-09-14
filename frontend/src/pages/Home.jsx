@@ -17,6 +17,7 @@ import Sidebar from '../components/Sidebar';
 import AspectRatioIcon from '@mui/icons-material/AspectRatio';
 import MonitorTip from '../components/MonitorTip';
 import HelpIcon from '@mui/icons-material/Help';
+import { red } from '@mui/material/colors';
 
 
 function Home() {
@@ -53,6 +54,8 @@ function Home() {
     setCode(value);
   }, []);
 
+  const [showButtons, setShowButtons] = useState(false);
+
   const handleSubmit = () => {
     console.log("Original code: ", code);
     const encoder = new TextEncoder();
@@ -63,6 +66,8 @@ function Home() {
     const decoder = new TextDecoder('utf-8');
     const codeDecoded = decoder.decode(binaryData);
     console.log("Decoded code: ", codeDecoded);
+
+    setShowButtons(true);
   };
 
   if (!id) {
@@ -98,20 +103,21 @@ function Home() {
 
   const [showHelpBox, setShowHelpBox] = useState(false);
 
+  // aqui eh tudo dos casos testes
 
-  // Inicio de tudo relacionado ao acordeao dos casos de testes
-  const [executionAccordionExpanded, setExecutionAccordionExpanded] = useState(false);
-
-
-  const handleExecutionAccordion = () => {
-    setExecutionAccordionExpanded(!executionAccordionExpanded);
+  const handleSomeAction = () => {
+    // Alterna o estado do retângulo entre aberto e fechado
+    setIsRectangleOpen((prevIsOpen) => !prevIsOpen);
   };
 
-  const handleButtonClick = (buttonNumber) => {
-    setClickCount((prevCount) => prevCount + 1);
-    setSelectedTestCase(clickCount % 2 !== 0 ? buttonNumber : null);
+  const handleAnotherAction = () => {
+    console.log("Botão 2 foi clicado!");
+    setClickedButton((prevClickedButton) => prevClickedButton + 1); // Incrementa o estado do botão
+    setShowRectangle((prevShowRectangle) => !prevShowRectangle); // Inverte o estado do retângulo
   };
 
+  const [selectedButton, setSelectedButton] = useState(null);
+  const [selectedButton2, setSelectedButton2] = useState(null);
 
   const casosDeTestes = [
     { correto: true, numero: 1, conteudo: 'Olá, sou o caso de teste 1' },
@@ -124,15 +130,39 @@ function Home() {
     { correto: true, numero: 3, conteudo: 'Olá, sou o caso de teste 3' },
     { correto: true, numero: 3, conteudo: 'Olá, sou o caso de teste 3' },
     { correto: true, numero: 3, conteudo: 'Olá, sou o caso de teste 3' },
-    { correto: true, numero: 3, conteudo: 'Olá, sou o caso de teste 3' },
+    { correto: false, numero: 3, conteudo: 'Olá, sou o caso de teste 3' },
+    { correto: false, numero: 3, conteudo: 'Olá, sou o caso de teste 3' },
+    { correto: false, numero: 3, conteudo: 'Olá, sou o caso de teste 3' },
+    { correto: false, numero: 3, conteudo: 'souvasco'},
+    { correto: false, numero: 3, conteudo: 'souvasco' },
+    { correto: false, numero: 3, conteudo: 'souvasco' },
+    { correto: false, numero: 3, conteudo: 'souvasco' },
+    { correto: false, numero: 3, conteudo: 'souvasco' },
+    { correto: false, numero: 3, conteudo: 'souvasco' },
+    { correto: false, numero: 3, conteudo: 'souvasco'},
+    { correto: false, numero: 3, conteudo: 'souvasco' }
   ];
 
-  const [selectedTestCase, setSelectedTestCase] = useState(null);
-  const [clickCount, setClickCount] = useState(1);
+  // Conta a quantidade de "true" e "false" em casosDeTestes
+  const trueCount = casosDeTestes.filter((item) => item.correto === true).length;
+  const falseCount = casosDeTestes.filter((item) => item.correto === false).length;
+  const [clickedButton, setClickedButton] = useState(null);
 
 
-  // Fim de tudo relacionado ao acordeao dos casos de testes
+  const handleButtonClick = (buttonIndex) => {
+    setSelectedButton(buttonIndex);
+  };
 
+  const handleButtonClick2 = (buttonIndex) => {
+    setSelectedButton2(buttonIndex);
+  };
+
+  // Define o estado dos botões com base nas contagens
+  const [button1Label, setButton1Label] = useState(`${trueCount}`);
+  const [button2Label, setButton2Label] = useState(`${falseCount}`);
+
+  const [showRectangle, setShowRectangle] = useState(true);
+  const [isRectangleOpen, setIsRectangleOpen] = useState(false);
 
   return (
     <div>
@@ -257,64 +287,105 @@ function Home() {
                 }}
               />
 
-              {/* Acordeão dos casos de testes */}
-              <Accordion expanded={executionAccordionExpanded} onChange={handleExecutionAccordion}>
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="execution-panel"
-                  id="execution-header"
-                  sx={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    position: 'relative',
-                  }}
-                >
-                  <Typography sx={{ fontWeight: 'bold', marginLeft: executionAccordionExpanded ? 'auto' : 0 }}>
-                    Casos de testes
-                  </Typography>
-                  {executionAccordionExpanded && (
+              {/* Novo Grid para os botões */}
+              {showButtons && (
+                <Grid container justifyContent="center" spacing={2}>
+                  <Grid item>
                     <Button
+                      variant="contained"
                       size="small"
-                      variant="outlined"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                      }}
-                      sx={{
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                      }}
+                      style={{ backgroundColor: '#006400', color: 'white' }}
+                      onClick={handleSomeAction}
                     >
-                      <AspectRatioIcon />
+                      {button1Label}
                     </Button>
-                  )}
-                </AccordionSummary>
-                <AccordionDetails style={{ display: 'flex', flexWrap: 'wrap' }}>
-                  {casosDeTestes.map((caso, index) => (
-                    <button
-                      key={index}
-                      onClick={() => handleButtonClick(index + 1)}
-                      style={{
-                        borderRadius: '50%',
-                        backgroundColor: caso.correto ? 'green' : 'red',
-                        color: 'white',
-                        padding: '10px 20px',
-                        margin: '5px',
-                        border: 'none',
-                        cursor: 'pointer',
-                      }}
+                  </Grid>
+                  <Grid item>
+                    <Button
+                      variant="contained"
+                      size="small"
+                      style={{ backgroundColor: 'red', color: 'white' }}
+                      onClick={handleAnotherAction}
                     >
-                      {index + 1}
-                    </button>
-                  ))}
-                </AccordionDetails>
-                {selectedTestCase !== null && (
-                  <div>
-                    <p>{casosDeTestes[selectedTestCase - 1].conteudo}</p>
-                  </div>
-                )}
-              </Accordion>
+                      {button2Label}
+                    </Button>
+
+                  </Grid>
+                </Grid>
+              )}
+
+              {isRectangleOpen && (
+                <div style={{ backgroundColor: '#233142', marginTop: '20px', padding: '10px', display: 'flex', flexWrap: 'wrap' }}>
+                  {casosDeTestes.map((caso, index) => {
+                    if (caso.correto) {
+                      return (
+                        <div key={index} style={{ marginRight: '10px', marginBottom: '10px' }}>
+                          <Button
+                            variant="contained"
+                            size="small"
+                            style={{
+                              backgroundColor: '#006400',
+                              borderRadius: '999px',
+                              display: 'flex',
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                              fontWeight: selectedButton === index ? 'bold' : 'normal',
+                              cursor: 'pointer',
+                            }}
+                            onClick={() => handleButtonClick(index)}
+                          >
+                            {casosDeTestes.filter((caso) => caso.correto).indexOf(caso) + 1}
+                          </Button>
+                        </div>
+                      );
+                    }
+                    return null; // Ignora botões que não são verdadeiros
+                  })}
+                </div>
+              )}
+
+              {isRectangleOpen && selectedButton !== null && (
+                <div style={{ backgroundColor: '#455D7A', marginTop: '20px', padding: '10px', borderRadius: '10px' }}>
+                  {casosDeTestes[selectedButton].conteudo}
+                </div>
+              )}
+
+              {!showRectangle &&(
+                <div style={{ backgroundColor: '#233142', marginTop: '20px', padding: '10px', display: 'flex', flexDirection: 'row', flexWrap: 'wrap' }}>
+                  {casosDeTestes.map((caso, index) => {
+                    if (!caso.correto) {
+                      return (
+                        <div key={index} style={{ marginRight: '10px', marginBottom: '10px' }}>
+                          <Button
+                            variant="contained"
+                            size="small"
+                            style={{
+                              backgroundColor: '#FF6347',
+                              borderRadius: '999px',
+                              display: 'flex',
+                              justifyContent: 'center',
+                              alignItems: 'center',
+                              fontWeight: clickedButton === 2 ? 'bold' : 'normal',
+                              cursor: 'pointer',
+                            }}
+                            onClick={() => handleButtonClick2(index)}
+                          >
+                            {casosDeTestes.filter((caso) => !caso.correto).indexOf(caso) + 1}
+                          </Button>
+                        </div>
+                      );
+                    }
+                    return null; // Ignora botões que são verdadeiros
+                  })}
+                </div>
+              )}
+
+              {!showRectangle && selectedButton2 !== null && (
+                <div style={{ backgroundColor: '#455D7A', marginTop: '20px', padding: '10px', borderRadius: '10px' }}>
+                  {casosDeTestes[selectedButton2].conteudo}
+                </div>
+              )}
+
 
             </div>
           </Grid>}
