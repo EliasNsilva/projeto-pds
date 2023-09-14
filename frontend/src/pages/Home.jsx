@@ -148,9 +148,11 @@ function Home() {
   const falseCount = casosDeTestes.filter((item) => item.correto === false).length;
   const [clickedButton, setClickedButton] = useState(null);
 
+  const [clickedButtonIndex, setClickedButtonIndex] = useState(null);
 
   const handleButtonClick = (buttonIndex) => {
     setSelectedButton(buttonIndex);
+    setClickedButtonIndex(buttonIndex);
   };
 
   const handleButtonClick2 = (buttonIndex) => {
@@ -324,13 +326,14 @@ function Home() {
                             variant="contained"
                             size="small"
                             style={{
-                              backgroundColor: '#006400',
+                              backgroundColor: selectedButton === index ? '#008000': '#006400',
                               borderRadius: '999px',
                               display: 'flex',
                               justifyContent: 'center',
                               alignItems: 'center',
                               fontWeight: selectedButton === index ? 'bold' : 'normal',
                               cursor: 'pointer',
+                              border: selectedButton === index ? '2px solid #455D7A' : 'none',
                             }}
                             onClick={() => handleButtonClick(index)}
                           >
@@ -345,7 +348,7 @@ function Home() {
               )}
 
               {isRectangleOpen && selectedButton !== null && (
-                <div style={{ backgroundColor: '#455D7A', marginTop: '20px', padding: '10px', borderRadius: '10px' }}>
+                <div style={{ backgroundColor: '#455D7A', marginTop: '20px', padding: '10px', borderRadius: '10px', color: 'white' }}>
                   {casosDeTestes[selectedButton].conteudo}
                 </div>
               )}
@@ -360,13 +363,14 @@ function Home() {
                             variant="contained"
                             size="small"
                             style={{
-                              backgroundColor: '#FF6347',
+                              backgroundColor: selectedButton2 === index ? '#DC143C': '#FF0000',
                               borderRadius: '999px',
                               display: 'flex',
                               justifyContent: 'center',
                               alignItems: 'center',
                               fontWeight: clickedButton === 2 ? 'bold' : 'normal',
                               cursor: 'pointer',
+                              border: selectedButton2 === index ? '2px solid #455D7A' : 'none',
                             }}
                             onClick={() => handleButtonClick2(index)}
                           >
@@ -381,7 +385,7 @@ function Home() {
               )}
 
               {!showRectangle && selectedButton2 !== null && (
-                <div style={{ backgroundColor: '#455D7A', marginTop: '20px', padding: '10px', borderRadius: '10px' }}>
+                <div style={{ backgroundColor: '#455D7A', marginTop: '20px', padding: '10px', borderRadius: '10px', color: 'white' }}>
                   {casosDeTestes[selectedButton2].conteudo}
                 </div>
               )}
