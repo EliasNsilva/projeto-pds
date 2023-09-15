@@ -60,7 +60,7 @@ MIDDLEWARE = [
 
 #não tenho certeza se é isso mesmo
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3030',
+    'http://localhost:3000',
 ]
 
 ROOT_URLCONF = 'api.urls'
