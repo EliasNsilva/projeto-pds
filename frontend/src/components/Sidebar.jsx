@@ -18,6 +18,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 
 const drawerWidth = 200;
 
@@ -123,7 +124,7 @@ export default function Sidebar({ handleProblemGrid, handleExecuteGrid }) {
           <ListItem key={"OcultarProblema"} disablePadding onClick={() => handleProblemGrid()}>
             <ListItemButton>
               <ListItemIcon>
-                <InboxIcon />
+                <VisibilityIcon />
               </ListItemIcon>
               <ListItemText primary={"Informações do Problema"} />
             </ListItemButton>
@@ -132,7 +133,7 @@ export default function Sidebar({ handleProblemGrid, handleExecuteGrid }) {
           <ListItem key={"OcultarExecucao"} disablePadding onClick={() => handleExecuteGrid()}>
             <ListItemButton>
               <ListItemIcon>
-                <InboxIcon />
+                <VisibilityIcon />
               </ListItemIcon>
               <ListItemText primary={"Valores de Execução"} />
             </ListItemButton>
