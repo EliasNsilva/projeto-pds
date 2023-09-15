@@ -351,7 +351,7 @@ function Home() {
         >
           <HelpIcon fontSize="large" />
         </div>
-        {showHelpBox && <MonitorTip showHelpBox={showHelpBox} />}
+        {showHelpBox && <MonitorTip showHelpBox={showHelpBox} problemDescription={problem.description} />}
       </div>
     </div>
   );
