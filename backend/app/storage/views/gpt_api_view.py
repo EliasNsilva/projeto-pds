@@ -35,7 +35,7 @@ class GptApiView(APIView):
         user_msg = self.request.data['message']
         chat = openai.ChatCompletion.create(
             model='gpt-3.5-turbo',
-            messages=[{"role": "system", "content": 'Você professor de programação em C, não da resposta, só ajuda'},
+            messages=[{"role": "system", "content": 'Você irá somente dar dicas simples, não forneca código corrigido'},
                         {"role": "user", "content": user_msg}
             ]
         )
