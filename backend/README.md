@@ -1,5 +1,9 @@
 # API Django REST
 
+## Usando Docker
+    docker compose up
+
+## Instalação local
 ## Crie um ambiente virtual
     python3 -m venv env_api
 
@@ -31,5 +35,6 @@
     python3 manage.py migrate
 ## Rode o servidor
     python3 manage.py runserver
+
 
 Acesse o servidor: http://127.0.0.1:8000/
