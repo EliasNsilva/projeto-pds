@@ -13,10 +13,12 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Typography from '@mui/material/Typography';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import LinearProgress from '@mui/material/LinearProgress';
+import CircularProgress from '@mui/material/CircularProgress';
 
 import Sidebar from '../components/Sidebar';
 import MonitorTip from '../components/MonitorTip';
 import HelpIcon from '@mui/icons-material/Help';
+import SosIcon from '@mui/icons-material/Sos';
 import toast from 'react-hot-toast';
 
 function Home() {
@@ -98,7 +100,6 @@ function Home() {
         console.log(falseTestCases)
 
         // Saída da execução
-
         setTrueTestCases(trueTestCases)
         setFalseTestCases(falseTestCases)
         setSubmitting(false);
@@ -152,7 +153,62 @@ function Home() {
   const [trueTestCases, setTrueTestCases] = useState([]);
   const [falseTestCases, setFalseTestCases] = useState([]);
   const [testCaseTip, setTestCaseTip] = useState("");
+  const [testCaseLoading, setTestCaseLoading] = useState(false);
 
+  const falseTestCaseTip = async (testCase) => {
+    //Put loading in tip
+    setTestCaseLoading(true)
+    {/* 
+    WRONG_ANSWER ->
+    Description: problem.description
+    Code: code
+    Diff (expected input and actual output): testcase.diff
+
+    Explique o que posso ajustar para combinar com a descrição do problema (sem código, só lógica)
+
+    COMPILATION_ERROR ->
+    Code: code
+    Diff (expected input and actual output): testcase.diff
+    ErrorMsg: testcase.errorMsg
+
+    Explique o que posso melhorar para corrigir o erro de compilação (sem código, só lógica)
+    */}
+
+    // Put body in object to send in API
+    let body = ""
+    if (testCase.evaluation === "WRONG_ANSWER") {
+      body = `Descriçao: ${problem.description}\nCódigo: ${code}\nDiferença (entrada esperada e saída atual): ${testCase.diff}\n Explique o que posso ajustar para combinar com a descrição do problema (sem código, só lógica)`
+    } else if (testCase.evaluation === "COMPILATION_ERROR") {
+      body = `Código: ${code}\nDiferença (entrada esperada e saída atual): ${testCase.diff}\nErro: ${testCase.errorMsg}\n Explique o que posso melhorar para corrigir o erro de compilação (sem código, só lógica)`
+    }
+
+    // Fetch na api pedindo dicas
+
+    try {
+      /* const response = await fetch("http://localhost:8000/gpt/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          "message": body,
+          "behavior": 2
+        }),
+      });
+      const data = await response.json();
+      const tips = data.response;
+      console.log(tips)
+      if (!(testCase.tip === "")) {
+        setTestCaseTip("-Dicas do huxley:\n" + testCase.tip + "\n\n" + "-Dicas do monitor:\n" + tips)
+      } else {
+        setTestCaseTip("-Dicas do monitor:\n" + tips)
+      }
+      setTestCaseLoading(false) */
+      console.log("mudou")
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <div>
@@ -311,7 +367,7 @@ function Home() {
                       <Button
                         variant="contained"
                         size="small"
-                        onClick={() => setTestCaseTip(testCase.tip)}
+                        onClick={() => falseTestCaseTip(testCase)}
                         style={{
                           backgroundColor: testCase.tip ? 'red' : '#f95959',
                           borderRadius: '999px',
@@ -328,16 +384,20 @@ function Home() {
                   );
                 })}
               </div>
-              <div>
-                {testCaseTip && <textarea
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 mb-4"
-                  rows="4"
-                  id="testcasetip"
-                  name="testcasetip"
-                  placeholder="Dica do caso de teste"
-                  readOnly={true}
-                  value={testCaseTip}
-                />}
+              <div className='flex justify-center items-center h-full'>
+                {testCaseLoading ? (
+                  <CircularProgress />
+                ) : testCaseTip ? (
+                  <textarea
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 mb-4"
+                    rows="4"
+                    id="testcasetip"
+                    name="testcasetip"
+                    placeholder="Dica do caso de teste"
+                    readOnly={true}
+                    value={testCaseTip}
+                  />
+                ) : null}
               </div>
             </Grid>}
           </Grid>}
@@ -349,7 +409,7 @@ function Home() {
           className="floating-help-button"
           onClick={() => setShowHelpBox(!showHelpBox)}
         >
-          <HelpIcon fontSize="large" />
+          <SosIcon fontSize="large" />
         </div>
         {showHelpBox && <MonitorTip showHelpBox={showHelpBox} problemDescription={problem.description} />}
       </div>

@@ -13,7 +13,10 @@ function MonitorTip({ showHelpBox, problemDescription }) {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ "message": problemDescription + " " + "Descreva apenas o passo a passo de um algoritmo para resolver o problema (sem código)" }),
+          body: JSON.stringify({
+            "message": problemDescription + " " + "Descreva apenas o passo a passo de um algoritmo para resolver o problema (sem código)",
+            "behavior": 1
+          }),
         });
         const data = await response.json();
         const tips = data.response.split("\n");
