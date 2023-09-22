@@ -4,7 +4,7 @@ import Header from './components/Header'
 import Home from './pages/Home'
 import HuxleyRun from './pages/HuxleyRun'
 import HuxleySubmit from './pages/HuxleySubmit'
-import Problemas from './pages/Problemas'; // Importe o componente Problemas
+import Problems from './pages/Problems'; // Importe o componente Problemas
 
 
 function App() {
@@ -28,7 +28,7 @@ function App() {
           <Route path=":id" element={<ProductDisplay />} />
         </Route> 
         */}
-        <Route path="/problemas" element={<Problemas />} />
+        <Route path="/problems" element={<Problems />} />
       </Routes>
     </Router>
   )

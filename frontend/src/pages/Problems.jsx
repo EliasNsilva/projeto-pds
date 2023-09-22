@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Grid from '@mui/material/Grid';
 
-const Problemas = () => {
+const Problems = () => {
     const [showTopics, setShowTopics] = useState(false);
     const [selectedTopics, setSelectedTopics] = useState([]);
     const topics = ['Tópico 1', 'Tópico 2', 'Tópico 3', 'Tópico 2', 'Tópico 2', 'Tópico 2', 'Tópico 2', 'Tópico 2', 'Tópico 2', 'Tópico 2', 'Tópico 2', 'Tópico 2', 'Tópico 2', 'Tópico 2', 'Tópico 2', 'Tópico 2', 'Tópico 2', 'Tópico 2'];
@@ -139,4 +139,4 @@ const Problemas = () => {
 
 }
 
-export default Problemas;
+export default Problems;
