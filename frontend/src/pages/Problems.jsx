@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import Grid from '@mui/material/Grid';
 import Table from '../components/Table';
-
-
-
+import SidebarMenu from '../components/SidebarMenu';
 
 const questions = [
     { id: 1, level: 1, name: 'Question 1', topics: 'Topic 1, Topic 2', status: 'Failed' },
@@ -78,20 +76,16 @@ const questions = [
     { id: 23, level: 4, name: 'Question 22', topics: 'Topic 1, Topic 2', status: 'Pending' },
     { id: 24, level: 4, name: 'Question 23', topics: 'Topic 1, Topic 2', status: 'Pending' },
     { id: 25, level: 4, name: 'Question 24', topics: 'Topic 1, Topic 2', status: 'Pending' },
-    // Add more items here as needed
-  ];
+    //aqui sao so exemplos de dados pra botar na tabela
+];
 
-
+// aqui sao as colunas da tabela
 const columns = [
     { header: '', accessor: 'level' },
     { header: 'Nome', accessor: 'name' },
     { header: 'Tópicos', accessor: 'topics' },
     { header: 'Status', accessor: 'status' },
 ];
-
-
-
-
 
 const Problems = () => {
     const [showTopics, setShowTopics] = useState(false);
@@ -112,16 +106,8 @@ const Problems = () => {
 
     return (
         <Grid container direction="column" style={{ background: '#233142', minHeight: '100vh' }}>
-            {/* Menu */}
-            <Grid item style={{ backgroundColor: '#455d7a', padding: '10px', color: 'white' }}>
-                {/* Conteúdo do Menu temporario */}
-                <h1>PiOne</h1>
-                <ul style={{ listStyleType: 'none', padding: 0, display: 'flex', justifyContent: 'center' }}>
-                    <li style={{ margin: '0 10px' }}><a href="#">hehe</a></li>
-                    <li style={{ margin: '0 10px' }}><a href="#">hehe</a></li>
-                    <li style={{ margin: '0 10px' }}><a href="#">hehe</a></li>
-                </ul>
-            </Grid>
+            {/* Menu sidebar */}
+            <SidebarMenu />
 
             {/* Contêiner para os Grids */}
             <Grid container item style={{ flex: '1', width: '70%', height: '50%', backgroundColor: '#e3e3e3', margin: 'auto', marginTop: '20px', padding: '20px', marginBottom: '20px' }}>
@@ -192,7 +178,7 @@ const Problems = () => {
                             <option value="expert">Expert</option>
                         </select>
                     </div>
-                   
+
                     <div style={{ marginTop: '20px', backgroundColor: '#e3e3e3', padding: '10px', marginLeft: '20px' }}>
                         <h3>Listar</h3>
                         <select
@@ -208,23 +194,16 @@ const Problems = () => {
 
                 </Grid>
 
+                {/* Grid maior que eh o da direita*/}
                 <Grid item xs={12} sm={8} style={{ backgroundColor: '#e3e3e3', height: '80vh', border: '1px dotted #233142', justifyContent: 'center', alignItems: 'center' }}>
                     <div style={{ height: '100%', overflow: 'auto', backgroundColor: '#e3e3e3' }}>
+                        {/* Aqui fica nossa tabela */}
                         <Table data={questions} columns={columns} />
                     </div>
-
-
-
-
-                    {/* Conteúdo do Grid 2 (restante do espaço) */}
-                    {/* ... Conteúdo do Grid 2 aqui ... */}
                 </Grid>
             </Grid>
         </Grid>
     );
-
-
-
 }
 
 export default Problems;
