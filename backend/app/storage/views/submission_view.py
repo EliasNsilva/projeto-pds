@@ -5,7 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from drf_yasg.utils import swagger_auto_schema
 from decouple import config
-import openai
+from drf_yasg import openapi
 
 class submissionView(APIView):
     @swagger_auto_schema(operation_description="Submete um problema para ser avaliado pela API do the Huxley",
@@ -61,7 +61,6 @@ class submissionView(APIView):
             if response.json()['testCaseEvaluations'] == None:
                 time.sleep(3)
                 response = requests.get(url= base_url_huxley + f'submissions/{submissionId}', headers=header)
-                print("REPRODUZIU")
 
             data = response.json()
             return Response(data=data)
