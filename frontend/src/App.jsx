@@ -4,7 +4,8 @@ import Header from './components/Header'
 import Home from './pages/Home'
 import HuxleyRun from './pages/HuxleyRun'
 import HuxleySubmit from './pages/HuxleySubmit'
-import Problems from './pages/Problems'; // Importe o componente Problemas
+import Problems from './pages/Problems' // Importa o componente Problemas
+import StudyTrack from './pages/StudyTrack' // importa o componente tRILHA DE estudos
 
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
         </Route> 
         */}
         <Route path="/problems" element={<Problems />} />
+        <Route path="/studytrack" element={<StudyTrack/>} />
       </Routes>
     </Router>
   )
