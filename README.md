@@ -31,13 +31,15 @@ Nossa plataforma visa facilitar e resolver a dificuldade de aprendizado para pes
 
 # Marco 1 - XX/XX/2023
 
-Modelagem do banco de dados (base de problemas) - Para possibilitar a plataforma ter exercícios salvos
-
 Base de problemas simples - Problemas básicos para possibilitar a ideia de exercícios na plataforma.
 
-Submissão de código com saída - Os usuários podem enviar suas soluções para os problemas propostos. 
+Documentar toda API do Huxley - Todo a API do sistema de execução deve estar documentada para implementação.
+
+Importar códigos de problema do huxley - Os usuários podem inserir um id e receber um problema importado do Huxley. 
 
 # Marco 2 - XX/XX/2023
+
+Liberar a submissão - Os usuários podem enviar suas soluções para os problemas propostos. 
 
 Verificar soluções de submissão - A plataforma verifica a precisão e a eficiência das soluções e fornece feedback instantâneo sobre os resultados.
 
@@ -45,7 +47,7 @@ Logs e erros avaliados por IA - A plataforma em caso de soluções com erro, vai
 
 # Marco 3 - XX/XX/2023
 
-Completar modelagem do banco de dados - Para possibilitar usuários diferentes, e salvar o material de estudo. (Possibilita futuramente gerar estatística e desempenho)
+Modelagem do banco de dados (base de problemas) - Para possibilitar a plataforma ter exercícios salvos
 
 Material de estudo: Cadastrar na plataforma material de estudo (em teoria cobrir toda matéria de programação 1, inclusive lógica de programação), oferecer conteúdo educacional, como tutoriais, dicas e exemplos, para auxiliar os usuários em seu aprendizado. Aqui o nosso foco sera estruturar o material e fazer um visual atrativo e agradável.
 

@@ -7,6 +7,7 @@ from drf_yasg.utils import swagger_auto_schema
 from decouple import config
 from drf_yasg import openapi
 
+
 class submissionView(APIView):
     @swagger_auto_schema(operation_description="Submete um problema para ser avaliado pela API do the Huxley",
         request_body=openapi.Schema(

@@ -2,15 +2,22 @@ import { BrowserRouter as Router, Link, Routes, Route } from 'react-router-dom'
 import Header from './components/Header'
 // Rotas
 import Home from './pages/Home'
+import HuxleyRun from './pages/HuxleyRun'
+import HuxleySubmit from './pages/HuxleySubmit'
+import Problems from './pages/Problems' // Importa o componente Problemas
+import StudyTrack from './pages/StudyTrack' // importa o componente tRILHA DE estudos
+
 
 function App() {
   return (
     <Router>
-      <nav>
-        <Header />
-      </nav>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home />}>
+          <Route path=":id" element={<Home />} />
+        </Route>
+
+        <Route path="/run" element={<HuxleyRun />} />
+        <Route path="/submit" element={<HuxleySubmit />} />
 
         {/*
         Exemplo de rotas para quem nunca usou React Router antes
@@ -22,7 +29,8 @@ function App() {
           <Route path=":id" element={<ProductDisplay />} />
         </Route> 
         */}
-
+        <Route path="/problems" element={<Problems />} />
+        <Route path="/studytrack" element={<StudyTrack/>} />
       </Routes>
     </Router>
   )
