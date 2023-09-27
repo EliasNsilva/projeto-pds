@@ -15,9 +15,8 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import LinearProgress from '@mui/material/LinearProgress';
 import CircularProgress from '@mui/material/CircularProgress';
 
-import Sidebar from '../components/Sidebar';
+import Sidebar from '../components/SidebarMenu';
 import MonitorTip from '../components/MonitorTip';
-import HelpIcon from '@mui/icons-material/Help';
 import SosIcon from '@mui/icons-material/Sos';
 import toast from 'react-hot-toast';
 

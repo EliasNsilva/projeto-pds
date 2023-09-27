@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -15,6 +16,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import AssignmentIcon from '@mui/icons-material/Assignment';
@@ -51,10 +53,20 @@ const DrawerHeader = styled('div')(({ theme }) => ({
     color: "#e3e3e3",
 }));
 
-export default function Sidebar({ handleLogout }) {
+const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    localStorage.removeItem('email');
+}
+
+export default function Sidebar({ handleProblemGrid, handleExecuteGrid }) {
+    const location = useLocation();
+    const navigate = useNavigate();
     const theme = useTheme();
 
     const [open, setOpen] = useState(false);
+    const [isLogged, setIsLogged] = useState(false);
+    const [userState, setUserState] = useState({});
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -63,6 +75,31 @@ export default function Sidebar({ handleLogout }) {
     const handleDrawerClose = () => {
         setOpen(false);
     };
+
+    //useEffect(() => { }, [location]);
+    console.log('Current route:', location.pathname);
+    useEffect(() => {
+        // Retrieve from local storage
+        const checkLogin = () => {
+            const token = localStorage.getItem('token')?.replace(/"/g, '');
+            const username = localStorage.getItem('username')?.replace(/"/g, '');
+            const email = localStorage.getItem('email')?.replace(/"/g, '');
+
+            if (!token || !username || !email) {
+                return false;
+            }
+
+            if(location.pathname === '/login' || location.pathname === '/register') {
+                navigate("/problems");
+                return false;
+            }              
+
+            setUserState({ token, username, email });
+            return true;
+        }
+
+        setIsLogged(checkLogin());
+    }, []);
 
     return (
         <Box sx={{ display: 'flex' }}>
@@ -74,13 +111,22 @@ export default function Sidebar({ handleLogout }) {
                         aria-label="open drawer"
                         onClick={handleDrawerOpen}
                         edge="start"
-                        sx={{ mr: 2, ...(open && { display: 'none' }), }}
+                        sx={{ mr: 2, ...(open && { display: 'none' }) }}
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6" noWrap component="div">
-                        PiOne
-                    </Typography>
+                    <div>
+                        <Typography variant="h6" noWrap component="div">
+                            PiOne
+                        </Typography>
+                    </div>
+
+                    {isLogged && <div className='ml-auto'>
+                        <Typography variant="h6" noWrap component="div">
+                            {userState.username}
+                        </Typography>
+                    </div>}
+
                 </Toolbar>
             </AppBar>
             <Drawer
@@ -103,7 +149,9 @@ export default function Sidebar({ handleLogout }) {
                         {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
                     </IconButton>
                 </DrawerHeader>
+
                 <Divider />
+
                 <List>
                     <ListItem key="Home" disablePadding>
                         <ListItemButton>
@@ -113,7 +161,7 @@ export default function Sidebar({ handleLogout }) {
                             <ListItemText primary="Home" />
                         </ListItemButton>
                     </ListItem>
-                    <ListItem key="Problemas" disablePadding>
+                    <ListItem key="Problemas" disablePadding onClick={() => navigate("/problems")}>
                         <ListItemButton>
                             <ListItemIcon>
                                 <AssignmentIcon />
@@ -137,14 +185,47 @@ export default function Sidebar({ handleLogout }) {
                             <ListItemText primary="Perfil" />
                         </ListItemButton>
                     </ListItem>
-                    <ListItem key="Sair" disablePadding onClick={handleLogout}>
-                        <ListItemButton>
-                            <ListItemIcon>
-                                <ExitToAppIcon />
-                            </ListItemIcon>
-                            <ListItemText primary="Sair" />
-                        </ListItemButton>
-                    </ListItem>
+
+                    <Divider />
+
+                    {handleProblemGrid &&
+                        <ListItem key="OcultarProblema" disablePadding onClick={() => handleProblemGrid()}>
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    <VisibilityIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Informações do Problema" />
+                            </ListItemButton>
+                        </ListItem>
+                    }
+
+                    {handleExecuteGrid &&
+                        <ListItem key="OcultarExecucao" disablePadding onClick={() => handleExecuteGrid()}>
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    <VisibilityIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Valores de Execução" />
+                            </ListItemButton>
+                        </ListItem>
+                    }
+
+                    <Divider />
+
+                    {isLogged &&
+                        <ListItem key="Sair" disablePadding onClick={() => {
+                            handleLogout()
+                            navigate("/login")
+                        }
+                        }>
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    <ExitToAppIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Sair" />
+                            </ListItemButton>
+                        </ListItem>
+                    }
                 </List>
             </Drawer>
         </Box>
