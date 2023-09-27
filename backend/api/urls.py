@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import include, path
 from rest_framework import routers
 
-from app.storage.views import ProblemViewSet, submissionView, HuxleyProblemView, GptApiView
+from app.storage.views import ProblemViewSet, SubmissionView, HuxleyProblemView, GptApiView, HuxleyLastSubmissionView
 from app.controller.views import LoginView
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
@@ -42,7 +42,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     path('login/',LoginView.as_view(),name='login'),
-    path('huxley/submission/<int:problem_id>', submissionView.as_view(), name='submission'),
+    path('huxley/submission/<int:problem_id>', SubmissionView.as_view(), name='submission'),
     path(r'huxley/problem/<int:problem_id>', HuxleyProblemView.as_view(), name='huxley-probems'),
+    path('huxley/submission/<int:problem_id>/last/', HuxleyLastSubmissionView.as_view(), name='last-submission'),
     path('gpt/', GptApiView.as_view(), name='gpt-conversation')
 ]

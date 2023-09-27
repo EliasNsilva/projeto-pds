@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+import os
 from pathlib import Path
 from decouple import config
 
@@ -97,6 +98,22 @@ DATABASES = {
         'PORT': config('DB_PORT', default=''),
     }
 }
+
+LOG_FILEPATH = (os.path.join(Path(__file__).resolve().parent.parent, 'log/pioneapi.tmp'))
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'DEBUG',  # Configura o nível de log para DEBUG
+    },
+}
+
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 

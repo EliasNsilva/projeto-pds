@@ -2,13 +2,13 @@ import io
 import time
 import requests
 from rest_framework.views import APIView
+from rest_framework import status
 from rest_framework.response import Response
 from drf_yasg.utils import swagger_auto_schema
-from decouple import config
 from drf_yasg import openapi
 
 
-class submissionView(APIView):
+class SubmissionView(APIView):
     @swagger_auto_schema(operation_description="Submete um problema para ser avaliado pela API do the Huxley",
         request_body=openapi.Schema(
             type=openapi.TYPE_OBJECT,
@@ -27,15 +27,8 @@ class submissionView(APIView):
     def post(self, request, problem_id):     
         code = self.request.data['code']
         token = self.request.data['token']
-        #huxley_login_url = 'https://www.thehuxley.com/api/login'
         base_url_huxley = 'https://www.thehuxley.com/api/v1/'
 
-        # payload_auth = {"username": config('HUXLEY_USER'),
-        #                 "password": config('HUXLEY_PASSWORD')}
-
-        # auth = requests.post(url=huxley_login_url, json=payload_auth)
-
-        # header = {'Authorization' : f'Bearer {auth.json()["access_token"]}'}
         header = {'Authorization' : f'Bearer {token}'}
         
         payload = {'language': 1}
@@ -93,3 +86,52 @@ class HuxleyProblemView(APIView):
         print(huxleyPostUrl + f'/{hash}')
         response = requests.get(url=huxleyPostUrl + f'/{hash}')
         return Response(data=response.json())
+    
+
+class HuxleyLastSubmissionView(APIView):
+    @swagger_auto_schema(operation_description="Retorna a ultima submisão do usuário no problema escolhido.",
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'token': openapi.Schema(type=openapi.TYPE_STRING, 
+                                        description='Token de acesso.')
+            },
+            required=['token']
+        ),
+        responses={
+            200: 'Sucesso',
+            404: openapi.Response(
+                description='Sem submissões',
+                schema=openapi.Schema(
+                    type=openapi.TYPE_OBJECT,
+                    properties={
+                        'error': openapi.Schema(type=openapi.TYPE_STRING, description='Sem submissões.'),
+                    }
+                ),
+            ),
+        }
+    )
+    def post(self, request, problem_id):
+        token = self.request.data['token']
+        baseUrlHuxley = 'https://www.thehuxley.com/api/v1/'
+        urlLastSubmission = f'user/problems/{problem_id}/submissions?max=1&order=desc&sort=submissionDate'
+
+        header = {'Authorization' : f'Bearer {token}'}
+
+        idLastSubmission = requests.get(url= baseUrlHuxley + urlLastSubmission, headers=header)
+
+        try:
+            id = idLastSubmission.json()[0]['id']
+        except:
+            return Response(data={'error': 'Sem submissões'}, status=status.HTTP_404_NOT_FOUND)
+        
+        urlSourceCode = f'submissions/{id}/sourcecode'
+        sourceCodeResponse = requests.get(url= baseUrlHuxley + urlSourceCode, headers=header)
+
+        sourceCode = str(sourceCodeResponse.text)
+
+        data = idLastSubmission.json()
+        data[0]['code'] = sourceCode
+        
+
+        return Response(data=data)
