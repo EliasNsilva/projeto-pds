@@ -58,36 +58,57 @@ function Home() {
   const handleSubmit = (event) => {
     event.preventDefault();
     setSubmitting(true);
+    // Clean before submit
+    setExecuteText({ ...executeText, ["executeoutput"]: "" });
+    setTestCaseTip("")
+    setTrueTestCases([])
+    setFalseTestCases([])
 
     const submit = async () => {
       try {
+        // Check if local storage has token
+        const token = localStorage.getItem("token");
+        const user = localStorage.getItem("username");
+        const email = localStorage.getItem("email");
+        console.log(token, user, email)
+        if (!token) {
+          toast.error("Você precisa estar logado para submeter uma resposta");
+          setSubmitting(false);
+          return;
+        }
+
         const response = await fetch(`http://localhost:8000/huxley/submission/${id}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
-            "code": code
+            "code": code,
+            "token": token,
           })
         });
 
-        console.log(response)
+        console.log("Aqui", response)
         const data = await response.json();
-        console.log(data)
+        console.log("Dados", data)
 
         // Evaluation
         if (data.evaluation === "CORRECT") {
           toast.success("Resposta correta");
         } else if (data.evaluation === "WAITING") {
           toast.error("Submeta novamente, problema com a API do Huxley");
-        } else {
+        } else if (data.evaluation === "COMPILATION_ERROR") {
+          toast.error("Erro de compilação, analise a saída");
+        } else if (data.evaluation === "WRONG_ANSWER") {
           toast.error("Resposta incorreta, analise os testes");
+        } else {
+          toast.error("Erro de backend na API do Huxley");
         }
 
         // Casos de teste
         const trueTestCases = []
         const falseTestCases = []
-        data.testCaseEvaluations.map((testCase) => {
+        data.testCaseEvaluations?.map((testCase) => {
           if (testCase.evaluation === "CORRECT") {
             trueTestCases.push(testCase)
           } else {
@@ -155,34 +176,19 @@ function Home() {
   const [testCaseLoading, setTestCaseLoading] = useState(false);
 
   const falseTestCaseTip = async (testCase) => {
-    //Put loading in tip
     setTestCaseLoading(true)
-    {/* 
-    WRONG_ANSWER ->
-    Description: problem.description
-    Code: code
-    Diff (expected input and actual output): testcase.diff
+    //console.log(testCase)
 
-    Explique o que posso ajustar para combinar com a descrição do problema (sem código, só lógica)
-
-    COMPILATION_ERROR ->
-    Code: code
-    Diff (expected input and actual output): testcase.diff
-    ErrorMsg: testcase.errorMsg
-
-    Explique o que posso melhorar para corrigir o erro de compilação (sem código, só lógica)
-    */}
-
-    // Put body in object to send in API
     let body = ""
     if (testCase.evaluation === "WRONG_ANSWER") {
       body = `Descriçao: ${problem.description}\nCódigo: ${code}\nDiferença (entrada esperada e saída atual): ${testCase.diff}\n Explique o que posso ajustar para combinar com a descrição do problema (sem código, só lógica)`
     } else if (testCase.evaluation === "COMPILATION_ERROR") {
       body = `Código: ${code}\nDiferença (entrada esperada e saída atual): ${testCase.diff}\nErro: ${testCase.errorMsg}\n Explique o que posso melhorar para corrigir o erro de compilação (sem código, só lógica)`
+    } else {
+      body = `Código: ${code}\nDiferença (entrada esperada e saída atual): ${testCase.diff}\n Explique o que posso melhorar para corrigir o erro de compilação (sem código, só lógica)`
     }
 
     // Fetch na api pedindo dicas
-
     try {
       /* const response = await fetch("http://localhost:8000/gpt/", {
         method: "POST",
@@ -201,9 +207,24 @@ function Home() {
         setTestCaseTip("-Dicas do huxley:\n" + testCase.tip + "\n\n" + "-Dicas do monitor:\n" + tips)
       } else {
         setTestCaseTip("-Dicas do monitor:\n" + tips)
+      } */
+
+      if (testCase.diff) {
+        // Parse the JSON data
+        const parsedData = JSON.parse(testCase.diff);
+
+        // Extract the "expected" and "actual" values
+        const expected = parsedData.lines[0].expected;
+        const actual = parsedData.lines[0].actual;
+
+        setExecuteText({ ...executeText, ["executeoutput"]: `"Esperado": ${expected}\n"Recebido": ${actual}` });
+      } else if (testCase.errorMsg) {
+        setExecuteText({ ...executeText, ["executeoutput"]: testCase.errorMsg });
+      } else {
+        setExecuteText({ ...executeText, ["executeoutput"]: "Erro não informado, observe as dicas do monitor" });
       }
-      setTestCaseLoading(false) */
-      console.log("mudou")
+
+      setTestCaseLoading(false)
     } catch (error) {
       console.log(error);
     }

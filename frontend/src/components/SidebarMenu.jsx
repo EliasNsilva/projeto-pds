@@ -77,7 +77,7 @@ export default function Sidebar({ handleProblemGrid, handleExecuteGrid }) {
     };
 
     //useEffect(() => { }, [location]);
-    console.log('Current route:', location.pathname);
+    //console.log('Current route:', location.pathname);
     useEffect(() => {
         // Retrieve from local storage
         const checkLogin = () => {
