@@ -4,7 +4,7 @@ import SidebarMenu from '../components/SidebarMenu';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import Button from '@mui/material/Button';
-import '../components/buttonStyles.css';
+
 
 const StudyTrack = () => {
     const [currentPage, setCurrentPage] = useState(1); // Estado para controlar a página atual
@@ -173,8 +173,8 @@ const StudyTrack = () => {
                 </div>
                 <Grid container direction="column" style={{ flex: '1', width: '70%', backgroundColor: '#e3e3e3', margin: 'auto', marginTop: '60px', padding: '20px', marginBottom: '20px', position: 'relative' }}>
                     <Grid item style={{ backgroundColor: '#e3e3e3', padding: '10px' }}>
-                        <div style={{ listStyleType: 'none', display: 'flex', justifyContent: 'center', border: '2px solid #233142', padding: '10px' }}>
-                            <h2 style={{ color: '#233142', margin: 0 }}>{pages[currentPage - 1].title}</h2>
+                        <div style={{ listStyleType: 'none', display: 'flex', justifyContent: 'center', borderBottom: '2px solid #233142', padding: '10px' }}>
+                            <h2 style={{ color: '#233142', margin: 0, textTransform: 'uppercase' }}>{pages[currentPage - 1].title}</h2>
                         </div>
                     </Grid>
 
