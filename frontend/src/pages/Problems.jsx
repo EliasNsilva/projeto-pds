@@ -1,83 +1,8 @@
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import Table from '../components/Table';
 import SidebarMenu from '../components/SidebarMenu';
 import './Problems.css';
-
-const questions = [
-    { id: 1, level: 1, name: 'Question 1', topics: 'Topic 1, Topic 2', status: 'Failed' },
-    { id: 2, level: 2, name: 'Question 2', topics: 'Topic 3', status: 'Completed' },
-    { id: 3, level: 3, name: 'Question 3', topics: 'Topic 2', status: 'Pending' },
-    { id: 4, level: 1, name: 'Question 4', topics: 'Topic 1, Topic 3', status: 'Completed' },
-    { id: 5, level: 5, name: 'Question 5', topics: 'Topic 1, Topic 2', status: 'Pending' },
-    { id: 6, level: 4, name: 'Question 6', topics: 'Topic 3', status: 'Completed' },
-    { id: 7, level: 1, name: 'Question 7', topics: 'Topic 2', status: 'Pending' },
-    { id: 8, level: 5, name: 'Question 8', topics: 'Topic 1, Topic 3', status: 'Completed' },
-    { id: 9, level: 3, name: 'Question 9', topics: 'Topic 2', status: 'Pending' },
-    { id: 10, level: 4, name: 'Question 10', topics: 'Topic 1, Topic 2', status: 'Completed' },
-    { id: 11, level: 2, name: 'Question 11', topics: 'Topic 3', status: 'Pending' },
-    { id: 12, level: 3, name: 'Question 12', topics: 'Topic 2', status: 'Completed' },
-    { id: 13, level: 1, name: 'Question 13', topics: 'Topic 1, Topic 3', status: 'Pending' },
-    { id: 14, level: 2, name: 'Question 14', topics: 'Topic 2', status: 'Completed' },
-    { id: 16, level: 3, name: 'Question 15', topics: 'Topic 1, Topic 2', status: 'Pending' },
-    { id: 17, level: 4, name: 'Question 16', topics: 'Topic 1, Topic 2', status: 'Pending' },
-    { id: 18, level: 4, name: 'Question 17', topics: 'Topic 1, Topic 2', status: 'Pending' },
-    { id: 19, level: 4, name: 'Question 18', topics: 'Topic 1, Topic 2', status: 'Pending' },
-    { id: 20, level: 4, name: 'Question 19', topics: 'Topic 1, Topic 2', status: 'Pending' },
-    { id: 21, level: 4, name: 'Question 20', topics: 'Topic 1, Topic 2', status: 'Pending' },
-    { id: 22, level: 4, name: 'Question 21', topics: 'Topic 1, Topic 2', status: 'Pending' },
-    { id: 23, level: 4, name: 'Question 22', topics: 'Topic 1, Topic 2', status: 'Pending' },
-    { id: 24, level: 4, name: 'Question 23', topics: 'Topic 1, Topic 2', status: 'Pending' },
-    { id: 25, level: 4, name: 'Question 24', topics: 'Topic 1, Topic 2', status: 'Pending' },
-    { id: 1, level: 1, name: 'Question 1', topics: 'Topic 1, Topic 2', status: 'Pending' },
-    { id: 2, level: 2, name: 'Question 2', topics: 'Topic 3', status: 'Completed' },
-    { id: 3, level: 3, name: 'Question 3', topics: 'Topic 2', status: 'Pending' },
-    { id: 4, level: 1, name: 'Question 4', topics: 'Topic 1, Topic 3', status: 'Completed' },
-    { id: 5, level: 2, name: 'Question 5', topics: 'Topic 1, Topic 2', status: 'Pending' },
-    { id: 6, level: 3, name: 'Question 6', topics: 'Topic 3', status: 'Completed' },
-    { id: 7, level: 1, name: 'Question 7', topics: 'Topic 2', status: 'Pending' },
-    { id: 8, level: 2, name: 'Question 8', topics: 'Topic 1, Topic 3', status: 'Completed' },
-    { id: 9, level: 3, name: 'Question 9', topics: 'Topic 2', status: 'Pending' },
-    { id: 10, level: 1, name: 'Question 10', topics: 'Topic 1, Topic 2', status: 'Completed' },
-    { id: 11, level: 2, name: 'Question 11', topics: 'Topic 3', status: 'Pending' },
-    { id: 12, level: 3, name: 'Question 12', topics: 'Topic 2', status: 'Completed' },
-    { id: 13, level: 1, name: 'Question 13', topics: 'Topic 1, Topic 3', status: 'Pending' },
-    { id: 14, level: 2, name: 'Question 14', topics: 'Topic 2', status: 'Completed' },
-    { id: 16, level: 3, name: 'Question 15', topics: 'Topic 1, Topic 2', status: 'Pending' },
-    { id: 17, level: 4, name: 'Question 16', topics: 'Topic 1, Topic 2', status: 'Pending' },
-    { id: 18, level: 4, name: 'Question 17', topics: 'Topic 1, Topic 2', status: 'Pending' },
-    { id: 19, level: 4, name: 'Question 18', topics: 'Topic 1, Topic 2', status: 'Pending' },
-    { id: 20, level: 4, name: 'Question 19', topics: 'Topic 1, Topic 2', status: 'Pending' },
-    { id: 21, level: 4, name: 'Question 20', topics: 'Topic 1, Topic 2', status: 'Pending' },
-    { id: 22, level: 4, name: 'Question 21', topics: 'Topic 1, Topic 2', status: 'Pending' },
-    { id: 23, level: 4, name: 'Question 22', topics: 'Topic 1, Topic 2', status: 'Pending' },
-    { id: 24, level: 4, name: 'Question 23', topics: 'Topic 1, Topic 2', status: 'Pending' },
-    { id: 25, level: 4, name: 'Question 24', topics: 'Topic 1, Topic 2', status: 'Pending' },
-    { id: 1, level: 1, name: 'Question 1', topics: 'Topic 1, Topic 2', status: 'Pending' },
-    { id: 2, level: 2, name: 'Question 2', topics: 'Topic 3', status: 'Completed' },
-    { id: 3, level: 3, name: 'Question 3', topics: 'Topic 2', status: 'Pending' },
-    { id: 4, level: 1, name: 'Question 4', topics: 'Topic 1, Topic 3', status: 'Completed' },
-    { id: 5, level: 2, name: 'Question 5', topics: 'Topic 1, Topic 2', status: 'Pending' },
-    { id: 6, level: 3, name: 'Question 6', topics: 'Topic 3', status: 'Completed' },
-    { id: 7, level: 1, name: 'Question 7', topics: 'Topic 2', status: 'Pending' },
-    { id: 8, level: 2, name: 'Question 8', topics: 'Topic 1, Topic 3', status: 'Completed' },
-    { id: 9, level: 3, name: 'Question 9', topics: 'Topic 2', status: 'Pending' },
-    { id: 10, level: 1, name: 'Question 10', topics: 'Topic 1, Topic 2', status: 'Completed' },
-    { id: 11, level: 2, name: 'Question 11', topics: 'Topic 3', status: 'Pending' },
-    { id: 12, level: 3, name: 'Question 12', topics: 'Topic 2', status: 'Completed' },
-    { id: 13, level: 1, name: 'Question 13', topics: 'Topic 1, Topic 3', status: 'Pending' },
-    { id: 14, level: 2, name: 'Question 14', topics: 'Topic 2', status: 'Completed' },
-    { id: 16, level: 3, name: 'Question 15', topics: 'Topic 1, Topic 2', status: 'Pending' },
-    { id: 17, level: 4, name: 'Question 16', topics: 'Topic 1, Topic 2', status: 'Pending' },
-    { id: 18, level: 4, name: 'Question 17', topics: 'Topic 1, Topic 2', status: 'Pending' },
-    { id: 19, level: 4, name: 'Question 18', topics: 'Topic 1, Topic 2', status: 'Pending' },
-    { id: 20, level: 4, name: 'Question 19', topics: 'Topic 1, Topic 2', status: 'Pending' },
-    { id: 21, level: 4, name: 'Question 20', topics: 'Topic 1, Topic 2', status: 'Pending' },
-    { id: 22, level: 4, name: 'Question 21', topics: 'Topic 1, Topic 2', status: 'Pending' },
-    { id: 23, level: 4, name: 'Question 22', topics: 'Topic 1, Topic 2', status: 'Pending' },
-    { id: 24, level: 4, name: 'Question 23', topics: 'Topic 1, Topic 2', status: 'Pending' },
-    { id: 25, level: 4, name: 'Question 24', topics: 'Topic 1, Topic 2', status: 'Pending' },
-];
 
 const columns = [
     { header: '', accessor: 'level' },
@@ -89,7 +14,28 @@ const columns = [
 const Problems = () => {
     const [showTopics, setShowTopics] = useState(false);
     const [selectedTopics, setSelectedTopics] = useState([]);
+    const [problemData, setProblemData] = useState([]); // guarda os dados da API
+
     const topics = ['Tópico 1', 'Tópico 2', 'Tópico 3', 'Tópico 4', 'Tópico 5'];
+
+    // pegaa dados da API
+    const fetchProblemData = async () => {
+        try {
+            const response = await fetch('https://www.thehuxley.com/api/v1/problems?max=10&offset=0&problemType=ALGORITHM');
+            if (!response.ok) {
+                throw new Error('Failed to fetch data');
+            }
+            const data = await response.json();
+            setProblemData(data);
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
+    
+    useEffect(() => {
+        fetchProblemData();
+    }, []); 
 
     const toggleTopics = () => {
         setShowTopics(!showTopics);
@@ -166,7 +112,13 @@ const Problems = () => {
                 <Grid item xs={12} sm={8} className="table-container">
                     <div className="table-wrapper">
                         {/* Table */}
-                        <Table data={questions} columns={columns} />
+                        <Table data={problemData.map((problem) => ({
+                            level: problem.nd,
+                            name: problem.name,
+                            topics: problem.topics.map((topic) => topic.name).join(', '),
+                            status: problem.status,
+                            id: problem.id,
+                        }))} columns={columns} />
                     </div>
                 </Grid>
             </Grid>

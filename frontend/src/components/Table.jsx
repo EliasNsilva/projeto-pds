@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom'; 
+import { Link } from 'react-router-dom';
 import FirstPageIcon from '@mui/icons-material/FirstPage';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
@@ -8,7 +8,8 @@ import AddTaskIcon from '@mui/icons-material/AddTask';
 import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
 
 
-const Table = ({ data, columns, itemsPerPage = 15 }) => {
+
+const Table = ({ data, columns, itemsPerPage = 10 }) => {
     const [currentPage, setCurrentPage] = useState(1);
 
     const startIndex = (currentPage - 1) * itemsPerPage;
@@ -37,29 +38,29 @@ const Table = ({ data, columns, itemsPerPage = 15 }) => {
         setCurrentPage(totalPages);
     };
 
-  
+// cores pros levels
     const renderLevelIcon = (level) => {
         let icon = '';
         let color = '';
 
         switch (level) {
-            case 1:
+            case 1.0:
                 icon = '●';
                 color = 'green';
                 break;
-            case 2:
+            case 2.0:
                 icon = '●';
                 color = 'blue';
                 break;
-            case 3:
+            case 3.0:
                 icon = '●';
                 color = 'yellow';
                 break;
-            case 4:
+            case 4.0:
                 icon = '●';
                 color = 'orange';
                 break;
-            case 5:
+            case 5.0:
                 icon = '●';
                 color = 'red';
                 break;
@@ -74,14 +75,14 @@ const Table = ({ data, columns, itemsPerPage = 15 }) => {
         );
     };
 
-   
+
     const renderStatusIcon = (status) => {
         let icon = '';
         let color = '';
 
         switch (status) {
             case 'Completed':
-                icon = <AddTaskIcon />; 
+                icon = <AddTaskIcon />;
                 color = 'green';
                 break;
             case 'Failed':
@@ -126,7 +127,7 @@ const Table = ({ data, columns, itemsPerPage = 15 }) => {
                                     style={{
                                         borderBottom: '1px solid #ddd',
                                         padding: '8px',
-                                        textAlign: column.accessor === 'level' ? 'center' : 'left', // Center the level column
+                                        textAlign: column.accessor === 'level' ? 'center' : 'left', 
                                     }}
                                 >
                                     {column.accessor === 'level'
@@ -135,15 +136,23 @@ const Table = ({ data, columns, itemsPerPage = 15 }) => {
                                             ? renderStatusIcon(row[column.accessor])
                                             : (
                                                 <Link
-                                                    to={`/otherpage/${row.id}`}
+                                                    to={`/problems/${row.id}`}
                                                     style={{
                                                         textDecoration: 'none',
                                                         color: 'inherit',
                                                     }}
-                                                    className="link" 
+                                                    className="link"
                                                 >
-                                                    
-                                                    {row[column.accessor]}
+
+                                                    {column.accessor === 'topics'
+                                                        ? row[column.accessor].length > 30
+                                                            ? row[column.accessor].substring(0, 30) + '...' // Limita a 30 caracteres
+                                                            : row[column.accessor]
+                                                        : column.accessor === 'name' 
+                                                            ? row[column.accessor].length > 30
+                                                                ? row[column.accessor].substring(0, 30) + '...' // Limita a 30 caracteres pra nao virar bagunca
+                                                                : row[column.accessor]
+                                                            : row[column.accessor]}
                                                 </Link>
                                             )}
                                 </td>
