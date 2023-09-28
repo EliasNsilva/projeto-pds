@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Grid from '@mui/material/Grid';
 import Table from '../components/Table';
 import SidebarMenu from '../components/SidebarMenu';
+import './Problems.css';
 
 const questions = [
     { id: 1, level: 1, name: 'Question 1', topics: 'Topic 1, Topic 2', status: 'Failed' },
@@ -76,10 +77,8 @@ const questions = [
     { id: 23, level: 4, name: 'Question 22', topics: 'Topic 1, Topic 2', status: 'Pending' },
     { id: 24, level: 4, name: 'Question 23', topics: 'Topic 1, Topic 2', status: 'Pending' },
     { id: 25, level: 4, name: 'Question 24', topics: 'Topic 1, Topic 2', status: 'Pending' },
-    //aqui sao so exemplos de dados pra botar na tabela
 ];
 
-// aqui sao as colunas da tabela
 const columns = [
     { header: '', accessor: 'level' },
     { header: 'Nome', accessor: 'name' },
@@ -90,7 +89,7 @@ const columns = [
 const Problems = () => {
     const [showTopics, setShowTopics] = useState(false);
     const [selectedTopics, setSelectedTopics] = useState([]);
-    const topics = ['Tópico 1', 'Tópico 2', 'Tópico 3', 'Tópico 2', 'Tópico 2', 'Tópico 2', 'Tópico 2', 'Tópico 2', 'Tópico 2', 'Tópico 2', 'Tópico 2', 'Tópico 2', 'Tópico 2', 'Tópico 2', 'Tópico 2', 'Tópico 2', 'Tópico 2', 'Tópico 2'];
+    const topics = ['Tópico 1', 'Tópico 2', 'Tópico 3', 'Tópico 4', 'Tópico 5'];
 
     const toggleTopics = () => {
         setShowTopics(!showTopics);
@@ -105,51 +104,32 @@ const Problems = () => {
     };
 
     return (
-        <Grid container direction="column" style={{ background: '#233142', minHeight: '100vh' }}>
+        <Grid container direction="column" className="problems-container">
             {/* Menu sidebar */}
             <SidebarMenu />
 
-            {/* Contêiner para os Grids */}
-            <Grid container item style={{ flex: '1', width: '70%', height: '50%', backgroundColor: '#e3e3e3', margin: 'auto', marginTop: '20px', padding: '20px', marginBottom: '20px' }}>
-                <Grid item xs={12} style={{ backgroundColor: '#e3e3e3', padding: '10px', textAlign: 'center' }}>
-                    <div style={{ marginTop: '20px', backgroundColor: '#e3e3e3', padding: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <h3>Problemas</h3>
-                    </div>
-                    <div style={{ borderBottom: '1px solid #233142', width: '95%', margin: '0 auto' }}></div>
+            {/* Container for the Grids */}
+            <Grid container item className="content-container">
+                <Grid item xs={12} className="page-title">
+                    <h3 className='text-base'>Problemas</h3>
                 </Grid>
 
-                {/* Grid da Esquerda com largura menor */}
-                <Grid item xs={12} sm={4} style={{ backgroundColor: '#e3e3e3', height: '80vh', paddingRight: '10px', border: '1px dotted #233142' }}>
-                    {/* Conteúdo do Grid 1 */}
-
-                    <div style={{ marginTop: '20px', backgroundColor: '#e3e3e3', padding: '10px', marginLeft: '20px' }}>
-                        <h3>Filtros</h3>
-                    </div>
-                    <div style={{ borderBottom: '1px solid #233142', width: '95%', margin: '0 auto' }}></div>
-                    <div style={{ marginTop: '20px', padding: '10px', backgroundColor: '#e3e3e3', border: '1px solid #233142', marginLeft: '20px' }}>
+                {/* Left Grid with narrower width */}
+                <Grid item xs={12} sm={4} className="filters-container">
+                    <div className="filter-box">
+                        <h3 className='filter-text'>Filtros</h3>
                         <textarea
-                            style={{
-                                width: '100%',
-                                height: '30px',
-                                border: 'none',
-                                resize: 'none',
-                                backgroundColor: '#e3e3e3',
-                                outline: 'none',
-                            }}
+                            className="filter-input"
                             placeholder="Nome do problema"
                         ></textarea>
-                    </div>
-                    <div style={{ marginTop: '20px', padding: '10px', backgroundColor: '#e3e3e3', border: '1px solid #233142', marginLeft: '20px' }}>
-                        {/* Botão que exibe a lista de tópicos selecionáveis */}
-                        <button onClick={toggleTopics}>
+                        <button className="toggle-topics-button" onClick={toggleTopics}>
                             Selecionar Tópicos
                         </button>
-                        {/* Lista de tópicos selecionáveis com barra de rolagem */}
                         {showTopics && (
-                            <div style={{ maxHeight: '100px', overflowY: 'auto' }}>
+                            <div className="topic-list">
                                 {topics.map((topic) => (
-                                    <div key={topic}>
-                                        <label>
+                                    <div key={topic} className="topic-item">
+                                        <label className="topic-label">
                                             <input
                                                 type="checkbox"
                                                 onChange={() => toggleTopic(topic)}
@@ -161,43 +141,31 @@ const Problems = () => {
                                 ))}
                             </div>
                         )}
+                        <div className="filter-select">
+                            <h3>Nível de dificuldade</h3>
+                            <select className="difficulty-select">
+                                <option value="todos">Todos</option>
+                                <option value="iniciante">Iniciante</option>
+                                <option value="facil">Fácil</option>
+                                <option value="medio">Médio</option>
+                                <option value="avancado">Avançado</option>
+                                <option value="expert">Expert</option>
+                            </select>
+                        </div>
+                        <div className="filter-select">
+                            <h3>Listar</h3>
+                            <select className="list-select">
+                                <option value="todos">Todos</option>
+                                <option value="naoResolvidos">Não resolvidos</option>
+                            </select>
+                        </div>
                     </div>
-                    <div style={{ marginTop: '20px', backgroundColor: '#e3e3e3', padding: '10px', marginLeft: '20px' }}>
-                        <h3>Nível de dificuldade</h3>
-                        <select
-                            style={{
-                                width: '100%',
-                                height: '30px',
-                            }}
-                        >
-                            <option value="todos">Todos</option>
-                            <option value="iniciante">Iniciante</option>
-                            <option value="facil">Fácil</option>
-                            <option value="medio">Médio</option>
-                            <option value="avancado">Avançado</option>
-                            <option value="expert">Expert</option>
-                        </select>
-                    </div>
-
-                    <div style={{ marginTop: '20px', backgroundColor: '#e3e3e3', padding: '10px', marginLeft: '20px' }}>
-                        <h3>Listar</h3>
-                        <select
-                            style={{
-                                width: '100%',
-                                height: '30px',
-                            }}
-                        >
-                            <option value="todos">Todos</option>
-                            <option value="naoResolvidos">Não resolvidos</option>
-                        </select>
-                    </div>
-
                 </Grid>
 
-                {/* Grid maior que eh o da direita*/}
-                <Grid item xs={12} sm={8} style={{ backgroundColor: '#e3e3e3', height: '80vh', border: '1px dotted #233142', justifyContent: 'center', alignItems: 'center' }}>
-                    <div style={{ height: '100%', overflow: 'auto', backgroundColor: '#e3e3e3' }}>
-                        {/* Aqui fica nossa tabela */}
+                {/* Right Grid */}
+                <Grid item xs={12} sm={8} className="table-container">
+                    <div className="table-wrapper">
+                        {/* Table */}
                         <Table data={questions} columns={columns} />
                     </div>
                 </Grid>
