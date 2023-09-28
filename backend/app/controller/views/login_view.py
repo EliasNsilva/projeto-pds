@@ -15,11 +15,20 @@ class LoginView(APIView):
         }
 
         response = requests.post(url=huxley_login_url, json=payload_auth)
+        # return Response(response.json(), status=response.status_code) 
+        
+        if response.status_code == 200:
+            access_token = response.json().get('access_token')
 
-        return Response(response.json(), status=response.status_code) 
+            user_url = 'https://www.thehuxley.com/api/v1/user'
+            headers = {
+                'Authorization': f'Bearer {access_token}'
+            }
 
-        # Se você quiser personalizar a resposta de acordo com o resultado da API, pode fazer algo como:
-        # if response.status_code == 200:
-        #     return Response({"message": "Login successful"}, status=status.HTTP_200_OK)
-        # else:
-        #     return Response({"message": "Login failed"}, status=status.HTTP_400_BAD_REQUEST)
+            user_response = requests.get(url=user_url, headers=headers)
+            if user_response.status_code == 200:
+                return Response(user_response.json(), status=user_response.status_code)
+            else:
+                return Response({'error': 'Erro ao obter os dados do usuário'}, status=user_response.status_code)
+        else:
+            return Response({'error': 'Erro ao fazer login'}, status=response.status_code)       
