@@ -79,8 +79,7 @@
 }
 
 .table-container {
-    height: 80vh;
-    border: 1px dotted #233142;
+    height: 100vh;
     justify-content: center;
     align-items: center;
 }
