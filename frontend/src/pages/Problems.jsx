@@ -15,27 +15,42 @@ const Problems = () => {
     const [showTopics, setShowTopics] = useState(false);
     const [selectedTopics, setSelectedTopics] = useState([]);
     const [problemData, setProblemData] = useState([]); // guarda os dados da API
+    const [selectedDifficulty, setSelectedDifficulty] = useState('todos');
 
     const topics = ['Tópico 1', 'Tópico 2', 'Tópico 3', 'Tópico 4', 'Tópico 5'];
 
     // pegaa dados da API
     const fetchProblemData = async () => {
+        console.log(selectedDifficulty); 
         try {
-            const response = await fetch('https://www.thehuxley.com/api/v1/problems?max=10&offset=0&problemType=ALGORITHM');
+            const response = await fetch(`https://www.thehuxley.com/api/v1/problems?max=40&offset=0&problemType=ALGORITHM&difficulty=${selectedDifficulty}`);
             if (!response.ok) {
                 throw new Error('Failed to fetch data');
             }
             const data = await response.json();
-            setProblemData(data);
+
+            // Filtro para selecionar o nível de dificuldade
+            const filteredData = data.filter(problem => {
+                if (selectedDifficulty === 'todos') {
+                    return true; 
+                }
+                return parseFloat(selectedDifficulty) === problem.nd;
+            });
+
+            setProblemData(filteredData);
         } catch (error) {
             console.error('Error fetching data:', error);
         }
     };
 
-    
+    const handleDifficultyChange = (event) => {
+        setSelectedDifficulty(event.target.value);
+    };
+
+
     useEffect(() => {
         fetchProblemData();
-    }, []); 
+    }, [selectedDifficulty]);
 
     const toggleTopics = () => {
         setShowTopics(!showTopics);
@@ -89,13 +104,13 @@ const Problems = () => {
                         )}
                         <div className="filter-select">
                             <h3>Nível de dificuldade</h3>
-                            <select className="difficulty-select">
+                            <select className="difficulty-select" onChange={handleDifficultyChange} value={selectedDifficulty}>
                                 <option value="todos">Todos</option>
-                                <option value="iniciante">Iniciante</option>
-                                <option value="facil">Fácil</option>
-                                <option value="medio">Médio</option>
-                                <option value="avancado">Avançado</option>
-                                <option value="expert">Expert</option>
+                                <option value="1">Iniciante</option>
+                                <option value="2">Fácil</option>
+                                <option value="3">Médio</option>
+                                <option value="4">Avançado</option>
+                                <option value="5">Expert</option>
                             </select>
                         </div>
                         <div className="filter-select">
