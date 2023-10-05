@@ -3,6 +3,7 @@ import Grid from '@mui/material/Grid';
 import Table from '../components/Table';
 import SidebarMenu from '../components/SidebarMenu';
 import './Problems.css';
+import { Divider } from '@mui/material';
 
 const columns = [
     { header: '', accessor: 'level' },
@@ -65,25 +66,26 @@ const Problems = () => {
     };
 
     return (
-        <Grid container direction="column" className="problems-container">
+        <Grid container direction="column" className="problems-container rounded">
             {/* Menu sidebar */}
             <SidebarMenu />
 
             {/* Container for the Grids */}
-            <Grid container item className="content-container">
-                <Grid item xs={12} className="page-title">
-                    <h3 className='text-base'>Problemas</h3>
+            <Grid container item className="content-container rounded">
+                <Grid item xs={12} className="page-title rounded">
+                    <h3 className='text-base font-bold pb-2'>Problemas</h3>
+                    <Divider />
                 </Grid>
 
                 {/* Left Grid with narrower width */}
                 <Grid item xs={12} sm={4} className="filters-container">
                     <div className="filter-box">
-                        <h3 className='filter-text'>Filtros</h3>
-                        <textarea
-                            className="filter-input"
+                        <h3 className='filter-text text-base font-bold'>Filtros</h3>
+                        <input
+                            className="filter-input text-base font-bold pb-2 pt-2 rounded"
                             placeholder="Nome do problema"
-                        ></textarea>
-                        <button className="toggle-topics-button" onClick={toggleTopics}>
+                        ></input>
+                        <button className="toggle-topics-button text-base font-bold rounded" onClick={toggleTopics}>
                             Selecionar Tópicos
                         </button>
                         {showTopics && (
@@ -103,8 +105,8 @@ const Problems = () => {
                             </div>
                         )}
                         <div className="filter-select">
-                            <h3>Nível de dificuldade</h3>
-                            <select className="difficulty-select" onChange={handleDifficultyChange} value={selectedDifficulty}>
+                            <h3 className='text-base font-bold pb-1'>Nível de dificuldade</h3>
+                            <select className="difficulty-select rounded" onChange={handleDifficultyChange} value={selectedDifficulty}>
                                 <option value="todos">Todos</option>
                                 <option value="1">Iniciante</option>
                                 <option value="2">Fácil</option>
@@ -114,8 +116,8 @@ const Problems = () => {
                             </select>
                         </div>
                         <div className="filter-select">
-                            <h3>Listar</h3>
-                            <select className="list-select">
+                            <h3 className='text-base font-bold pb-1'>Listar</h3>
+                            <select className="list-select rounded">
                                 <option value="todos">Todos</option>
                                 <option value="naoResolvidos">Não resolvidos</option>
                             </select>

@@ -18,6 +18,7 @@ import CircularProgress from '@mui/material/CircularProgress';
 import Sidebar from '../components/SidebarMenu';
 import MonitorTip from '../components/MonitorTip';
 import SosIcon from '@mui/icons-material/Sos';
+import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates';
 import toast from 'react-hot-toast';
 
 function Home() {
@@ -70,7 +71,7 @@ function Home() {
         const token = localStorage.getItem("token");
         const user = localStorage.getItem("username");
         const email = localStorage.getItem("email");
-        console.log(token, user, email)
+        // console.log(token, user, email)
         if (!token) {
           toast.error("Você precisa estar logado para submeter uma resposta");
           setSubmitting(false);
@@ -88,9 +89,9 @@ function Home() {
           })
         });
 
-        console.log("Aqui", response)
+        // console.log("Aqui", response)
         const data = await response.json();
-        console.log("Dados", data)
+        // console.log("Dados", data)
 
         // Evaluation
         if (data.evaluation === "CORRECT") {
@@ -116,8 +117,8 @@ function Home() {
           }
         })
 
-        console.log(trueTestCases)
-        console.log(falseTestCases)
+        // console.log(trueTestCases)
+        // console.log(falseTestCases)
 
         // Saída da execução
         setTrueTestCases(trueTestCases)
@@ -139,10 +140,12 @@ function Home() {
     )
   }
 
-  const [expanded, setExpanded] = useState(true);
+  const [expanded, setExpanded] = useState([true, true, true]);
 
-  const handleExpanded = () => {
-    setExpanded(!expanded);
+  const handleChange = (panel) => (event, isExpanded) => {
+    const newExpanded = [...expanded];
+    newExpanded[panel] = isExpanded;
+    setExpanded(newExpanded);
   };
 
   const [problemGrid, setProblemGrid] = useState(true);
@@ -209,6 +212,8 @@ function Home() {
         setTestCaseTip("-Dicas do monitor:\n" + tips)
       } */
 
+      setTestCaseTip(testCase.tip)
+
       if (testCase.diff) {
         // Parse the JSON data
         const parsedData = JSON.parse(testCase.diff);
@@ -230,10 +235,25 @@ function Home() {
     }
   }
 
+  // Resize textarea
+  useEffect(() => {
+    const textArea = document.getElementById("testcasetip");
+    if (textArea) {
+      textArea.style.height = "inherit";
+      const computed = window.getComputedStyle(textArea);
+      const height = parseInt(computed.getPropertyValue("border-top-width"), 10)
+        + parseInt(computed.getPropertyValue("padding-top"), 10)
+        + textArea.scrollHeight
+        + parseInt(computed.getPropertyValue("padding-bottom"), 10)
+        + parseInt(computed.getPropertyValue("border-bottom-width"), 10);
+      textArea.style.height = height + "px";
+    }
+  }, [testCaseTip])
+
   return (
     <div>
       <Sidebar handleProblemGrid={handleProblemGrid} handleExecuteGrid={handleExecuteGrid} />
-      <div className=" min-h-screen first-color w-full h-full pt-20 pl-4 pr-4">
+      <div className=" min-h-screen first-color w-full h-full pt-4 pl-4 pr-4">
         <Grid container justifyContent="center" spacing={4} className="first-color">
           {/* Problem Grid */}
           {problemGrid && problem && (
@@ -246,7 +266,7 @@ function Home() {
                   </div>
                 </div>
                 {/* Description Accordion */}
-                <Accordion expanded={expanded} onChange={handleExpanded}>
+                <Accordion expanded={expanded[0]} onChange={handleChange(0)}>
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="description-panel"
@@ -260,7 +280,7 @@ function Home() {
                 </Accordion>
 
                 {/* Input Format Accordion */}
-                <Accordion>
+                <Accordion expanded={expanded[1]} onChange={handleChange(1)}>
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="input-format-panel"
@@ -274,7 +294,7 @@ function Home() {
                 </Accordion>
 
                 {/* Output Format Accordion */}
-                <Accordion>
+                <Accordion expanded={expanded[2]} onChange={handleChange(2)}>
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon />}
                     aria-controls="output-format-panel"
@@ -300,6 +320,7 @@ function Home() {
                 width="100%"
                 extensions={cpp()}
                 onChange={onChange}
+                className='rounded'
               />
               <div className="mt-2 pb-2 text-center justify-center flex gap-x-3">
                 <div>
@@ -387,9 +408,10 @@ function Home() {
                       <Button
                         variant="contained"
                         size="small"
+                        endIcon={testCase.tip ? <TipsAndUpdatesIcon /> : null}
                         onClick={() => falseTestCaseTip(testCase)}
                         style={{
-                          backgroundColor: testCase.tip ? 'red' : '#f95959',
+                          backgroundColor: '#f95959',
                           borderRadius: '999px',
                           justifyContent: 'center',
                           alignItems: 'center',
@@ -404,13 +426,12 @@ function Home() {
                   );
                 })}
               </div>
-              <div className='flex justify-center items-center h-full'>
+              <div className='flex justify-center items-center'>
                 {testCaseLoading ? (
                   <CircularProgress />
                 ) : testCaseTip ? (
                   <textarea
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 mb-4"
-                    rows="4"
                     id="testcasetip"
                     name="testcasetip"
                     placeholder="Dica do caso de teste"
