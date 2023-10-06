@@ -14,6 +14,8 @@ import Typography from '@mui/material/Typography';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import LinearProgress from '@mui/material/LinearProgress';
 import CircularProgress from '@mui/material/CircularProgress';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 import Sidebar from '../components/SidebarMenu';
 import MonitorTip from '../components/MonitorTip';
@@ -150,6 +152,19 @@ function Home() {
 
   const [problemGrid, setProblemGrid] = useState(true);
 
+  const [showAdditionalIcon, setShowAdditionalIcon] = useState(false);
+  const [showAdditionalIcon2, setShowAdditionalIcon2] = useState(false);
+
+  const handleAdditionalIconClick = () => {
+    setShowAdditionalIcon(!showAdditionalIcon);
+  };
+
+  const handleAdditionalIconClick2 = () => {
+    setShowAdditionalIcon2(!showAdditionalIcon2);
+  };
+
+
+
   const handleProblemGrid = () => {
     setProblemGrid(!problemGrid);
   };
@@ -261,9 +276,16 @@ function Home() {
               <div className='mb-4'>
                 <div className="flex justify-between mb-4">
                   <h2 className="text-xl font-semibold text-white">Informações do Problema</h2>
-                  <div onClick={() => handleProblemGrid()} style={{ cursor: 'pointer', color: 'white' }}>
-                    <VisibilityIcon />
+                  <div
+                    onClick={() => {
+                      handleProblemGrid();
+                      handleAdditionalIconClick(); // Adicione esta linha para controlar a visibilidade do ícone extra
+                    }}
+                    style={{ cursor: 'pointer', color: 'white' }}
+                  >
+                    <ArrowBackIosIcon />
                   </div>
+
                 </div>
                 {/* Description Accordion */}
                 <Accordion expanded={expanded[0]} onChange={handleChange(0)}>
@@ -312,8 +334,35 @@ function Home() {
 
           {/* Code Editor */}
           <Grid item xs={12} md={problemGrid ? executeGrid ? 4 : 6 : 8}>
+
             <div>
-              <h2 className="text-xl font-semibold text-white mb-4">Sua solução</h2>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                {showAdditionalIcon && (
+                  <div
+                    onClick={() => {
+                      handleProblemGrid();
+                      handleAdditionalIconClick();
+                    }}
+                    style={{ cursor: 'pointer', color: 'white', marginRight: '10px', marginBottom: '15px' }}
+                  >
+                    <ArrowForwardIosIcon />
+                  </div>
+                )}
+                <h2 className="text-xl font-semibold text-white mb-4">Sua solução</h2>
+
+                {showAdditionalIcon2 && (
+                  <div
+                    onClick={() => {
+                      handleExecuteGrid();
+                      handleAdditionalIconClick2();
+                    }}
+                    style={{ cursor: 'pointer', color: 'white', marginLeft: 'auto', marginBottom: '15px' }}
+                  >
+                    <ArrowBackIosIcon />
+                  </div>
+                )}
+
+              </div>
               <CodeMirror
                 value={code}
                 height="400px"
@@ -344,9 +393,17 @@ function Home() {
           {executeGrid && <Grid item xs={12} md={4}>
             <div>
               <div className="flex justify-between">
-                <h2 className="text-xl font-semibold text-white mb-4">Execução</h2>
-                <div onClick={() => handleExecuteGrid()} style={{ cursor: 'pointer', color: 'white' }}>
-                  <VisibilityIcon />
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <div
+                    onClick={() => {
+                      handleExecuteGrid();
+                      handleAdditionalIconClick2();
+                    }}
+                    style={{ cursor: 'pointer', color: 'white', marginRight: '10px', marginBottom: '15px' }}
+                  >
+                    <ArrowForwardIosIcon />
+                  </div>
+                  <h2 className="text-xl font-semibold text-white mb-4">Execução</h2>
                 </div>
               </div>
               <textarea
