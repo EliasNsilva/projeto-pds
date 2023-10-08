@@ -6,7 +6,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
-
+import logging
 
 class SubmissionView(APIView):
     @swagger_auto_schema(operation_description="Submete um problema para ser avaliado pela API do the Huxley",
@@ -66,12 +66,23 @@ class HuxleyProblemView(APIView):
     @swagger_auto_schema(operation_description="Retorna um problema da API do The Huxley",
         responses={
             200: 'Sucesso.',
+            404: 'Problema não encontrado.',
         }
     )
     def get(self, request, problem_id):
-        huxleyGetUrl = f'https://www.thehuxley.com/api/v1/problems/{problem_id}' 
-        problem = requests.get(url=huxleyGetUrl)
-        return Response(data=problem.json())
+        huxleyGetUrl = f'https://www.thehuxley.com/api/v1/problems/{problem_id}'  
+        token = request.headers.get('Authorization')
+
+        if token == None:
+            problem = requests.get(url=huxleyGetUrl)
+        else:
+            header = {'Authorization' : f'{token}'}
+            problem = requests.get(url=huxleyGetUrl, headers=header)
+        
+        if problem.status_code == 404:
+            return Response(data={"error" : "Problema não encontrado."}, status=status.HTTP_404_NOT_FOUND)
+        else:
+            return Response(data=problem.json())
     
     @swagger_auto_schema(operation_description="Execulta um codigo na API do The Huxley",
         responses={
@@ -132,6 +143,5 @@ class HuxleyLastSubmissionView(APIView):
 
         data = idLastSubmission.json()
         data[0]['code'] = sourceCode
-        
 
         return Response(data=data)
