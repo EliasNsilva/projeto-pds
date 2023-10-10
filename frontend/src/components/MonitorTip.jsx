@@ -36,14 +36,17 @@ function MonitorTip({ showHelpBox, problemDescription }) {
     <div className="help-box">
       {/* Conteúdo do monitor de ajuda pro chatgpt */}
       <div className="help-box-content">
-        <h2 className="help-box-title">Monitor</h2>
+        <h2 className="help-box-title">Monitor<span className="tip" /></h2>
         <div className="divider"></div>
         <ul>
-          {monitorTips.map((tip, index) => (
-            <li key={index}>
-              <span className="tip">Passo {index + 1}:</span> {tip}
-            </li>
-          ))}
+          {monitorTips.map((tip, index) => {
+            if (tip === "") return null;
+            return (
+              <li key={index}>
+                {tip}
+              </li>
+            )
+          })}
         </ul>
       </div>
     </div>

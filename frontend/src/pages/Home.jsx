@@ -17,7 +17,6 @@ import CircularProgress from '@mui/material/CircularProgress';
 
 import Sidebar from '../components/SidebarMenu';
 import MonitorTip from '../components/MonitorTip';
-import SosIcon from '@mui/icons-material/Sos';
 import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates';
 import toast from 'react-hot-toast';
 
@@ -447,10 +446,14 @@ function Home() {
 
       <div>
         <div
-          className="floating-help-button"
+          className="floating-help-button bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-12 rounded"
           onClick={() => setShowHelpBox(!showHelpBox)}
         >
-          <SosIcon fontSize="large" />
+          Ajuda
+          <div className='ml-1'>
+            <TipsAndUpdatesIcon />
+          </div>
+
         </div>
         {showHelpBox && <MonitorTip showHelpBox={showHelpBox} problemDescription={problem.description} />}
       </div>
