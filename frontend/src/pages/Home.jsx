@@ -14,6 +14,8 @@ import Typography from '@mui/material/Typography';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import LinearProgress from '@mui/material/LinearProgress';
 import CircularProgress from '@mui/material/CircularProgress';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 import Sidebar from '../components/SidebarMenu';
 import MonitorTip from '../components/MonitorTip';
@@ -149,6 +151,19 @@ function Home() {
 
   const [problemGrid, setProblemGrid] = useState(true);
 
+  const [showAdditionalIcon, setShowAdditionalIcon] = useState(false);
+  const [showAdditionalIcon2, setShowAdditionalIcon2] = useState(false);
+
+  const handleAdditionalIconClick = () => {
+    setShowAdditionalIcon(!showAdditionalIcon);
+  };
+
+  const handleAdditionalIconClick2 = () => {
+    setShowAdditionalIcon2(!showAdditionalIcon2);
+  };
+
+
+
   const handleProblemGrid = () => {
     setProblemGrid(!problemGrid);
   };
@@ -256,63 +271,102 @@ function Home() {
         <Grid container justifyContent="center" spacing={4} className="first-color">
           {/* Problem Grid */}
           {problemGrid && problem && (
-            <Grid item xs={12} md={4}>
-              <div className='mb-4'>
+            <Grid item xs={12} md={4} style={{ backgroundColor: '#03263B', borderRadius: '8px', height: '100vh' }}>
+              <div style={{ backgroundColor: '#CCDCE7', height: '100%', padding: '16px', margin: '8px', borderRadius: '25px' }}>
                 <div className="flex justify-between mb-4">
-                  <h2 className="text-xl font-semibold text-white">Informações do Problema</h2>
-                  <div onClick={() => handleProblemGrid()} style={{ cursor: 'pointer', color: 'white' }}>
-                    <VisibilityIcon />
+                  <h2 style={{ fontFamily: 'Nunito, sans-serif', color: '#24323E', fontSize: '32px' }}>Informações do Problema</h2>
+                  <div
+                    onClick={() => {
+                      handleProblemGrid();
+                      handleAdditionalIconClick(); // Adicione esta linha para controlar a visibilidade do ícone extra
+                    }}
+                    style={{ cursor: 'pointer', color: 'white' }}
+                  >
+                    <ArrowBackIosIcon />
+                  </div>
+
+                </div>
+                {/* Description div */}
+                <div style={{ backgroundColor: '#CCDCE7', height: '40%' }}>
+                  <div style={{ backgroundColor: '#CCDCE7', padding: '10px', height: '98%' }}>
+                    <Typography>{problem.description}</Typography>
                   </div>
                 </div>
-                {/* Description Accordion */}
-                <Accordion expanded={expanded[0]} onChange={handleChange(0)}>
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="description-panel"
-                    id="description-header"
-                  >
-                    <Typography sx={{ fontWeight: 'bold' }}>Descrição</Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Typography>{problem.description}</Typography>
-                  </AccordionDetails>
-                </Accordion>
 
-                {/* Input Format Accordion */}
-                <Accordion expanded={expanded[1]} onChange={handleChange(1)}>
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="input-format-panel"
-                    id="input-format-header"
-                  >
-                    <Typography sx={{ fontWeight: 'bold' }}>Formato de Entrada</Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Typography>{problem.inputFormat}</Typography>
-                  </AccordionDetails>
-                </Accordion>
 
-                {/* Output Format Accordion */}
-                <Accordion expanded={expanded[2]} onChange={handleChange(2)}>
-                  <AccordionSummary
-                    expandIcon={<ExpandMoreIcon />}
-                    aria-controls="output-format-panel"
-                    id="output-format-header"
-                  >
-                    <Typography sx={{ fontWeight: 'bold' }}>Formato de Saída</Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Typography>{problem.outputFormat}</Typography>
-                  </AccordionDetails>
-                </Accordion>
+                <div style={{ backgroundColor: '#BFCFDB', padding: '10px', borderRadius: '25px', border: '2px solid #889CA8', marginBottom: '25px' }}>
+                  {/* Input Format Accordion */}
+                  <div>
+                    <Accordion expanded={expanded[1]} onChange={handleChange(1)} style={{ background: 'transparent', border: 'none', borderRadius: '25px' }}>
+                      <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="input-format-panel"
+                        id="input-format-header"
+                        style={{ borderRadius: '10px 10px 0 0' }}
+                      >
+                        <Typography sx={{ fontWeight: 'bold' }}>Formato de Entrada</Typography>
+                      </AccordionSummary>
+                      <AccordionDetails style={{ borderRadius: '0 0 10px 10px' }}>
+                        <Typography>{problem.inputFormat}</Typography>
+                      </AccordionDetails>
+                    </Accordion>
+                  </div>
+                </div>
+
+
+
+                <div style={{ backgroundColor: '#BFCFDB', padding: '10px', borderRadius: '25px', border: '2px solid #889CA8', marginBottom: '10px' }}>
+                  {/* Output Format Accordion */}
+                  <div>
+                    <Accordion expanded={expanded[2]} onChange={handleChange(2)} style={{ background: 'transparent', border: 'none', borderRadius: '25px' }}>
+                      <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="output-format-panel"
+                        id="output-format-header"
+                      >
+                        <Typography sx={{ fontWeight: 'bold' }}>Formato de Saída</Typography>
+                      </AccordionSummary>
+                      <AccordionDetails>
+                        <Typography>{problem.outputFormat}</Typography>
+                      </AccordionDetails>
+                    </Accordion>
+                  </div>
+                </div>
               </div>
             </Grid>
           )}
 
           {/* Code Editor */}
-          <Grid item xs={12} md={problemGrid ? executeGrid ? 4 : 6 : 8}>
+          <Grid item xs={12} md={problemGrid ? executeGrid ? 4 : 6 : 8} style={{ backgroundColor: 'green' }}>
+
             <div>
-              <h2 className="text-xl font-semibold text-white mb-4">Sua solução</h2>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                {showAdditionalIcon && (
+                  <div
+                    onClick={() => {
+                      handleProblemGrid();
+                      handleAdditionalIconClick();
+                    }}
+                    style={{ cursor: 'pointer', color: 'white', marginRight: '10px', marginBottom: '15px' }}
+                  >
+                    <ArrowForwardIosIcon />
+                  </div>
+                )}
+                <h2 className="text-xl font-semibold text-white mb-4">Sua solução</h2>
+
+                {showAdditionalIcon2 && (
+                  <div
+                    onClick={() => {
+                      handleExecuteGrid();
+                      handleAdditionalIconClick2();
+                    }}
+                    style={{ cursor: 'pointer', color: 'white', marginLeft: 'auto', marginBottom: '15px' }}
+                  >
+                    <ArrowBackIosIcon />
+                  </div>
+                )}
+
+              </div>
               <CodeMirror
                 value={code}
                 height="400px"
@@ -343,9 +397,17 @@ function Home() {
           {executeGrid && <Grid item xs={12} md={4}>
             <div>
               <div className="flex justify-between">
-                <h2 className="text-xl font-semibold text-white mb-4">Execução</h2>
-                <div onClick={() => handleExecuteGrid()} style={{ cursor: 'pointer', color: 'white' }}>
-                  <VisibilityIcon />
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <div
+                    onClick={() => {
+                      handleExecuteGrid();
+                      handleAdditionalIconClick2();
+                    }}
+                    style={{ cursor: 'pointer', color: 'white', marginRight: '10px', marginBottom: '15px' }}
+                  >
+                    <ArrowForwardIosIcon />
+                  </div>
+                  <h2 className="text-xl font-semibold text-white mb-4">Execução</h2>
                 </div>
               </div>
               <textarea
