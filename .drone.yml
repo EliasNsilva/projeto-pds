@@ -10,7 +10,7 @@ steps:
     registry: 716814888065.dkr.ecr.us-east-2.amazonaws.com
     region: us-east-2
     context: ./backend
-    dockerfile: Dockerfile
+    dockerfile: ./backend/Dockerfile
     tags:
       - backend
 
@@ -21,7 +21,7 @@ steps:
     registry: 716814888065.dkr.ecr.us-east-2.amazonaws.com
     region: us-east-2
     context: ./frontend
-    dockerfile: Dockerfile
+    dockerfile: ./frontend/Dockerfile
     tags:
       - frontend      
 
