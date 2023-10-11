@@ -3,7 +3,7 @@ type: kubernetes
 name: standard-pipeline
 
 steps:
-- name: build-image
+- name: build-backend-image
   image: plugins/ecr
   settings:
     repo: pds-2023-1-06
@@ -14,7 +14,7 @@ steps:
     tags:
       - backend
 
-- name: build-image
+- name: build-frontend-image
   image: plugins/ecr
   settings:
     repo: pds-2023-1-06
