@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 DEBUG = config('DEBUG', default=False, cast=bool)
 SECRET_KEY = config('SECRET_KEY')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['pds-2023-1-06.edge.net.br', 'localhost']
 
 
 # Application definition
@@ -42,7 +42,6 @@ INSTALLED_APPS = [
     'app.storage',
     'rest_framework',
     'drf_yasg',
-    #botei isso aqui tbm
     'corsheaders'
 ]
 
@@ -62,6 +61,8 @@ MIDDLEWARE = [
 #não tenho certeza se é isso mesmo
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
+    'http://pds-2023-1-06.edge.net.br/',
+    'http://pds-2023-1-06.edge.net.br:8006/',
 ]
 
 ROOT_URLCONF = 'api.urls'
