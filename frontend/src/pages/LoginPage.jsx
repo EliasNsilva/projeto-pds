@@ -49,7 +49,7 @@ export default function Login() {
 
       const data = await response.json();
       console.log(data)
-      if (data.access_token) {
+      if (data.login_response.access_token) {
         toast.success('Login realizado com sucesso');
         localStorage.setItem('token', data.access_token);
         localStorage.setItem('username', JSON.stringify(data.username));
