@@ -44,7 +44,7 @@ urlpatterns = [
     path('login/',LoginView.as_view(),name='login'),
     path('huxley/list/',ListQuestions.as_view(),name='ListQuestions'),
     path('huxley/submission/<int:problem_id>', SubmissionView.as_view(), name='submission'),
-    path(r'huxley/problem/<int:problem_id>', HuxleyProblemView.as_view(), name='huxley-probems'),
+    path('huxley/problem/<int:problem_id>', HuxleyProblemView.as_view(), name='huxley-probems'),
     path('huxley/submission/<int:problem_id>/last/', HuxleyLastSubmissionView.as_view(), name='last-submission'),
     path('gpt/', GptApiView.as_view(), name='gpt-conversation')
 ]
