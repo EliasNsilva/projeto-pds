@@ -26,10 +26,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 DEBUG = config('DEBUG', default=False, cast=bool)
 SECRET_KEY = config('SECRET_KEY')
 
-ALLOWED_HOSTS = ['pds-2023-1-06.edge.net.br', 
-                'http://pds-2023-1-06.edge.net.br:9006/',
-                'localhost',]
-
+# ALLOWED_HOSTS = ['pds-2023-1-06.edge.net.br', 
+#                 'http://pds-2023-1-06.edge.net.br:9006/',
+#                 'localhost',]
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -55,12 +55,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    #coloquei isso aqui (tulio)
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware'
 ]
 
-#não tenho certeza se é isso mesmo
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'http://pds-2023-1-06.edge.net.br/',
