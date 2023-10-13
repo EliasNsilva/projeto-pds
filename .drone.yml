@@ -1,0 +1,37 @@
+kind: pipeline
+type: kubernetes
+name: standard-pipeline
+
+steps:
+- name: build-backend-image
+  image: plugins/ecr
+  settings:
+    repo: pds-2023-1-06
+    registry: 716814888065.dkr.ecr.us-east-2.amazonaws.com
+    region: us-east-2
+    context: ./backend
+    dockerfile: ./backend/Dockerfile
+    tags:
+      - backend
+
+- name: build-frontend-image
+  image: plugins/ecr
+  settings:
+    repo: pds-2023-1-06
+    registry: 716814888065.dkr.ecr.us-east-2.amazonaws.com
+    region: us-east-2
+    context: ./frontend
+    dockerfile: ./frontend/Dockerfile
+    tags:
+      - frontend      
+
+tolerations:
+- dedicated: jenkinsAgents
+  operator: Exists
+  effect: NoSchedule
+
+trigger:
+  branch:
+    - main
+  event:
+    - push
