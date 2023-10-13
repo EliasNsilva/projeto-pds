@@ -51,9 +51,10 @@ export default function Login() {
       console.log(data)
       if (data.login_response.access_token) {
         toast.success('Login realizado com sucesso');
-        localStorage.setItem('token', data.access_token);
-        localStorage.setItem('username', JSON.stringify(data.username));
-        localStorage.setItem('email', JSON.stringify(formData.username));
+        localStorage.setItem('token', data.login_response.access_token);
+        localStorage.setItem('username', JSON.stringify(data.login_response.username));
+        localStorage.setItem('email', JSON.stringify(data.user_response.email));
+        localStorage.setItem('avatar', JSON.stringify(data.user_response.avatar));
 
         setTimeout(() => {
           navigate('/problems');

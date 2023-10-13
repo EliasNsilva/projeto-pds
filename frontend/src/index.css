@@ -17,3 +17,42 @@
 .fourth-color { 
 	background: #e3e3e3; 
 }
+
+@layer components {
+  .all-\[unset\] {
+    all: unset;
+  }
+}
+
+:root {
+  --bot-o: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
+  --branco: rgba(255, 255, 255, 1);
+  --cinzas-100: rgba(175, 187, 184, 1);
+  --escuros-100: rgba(177, 201, 215, 1);
+  --escuros-200: rgba(83, 117, 137, 1);
+  --escuros-300: rgba(48, 67, 81, 1);
+  --escuros-400: rgba(2, 32, 50, 1);
+  --escuros-50: rgba(204, 220, 231, 1);
+  --escuros-500: rgba(36, 50, 62, 1);
+  --escuros-700: rgba(30, 30, 30, 1);
+  --escuros-900: rgba(11, 12, 16, 1);
+  --nivelaprimria-2: rgba(50, 194, 185, 1);
+  --paragraph-p2-semi-bold-font-family: "Inter-SemiBold", Helvetica;
+  --paragraph-p2-semi-bold-font-size: 16px;
+  --paragraph-p2-semi-bold-font-style: normal;
+  --paragraph-p2-semi-bold-font-weight: 600;
+  --paragraph-p2-semi-bold-letter-spacing: 0px;
+  --paragraph-p2-semi-bold-line-height: 19px;
+  --principalazul: rgba(3, 38, 59, 1);
+  --principalverde: rgba(41, 192, 155, 1);
+  --principalverde-escuro: rgba(27, 136, 109, 1);
+  --accordion-bg: rgba(191, 207, 219, 1);
+  --accordion-border: rgba(136, 156, 168, 1);
+  --shades-0: rgba(255, 255, 255, 1);
+  --text-md-semibold-font-family: "Inter-SemiBold", Helvetica;
+  --text-md-semibold-font-size: 16px;
+  --text-md-semibold-font-style: normal;
+  --text-md-semibold-font-weight: 600;
+  --text-md-semibold-letter-spacing: 0px;
+  --text-md-semibold-line-height: 24px;
+}

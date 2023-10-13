@@ -12,7 +12,7 @@ const handleLogout = () => {
     localStorage.removeItem('email');
 }
 
-export default function Sidebar({ handleProblemGrid, handleExecuteGrid }) {
+export default function Sidebar() {
     const location = useLocation();
     const navigate = useNavigate();
 

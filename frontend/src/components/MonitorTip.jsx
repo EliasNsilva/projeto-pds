@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-import "./MonitorTip.css";
 
-function MonitorTip({ showHelpBox, problemDescription }) {
-  const [monitorTips, setMonitorTips] = useState([]);
+function MonitorTip({ monitorTips, handleMonitorTips, problemDescription }) {
 
   useEffect(() => {
     // Fetch na api pedindo dicas
@@ -23,33 +21,29 @@ function MonitorTip({ showHelpBox, problemDescription }) {
         });
         const data = await response.json();
         const tips = data.response.split("\n");
-        setMonitorTips(tips);
+        handleMonitorTips(tips);
         console.log(data);
       } catch (error) {
         console.log(error);
       }
     };
-    fetchTips();
+
+    if(monitorTips.length === 0) fetchTips();
   }, []);
 
   return (
-    <div className="help-box">
-      {/* Conteúdo do monitor de ajuda pro chatgpt */}
-      <div className="help-box-content">
-        <h2 className="help-box-title">Monitor<span className="tip" /></h2>
-        <div className="divider"></div>
-        <ul>
-          {monitorTips.map((tip, index) => {
-            if (tip === "") return null;
-            return (
-              <li key={index}>
-                {tip}
-              </li>
-            )
-          })}
-        </ul>
-      </div>
-    </div>
+    <>
+      <ul>
+        {monitorTips.map((tip, index) => {
+          if (tip === "") return null;
+          return (
+            <li key={index}>
+              {tip}
+            </li>
+          )
+        })}
+      </ul>
+    </>
   );
 }
 
