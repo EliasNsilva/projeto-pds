@@ -1,6 +1,7 @@
 .problems-container {
-    background: #233142;
+    background: #F6F6F6;
     min-height: 100vh;
+    overflow-y: auto;
 }
 
 .content-container {
@@ -73,8 +74,9 @@
 
 .difficulty-select,
 .list-select {
-    width: 100%;
-    height: 30px;
+    width: 80%;
+    height: 50px;
+    background: #FFFFFF;
 }
 
 .table-container {

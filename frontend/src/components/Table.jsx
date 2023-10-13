@@ -38,7 +38,7 @@ const Table = ({ data, columns, itemsPerPage = 10 }) => {
         setCurrentPage(totalPages);
     };
 
-// cores pros levels
+    // cores pros levels
     const renderLevelIcon = (level) => {
         let icon = '';
         let color = '';
@@ -75,6 +75,23 @@ const Table = ({ data, columns, itemsPerPage = 10 }) => {
         );
     };
 
+    const renderLevelColor = (level) => {
+        switch (level) {
+            case 1.0:
+                return '#77D9C1';
+            case 2.0:
+                return 'blue';
+            case 3.0:
+                return 'yellow';
+            case 4.0:
+                return '#FFAC60';
+            case 5.0:
+                return 'red';
+            default:
+                return 'gray'; // ou qualquer outra cor padrão que você deseje
+        }
+    };
+
 
     const renderStatusIcon = (status) => {
         let icon = '';
@@ -106,72 +123,60 @@ const Table = ({ data, columns, itemsPerPage = 10 }) => {
 
 
 
+
     return (
-        <div>
-            <table style={{ width: '100%', borderCollapse: 'collapse' }}>
-                <thead>
-                    <tr>
-                        {columns.map((column, index) => (
-                            <th key={index} style={{ borderBottom: '1px solid #ddd', padding: '8px', textAlign: 'left' }}>
-                                {column.header}
-                            </th>
-                        ))}
-                    </tr>
-                </thead>
-                <tbody>
-                    {visibleData.map((row, rowIndex) => (
-                        <tr key={rowIndex}>
-                            {columns.map((column, columnIndex) => (
-                                <td
-                                    key={columnIndex}
-                                    style={{
-                                        borderBottom: '1px solid #ddd',
-                                        padding: '8px',
-                                        textAlign: column.accessor === 'level' ? 'center' : 'left', 
-                                    }}
-                                >
-                                    {column.accessor === 'level'
-                                        ? renderLevelIcon(row[column.accessor])
-                                        : column.accessor === 'status'
-                                            ? renderStatusIcon(row[column.accessor])
-                                            : (
-                                                <Link
-                                                    to={`/problems/${row.id}`}
-                                                    style={{
-                                                        textDecoration: 'none',
-                                                        color: 'inherit',
-                                                    }}
-                                                    className="link"
-                                                >
+        <div style={{ width: '100%', backgroundColor: '#F6F6F6' }}>
+            {visibleData.map((row, rowIndex) => (
+                <div key={rowIndex} style={{ display: 'flex', borderRadius: '14px', border: '2px solid #D0D5DD', padding: '0px 0px 0px 0', height: '125px', backgroundColor: '#FFFFFF', marginBottom: '10px' }}>
+                    <div style={{ flex: 1, display: 'flex', alignItems: 'stretch', backgroundColor: '#FFFFFF', borderRadius: '14px' }}>
 
-                                                    {column.accessor === 'topics'
-                                                        ? row[column.accessor].length > 30
-                                                            ? row[column.accessor].substring(0, 30) + '...' // Limita a 30 caracteres
-                                                            : row[column.accessor]
-                                                        : column.accessor === 'name' 
-                                                            ? row[column.accessor].length > 30
-                                                                ? row[column.accessor].substring(0, 30) + '...' // Limita a 30 caracteres pra nao virar bagunca
-                                                                : row[column.accessor]
-                                                            : row[column.accessor]}
-                                                </Link>
-                                            )}
-                                </td>
-                            ))}
+                        <div style={{ flex: 0.025, textAlign: 'center', backgroundColor: renderLevelColor(row['level']), borderTopLeftRadius: '14px', borderBottomLeftRadius: '14px' }}></div>
 
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
-            <div style={{ marginTop: '20px', textAlign: 'center' }}>
+                        <div style={{ flex: 0.8, marginLeft: '40px', backgroundColor: '#FFFFFF', borderRadius: '14px', display: 'flex', flexDirection: 'column', alignItems: 'left' }}>
+                            <div style={{marginBottom: '5px', backgroundColor: '#FFFFFF', marginTop: '30px', color: '#6B8392', fontFamily: 'Inter, sans-serif', fontSize: '17px' }}>
+                                Nome:
+                            </div>
+                            <div style={{ backgroundColor: '#FFFFFF' }}>
+                                <Link to={`/problems/${row.id}`} style={{ color: '#475861', fontFamily: 'Inter, sans-serif', fontSize: '19px', fontWeight: 'bold' }}>
+                                    {row['name'].length > 40 ? row['name'].substring(0, 30) + '...' : row['name']}
+                                </Link>
+                            </div>
+                        </div>
+
+                        <div style={{ flex: 0.01, backgroundColor: '#FFFFFF', borderLeft: '2px solid #9BACB6', marginBottom: '20px', marginTop: '20px' }}>
+                        </div>
+
+                        <div style={{ flex: 0.8, marginLeft: '10px', backgroundColor: '#FFFFFF', borderRadius: '14px', display: 'flex', flexDirection: 'column', alignItems: 'left' }}>
+                            <div style={{ marginBottom: '5px', backgroundColor: '#FFFFFF', marginTop: '30px', color: '#6B8392', fontFamily: 'Inter, sans-serif', fontSize: '17px'  }}>
+                                Tópicos:
+                            </div>
+                            <div style={{ backgroundColor: '#FFFFFF', display: 'flex', flexDirection: 'row' }}>
+                                {row['topics'].split(',').slice(0, 5).map((topic, index) => (
+                                    <div key={index} style={{ marginRight: '10px', backgroundColor: '#E5E8EA', borderRadius: '18px', padding: '3px' }}>{topic.trim()}</div>
+                                ))}
+                                {row['topics'].split(',').length > 5 && <div style={{ marginRight: '10px', backgroundColor: '#E5E8EA', borderRadius: '18px', padding: '3px' }}>...</div>}
+                            </div>
+                        </div>
+
+
+
+
+                        <div style={{ flex: 0.1, marginLeft: '10px', textAlign: 'center', backgroundColor: '#FFFFFF', borderRadius: '14px' }}>
+                            {renderStatusIcon(row['status'])}
+                        </div>
+                    </div>
+                </div>
+            ))}
+            <div style={{ marginTop: '20px', textAlign: 'center', backgroundColor: '#F6F6F6', marginBottom: '20px' }}>
                 <button onClick={handleFirstPage} disabled={currentPage === 1} style={{ marginRight: '10px' }}><FirstPageIcon /></button>
                 <button onClick={handlePrevPage} disabled={currentPage === 1} style={{ marginRight: '10px' }}><NavigateBeforeIcon /></button>
                 <span style={{ margin: '0 10px' }}>{`Página ${currentPage} de ${totalPages}`}</span>
                 <button onClick={handleNextPage} disabled={currentPage === totalPages} style={{ marginRight: '10px' }}><NavigateNextIcon /></button>
                 <button onClick={handleLastPage} disabled={currentPage === totalPages}><LastPageIcon /></button>
             </div>
-
         </div>
     );
+
 };
 
 export default Table;
