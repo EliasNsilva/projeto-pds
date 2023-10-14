@@ -24,28 +24,28 @@ const Problems = () => {
     const topics = ['Tópico 1', 'Tópico 2', 'Tópico 3', 'Tópico 4', 'Tópico 5'];
 
     // pegaa dados da API
-    const fetchProblemData = async () => {
-        console.log(selectedDifficulty);
-        try {
-            const response = await fetch(`http://localhost:8000/huxley/list/?20max=10&format=json&offset=1&problemType=ALGORITHM&difficulty=${selectedDifficulty}`);
-            if (!response.ok) {
-                throw new Error('Failed to fetch data');
-            }
-            const data = await response.json();
-
-            // Filtro para selecionar o nível de dificuldade
-            const filteredData = data.filter(problem => {
-                if (selectedDifficulty === 'todos') {
-                    return true;
-                }
-                return parseFloat(selectedDifficulty) === problem.nd;
-            });
-
-            setProblemData(filteredData);
-        } catch (error) {
-            console.error('Error fetching data:', error);
+    const fetchProblemData = async (offset) => {
+    console.log(selectedDifficulty);
+    try {
+        const response = await fetch(`https://www.thehuxley.com/api/v1/problems?max=10&offset=${offset}&problemType=ALGORITHM&difficulty=${selectedDifficulty}`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch data');
         }
-    };
+        const data = await response.json();
+
+        // Filtro para selecionar o nível de dificuldade
+        const filteredData = data.filter(problem => {
+            if (selectedDifficulty === 'todos') {
+                return true;
+            }
+            return parseFloat(selectedDifficulty) === problem.nd;
+        });
+
+        setProblemData(filteredData);
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+};
 
     const handleDifficultyChange = (event) => {
         setSelectedDifficulty(event.target.value);
