@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
-import Table from '../components/Table';
-import SidebarMenu from '../components/SidebarMenu';
 import './Problems.css';
-import { Divider } from '@mui/material';
+import Table from '../components/Table';
+
+import SearchIcon from '@mui/icons-material/Search';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
+
 
 const columns = [
     { header: '', accessor: 'level' },
@@ -21,28 +24,28 @@ const Problems = () => {
     const topics = ['Tópico 1', 'Tópico 2', 'Tópico 3', 'Tópico 4', 'Tópico 5'];
 
     // pegaa dados da API
-    const fetchProblemData = async () => {
-        console.log(selectedDifficulty); 
-        try {
-            const response = await fetch(`https://www.thehuxley.com/api/v1/problems?max=40&offset=0&problemType=ALGORITHM&difficulty=${selectedDifficulty}`);
-            if (!response.ok) {
-                throw new Error('Failed to fetch data');
-            }
-            const data = await response.json();
-
-            // Filtro para selecionar o nível de dificuldade
-            const filteredData = data.filter(problem => {
-                if (selectedDifficulty === 'todos') {
-                    return true; 
-                }
-                return parseFloat(selectedDifficulty) === problem.nd;
-            });
-
-            setProblemData(filteredData);
-        } catch (error) {
-            console.error('Error fetching data:', error);
+    const fetchProblemData = async (offset) => {
+    console.log(selectedDifficulty);
+    try {
+        const response = await fetch(`https://www.thehuxley.com/api/v1/problems?max=10&offset=${offset}&problemType=ALGORITHM&difficulty=${selectedDifficulty}`);
+        if (!response.ok) {
+            throw new Error('Failed to fetch data');
         }
-    };
+        const data = await response.json();
+
+        // Filtro para selecionar o nível de dificuldade
+        const filteredData = data.filter(problem => {
+            if (selectedDifficulty === 'todos') {
+                return true;
+            }
+            return parseFloat(selectedDifficulty) === problem.nd;
+        });
+
+        setProblemData(filteredData);
+    } catch (error) {
+        console.error('Error fetching data:', error);
+    }
+};
 
     const handleDifficultyChange = (event) => {
         setSelectedDifficulty(event.target.value);
@@ -65,69 +68,126 @@ const Problems = () => {
         }
     };
 
+
+
     return (
         <Grid container direction="column" className="problems-container rounded">
-            {/* Menu sidebar */}
-            <SidebarMenu />
+            <Grid
+                container
+                item
+                direction="column"
+                style={{
+                    background: '#F6F6F6',
+                    height: '90vh',
+                    width: '90vw',
+                    margin: '5vh auto',
+                    padding: '20px',
+                    position: 'relative'
+                }}
+            >
+                <Grid
+                    container
+                    item
+                    style={{
+                        background: '#F6F6F6',
+                        height: '10vh',
+                        width: '100%',
+                        position: 'absolute',
+                        top: '0',
+                        left: '0',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                    }}
+                >
+                    {/* Título */}
+                    <div style={{
+                        fontSize: '24px',
+                        fontWeight: '700',
+                        color: '#022032',
+                        marginBottom: '5px',
+                        fontFamily: 'Nunito'
+                    }}>
+                        Problemas
+                    </div>
 
-            {/* Container for the Grids */}
-            <Grid container item className="content-container rounded">
-                <Grid item xs={12} className="page-title rounded">
-                    <h3 className='text-base font-bold pb-2'>Problemas</h3>
-                    <Divider />
-                </Grid>
-
-                {/* Left Grid with narrower width */}
-                <Grid item xs={12} sm={4} className="filters-container">
-                    <div className="filter-box">
-                        <h3 className='filter-text text-base font-bold'>Filtros</h3>
-                        <input
-                            className="filter-input text-base font-bold pb-2 pt-2 rounded"
-                            placeholder="Nome do problema"
-                        ></input>
-                        <button className="toggle-topics-button text-base font-bold rounded" onClick={toggleTopics}>
-                            Selecionar Tópicos
-                        </button>
-                        {showTopics && (
-                            <div className="topic-list">
-                                {topics.map((topic) => (
-                                    <div key={topic} className="topic-item">
-                                        <label className="topic-label">
-                                            <input
-                                                type="checkbox"
-                                                onChange={() => toggleTopic(topic)}
-                                                checked={selectedTopics.includes(topic)}
-                                            />
-                                            {topic}
-                                        </label>
-                                    </div>
-                                ))}
-                            </div>
-                        )}
-                        <div className="filter-select">
-                            <h3 className='text-base font-bold pb-1'>Nível de dificuldade</h3>
-                            <select className="difficulty-select rounded" onChange={handleDifficultyChange} value={selectedDifficulty}>
-                                <option value="todos">Todos</option>
-                                <option value="1">Iniciante</option>
-                                <option value="2">Fácil</option>
-                                <option value="3">Médio</option>
-                                <option value="4">Avançado</option>
-                                <option value="5">Expert</option>
-                            </select>
-                        </div>
-                        <div className="filter-select">
-                            <h3 className='text-base font-bold pb-1'>Listar</h3>
-                            <select className="list-select rounded">
-                                <option value="todos">Todos</option>
-                                <option value="naoResolvidos">Não resolvidos</option>
-                            </select>
-                        </div>
+                    {/* Subtítulo */}
+                    <div style={{
+                        fontSize: '16px',
+                        fontWeight: '500',
+                        color: '#667085'
+                    }}>
+                        Veja todos os problemas cadastrados
                     </div>
                 </Grid>
 
-                {/* Right Grid */}
-                <Grid item xs={12} sm={8} className="table-container">
-                    <div className="table-wrapper">
+                {/* Novo Grid Azul */}
+                <Grid
+                    container
+                    item
+                    style={{
+                        background: '#FFFFFF',
+                        height: '3vh',
+                        width: '100%',
+                        display: 'flex',
+                        justifyContent: 'space-around',
+                        position: 'absolute',
+                        top: '10vh',
+                        left: '0',
+                    }}
+                >
+                    {/* Três Divs Alinhadas Lateralmente na regiao de botoes e pesquisa*/}
+                    <div style={{ background: '#FFFFFF', flex: '2', display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderRadius: '8px', border: '2px solid #D0D5DD' }}>
+                        <button style={{ margin: '2px', padding: '4px', backgroundColor: '#FFFFFF', border: 'none', cursor: 'pointer' }}>
+                            <SearchIcon />
+                        </button>
+                        <textarea
+                            style={{ flex: '1', margin: '2px', padding: '4px', resize: 'none', backgroundColor: '#FFFFFF', textAlign: 'left', lineHeight: 'normal', outline: 'none' }}
+                            placeholder="Pesquise pelo nome do problema"
+                        ></textarea>
+                    </div>
+
+                    <div style={{ background: '#FFFFFF', marginLeft: '8px', flex: '0.5', alignItems: 'center', justifyContent: 'space-between', borderRadius: '8px', border: '2px solid #D0D5DD' }}>
+                        <button style={{ margin: '2px', padding: '4px', backgroundColor: '#FFFFFF', border: 'none', cursor: 'pointer' }}>
+                            <LightModeIcon />
+                        </button>
+                        <select className="difficulty-select rounded" onChange={handleDifficultyChange} value={selectedDifficulty}>
+                            <option value="todos">Todos</option>
+                            <option value="1">Iniciante</option>
+                            <option value="2">Fácil</option>
+                            <option value="3">Médio</option>
+                            <option value="4">Avançado</option>
+                            <option value="5">Expert</option>
+                        </select>
+                    </div>
+
+                    <div style={{ background: '#FFFFFF', marginLeft: '8px', flex: '0.5', alignItems: 'center', justifyContent: 'space-between', borderRadius: '8px', border: '2px solid #D0D5DD' }}>
+                        <button style={{ margin: '2px', padding: '4px', backgroundColor: '#FFFFFF', border: 'none', cursor: 'pointer' }}>
+                            <FormatListBulletedIcon />
+                        </button>
+                        <select className="list-select rounded">
+                            <option value="todos">Todos</option>
+                            <option value="naoResolvidos">Não resolvidos</option>
+                        </select>
+                    </div>
+                </Grid>
+
+                <Grid
+                    container
+                    item
+                    style={{
+                        background: '#F6F6F6',
+                        height: '70vh',
+                        width: '100%',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'left',
+                        position: 'absolute',
+                        top: '18vh',
+                        left: '0',
+                    }}
+                >
+                    <div>
                         {/* Table */}
                         <Table data={problemData.map((problem) => ({
                             level: problem.nd,
@@ -138,9 +198,13 @@ const Problems = () => {
                         }))} columns={columns} />
                     </div>
                 </Grid>
+
+
+
             </Grid>
         </Grid>
     );
+
 }
 
 export default Problems;

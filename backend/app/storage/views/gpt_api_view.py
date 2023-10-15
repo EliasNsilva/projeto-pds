@@ -40,15 +40,20 @@ class GptApiView(APIView):
 
         behaviors = {
             1 : 'Você irá somente dar dicas simples, não forneca código corrigido',
-            2 : 'Explique tipo do erro sem fornecer nem um tipo de código',
+            2 : 'Dada a descrição do problema, a entrada e saída e o código com erro, explique passo a passo como corrigir o código levando também em consideração, porém, sem fornecer o código corrigido.',
             3 : 'Explique linha a linha do código de forma resumida'
         }
 
         chat = openai.ChatCompletion.create(
-            model='gpt-3.5-turbo',
+            model='gpt-4',
             messages=[{"role": "system", "content": behaviors[gptBehavior]},
                         {"role": "user", "content": userMsg}
-            ]
+            ],
+            temperature=0,
+            max_tokens=1024,
+            top_p=1,
+            frequency_penalty=0,
+            presence_penalty=0
         )
         response = chat["choices"][0]["message"]["content"]
         return Response(data={'response':response})
