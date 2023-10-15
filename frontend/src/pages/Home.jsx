@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import CodeMirror from '@uiw/react-codemirror';
 import { cpp } from '@codemirror/lang-cpp';
 import Button from '@mui/material/Button';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Grid from '@mui/material/Grid';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -11,8 +10,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Typography from '@mui/material/Typography';
 import CircularProgress from '@mui/material/CircularProgress';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { VisibilityOutlined, VisibilityOffOutlined } from '@mui/icons-material';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import TabPanel from '@mui/lab/TabPanel';
@@ -24,6 +22,7 @@ import Sidebar from '../components/SidebarMenu';
 import MonitorTip from '../components/MonitorTip';
 import toast from 'react-hot-toast';
 import { tokyoNight } from '@uiw/codemirror-theme-tokyo-night';
+import { tokyoNightStorm } from '@uiw/codemirror-theme-tokyo-night-storm';
 
 
 function Home() {
@@ -33,7 +32,7 @@ function Home() {
   const [code, setCode] = useState(`#include <stdio.h>\n\nint main() {\n\tprintf("Hello World!");\n\treturn 0;\n}`);
   const [expanded, setExpanded] = useState([true, true, true]);
   const [problemGrid, setProblemGrid] = useState(true);
-  const [showAdditionalIcon, setShowAdditionalIcon] = useState(false);
+  const [executionGrid, setExecutionGrid] = useState(true);
   const [executeText, setExecuteText] = useState({ executeinput: "", executeoutput: "" });
   const [trueTestCases, setTrueTestCases] = useState([]);
   const [falseTestCases, setFalseTestCases] = useState([]);
@@ -88,7 +87,7 @@ function Home() {
         + textArea.scrollHeight
         + parseInt(computed.getPropertyValue("padding-bottom"), 10)
         + parseInt(computed.getPropertyValue("border-bottom-width"), 10);
-      textArea.style.height = height + "px";
+      textArea.style.height = height - 10 + "px";
     }
   }, [testCaseTip])
 
@@ -160,13 +159,13 @@ function Home() {
     setExpanded(newExpanded);
   };
 
-  const handleAdditionalIconClick = () => {
-    setShowAdditionalIcon(!showAdditionalIcon);
-  };
-
   const handleProblemGrid = () => {
     setProblemGrid(!problemGrid);
   };
+
+  const handleExecutionGrid = () => {
+    setExecutionGrid(!executionGrid);
+  }
 
   const handleExecuteText = (id, value) => {
     setExecuteText({ ...executeText, [id]: value });
@@ -185,7 +184,6 @@ function Home() {
     setMonitorTips(newValue);
   }
 
-  // Test cases
   const falseTestCaseTip = async (testCase) => {
     setTestCaseLoading(true)
     //console.log(testCase)
@@ -250,21 +248,22 @@ function Home() {
         <Grid container justifyContent="center" spacing={2} className="bg-principalazul">
           {/* Problem Grid */}
           {problemGrid && problem && (
-            <Grid item xs={12} md={4}>
-              <div className="bg-escuros-50 p-4 m-2 rounded-3xl border-25">
-                <div className="flex justify-between mb-4">
-                  <h2 className="font-nunito text-2xl">Informações do Problema</h2>
+            <Grid item xs={12} md={3}>
+              <div className="bg-escuros-50 p-4 rounded-3xl">
+                <div className="flex justify-between mb-2">
+                  <h2 className="text-xl font-semibold">Informações do Problema</h2>
                   <div
+                    className="inline-flex items-center gap-[0.4rem] flex-[0_0_auto] mt-1 cursor-pointer"
                     onClick={() => {
                       handleProblemGrid();
-                      handleAdditionalIconClick();
-                    }}
-                    className="cursor-pointer text-white"
-                  >
-                    <ArrowBackIosIcon />
+                    }}>
+                    <VisibilityOffOutlined className="relative text-principalverde-escuro" />
+                    <div className="text-center [font-family:'Inter-SemiBold',Helvetica] tracking-[0] text-[1.0rem] text-principalverde-escuro font-semibold whitespace-nowrap relative">
+                      <>Ocultar</>
+                    </div>
                   </div>
                 </div>
-                <div className='mb-2'>
+                <div className='p-2'>
                   <Typography>{problem.description}</Typography>
                 </div>
                 <div>
@@ -283,7 +282,7 @@ function Home() {
                         aria-controls="input-format-panel"
                         id="input-format-header"
                       >
-                        <Typography className="font-bold text-center">Formato de Entrada</Typography>
+                        <h2 className='font-semibold'>Formato de Entrada</h2>
                       </AccordionSummary>
                       <AccordionDetails>
                         <Typography>{problem.inputFormat}</Typography>
@@ -306,8 +305,9 @@ function Home() {
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="output-format-panel"
                         id="output-format-header"
+                        className='py-0'
                       >
-                        <Typography className="font-bold">Formato de Saída</Typography>
+                        <h2 className='font-semibold'>Formato de Saída</h2>
                       </AccordionSummary>
                       <AccordionDetails>
                         <Typography>{problem.outputFormat}</Typography>
@@ -321,12 +321,16 @@ function Home() {
 
           {!problemGrid && problem && (
             <Grid item xs={12} md={1}>
-              <div className="flex flex-col px-[2.6%] py-[2.4%] h-screen overflow-hidden rounded-[2.5rem] relative border border-solid border-escuros-300 items-center gap-[2.5rem] bg-escuros-400">
+              <div className="flex flex-col px-[2.6%] py-[2.4%] h-[calc(100vh-6.5rem)] overflow-hidden rounded-[2.5rem] relative border border-solid border-escuros-300 items-center gap-[2.5rem] bg-escuros-400">
                 <div className="flex-col items-center gap-[1.6rem] flex-[0_0_auto] relative w-full inline-flex">
-                  <div className="inline-flex items-center gap-[0.8rem] flex-[0_0_auto]">
-                    {/* <img className="w-[2.4rem] h-[2.4rem] relative" alt="Visibility off" src="visibility.png" /> */}
-                    <div className="text-center [font-family:'Inter-SemiBold',Helvetica] tracking-[0] text-[0.8rem] text-principalverde-escuro font-semibold leading-[1.4rem] whitespace-nowrap relative">
-                      <>Mostrar</>
+                  <div
+                    className="inline-flex items-center gap-[0.4rem] flex-[0_0_auto] mt-8 cursor-pointer"
+                    onClick={() => {
+                      handleProblemGrid();
+                    }}>
+                    <VisibilityOutlined className="relative text-principalverde-escuro" />
+                    <div className="text-center [font-family:'Inter-SemiBold',Helvetica] tracking-[0] text-[1.0rem] text-principalverde-escuro font-semibold whitespace-nowrap relative">
+                      <>Exibir</>
                     </div>
                   </div>
                 </div>
@@ -334,89 +338,104 @@ function Home() {
                   <>{id}:{problem.name}</>
                 </div>
               </div>
-
-
             </Grid>
           )}
 
           {/* Code Editor */}
-          <Grid item xs={12} md={problemGrid ? 7 : 9}>
+          <Grid item xs={12} md={problemGrid ? 8 : 10}>
             <div>
               <div style={{
                 borderTopLeftRadius: '25px',
                 borderTopRightRadius: '25px',
-                border: '1px solid #304351',
+                borderLeft: '2px solid #304351',
+                borderRight: '2px solid #304351',
+                borderTop: '2px solid #304351',
                 background: '#022032',
-              }} className="flex p-6 items-center">
-                {showAdditionalIcon && (
-                  <div
-                    onClick={() => {
-                      handleProblemGrid();
-                      handleAdditionalIconClick();
-                    }}
-                    className="cursor-pointer text-white mr-4 mb-2"
-                  >
-                    <ArrowForwardIosIcon />
-                  </div>
-                )}
-
-                <div className="flex items-center w-full mb-2">
-                  <div className="flex-1">
-                    <h2 style={{
-                      color: 'var(--escuros-100, #B1C9D7)',
-                      fontFamily: 'Nunito',
-                      fontSize: '32px',
-                      fontStyle: 'normal',
-                      fontWeight: '700',
-                      lineHeight: 'normal',
-                    }}
-                    >
+              }} className="flex p-2 items-center">
+                <div className="flex items-center w-full">
+                  <div className="flex-1 ml-2">
+                    <h2 className="ml-1 justify-center text-[#b1c9d7] [font-family:'Nunito-Bold',Helvetica] flex-col font-bold text-xl text-[1.4rem]">
                       Sua solução
                     </h2>
                   </div>
 
-                  <div className="flex gap-2">
-                    <Button variant="contained" size="small" endIcon={<ArrowForwardIcon />} onClick={handleOfflineHuxley}>
-                      Executar Código
-                    </Button>
-                    <Button variant="contained" size="small" endIcon={<ArrowForwardIcon />} onClick={handleSubmit}>
-                      Enviar Resposta
-                    </Button>
+                  <div className="flex gap-2 mr-2">
+                    <button
+                      onClick={handleOfflineHuxley}
+                      className="rounded-full bg-[#0B3853] hover:bg-[#123E58] focus:outline-none focus:ring focus:ring-primary-verde focus:ring-opacity-50 box-border py-2 px-4 shadow-md text-white relative"
+                    >
+                      <h2 className='antialiased'>Executar código</h2>
+                    </button>
+                    <button
+                      onClick={handleSubmit}
+                      className="rounded-full bg-[#29C09B] hover:bg-[#1A7F63] focus:outline-none focus:ring focus:ring-primary-verde focus:ring-opacity-50 box-border py-2 px-4 shadow-md relative"
+                    >
+                      {submitting ? (
+                        <div className="flex items-center antialiased">
+                          Enviando
+                          <CircularProgress className="ml-2" size={20} sx={{ color: 'black' }} />
+                        </div>
+                      ) : (
+                        "Enviar resposta"
+                      )}
+                    </button>
                   </div>
                 </div>
               </div>
-              <div>
+              <div style={{
+                borderTopLeftRadius: '0px',
+                borderTopRightRadius: '0px',
+                borderLeft: '2px solid #304351',
+                borderRight: '2px solid #304351',
+                borderBottom: '2px solid #304351',
+                marginBottom: '1rem',
+              }}>
                 <CodeMirror
                   value={code}
-                  height="400px"
+                  height={executionGrid ? "calc(90vh - 20rem)" : "calc(90vh - 10rem)"}
                   extensions={cpp()}
                   onChange={onChange}
-                  className="border-2 border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 mb-4"
                   theme={tokyoNight}
+                  className='text-base'
                 />
               </div>
 
               {/* Execution grid */}
-              <TabContext value={tabValue}>
+              {executionGrid && <TabContext value={tabValue}>
                 <div style={{
                   borderRadius: '25px',
-                  border: '1px solid var(--escuros-300, #304351)',
+                  border: '2px solid var(--escuros-300, #304351)',
+                  background: 'var(--escuros-400, #022032)',
+                  color: 'white',
                 }}>
-                  <Tabs
-                    value={tabValue}
-                    onChange={handleTabValue}
-                    aria-label="secondary tabs example"
-                  >
-                    <Tab label="Execução" value="execution" />
-                    <Tab label="Casos de teste" value="test-cases" disabled={!(trueTestCases.length > 0 || falseTestCases.length > 0)} />
-                    <Tab label="Ajuda" value="help" />
-                  </Tabs>
+                  <div className="flex justify-between items-center">
+                    <Tabs
+                      value={tabValue}
+                      onChange={handleTabValue}
+                    >
+                      <Tab label="Execução" value="execution" sx={{ color: 'white' }} />
+                      <Tab label="Casos de teste" value="test-cases" sx={{ color: 'white' }} />
+                      <Tab label="Ajuda" value="help" sx={{ color: 'white' }} />
+                    </Tabs>
+
+                    <div
+                      className="inline-flex items-center gap-[0.4rem] cursor-pointer mr-6"
+                      onClick={() => {
+                        handleExecutionGrid();
+                      }}
+                    >
+                      <div className="text-center [font-family:'Inter-SemiBold',Helvetica] tracking-[0] text-[1.0rem] text-principalverde-escuro font-semibold whitespace-nowrap relative">
+                        <>Ocultar</>
+                      </div>
+                      <VisibilityOffOutlined className="relative text-principalverde-escuro" />
+                    </div>
+                  </div>
 
                   {/* Tab panel (execution) 1 */}
                   <TabPanel value={"execution"} index={0}>
                     <div className="flex justify-center gap-4">
                       <textarea
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 mb-4"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-300 mb-4 bg-[#022032]"
                         rows="4"
                         id="executeinput"
                         name="executeinput"
@@ -428,7 +447,7 @@ function Home() {
                       />
 
                       <textarea
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 mb-4"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-300 mb-4 bg-[#022032]"
                         rows="4"
                         id="executeoutput"
                         name="executeoutput"
@@ -442,6 +461,9 @@ function Home() {
 
                   {/* Tab panel 2 (test-cases) */}
                   <TabPanel value={"test-cases"} index={1}>
+
+                    {!(trueTestCases.length > 0 || falseTestCases.length > 0) && ("Submeta para ver os casos de teste")}
+
                     <div className="flex flex-wrap">
                       {trueTestCases.map((testCase, index) => {
                         return (
@@ -480,7 +502,7 @@ function Home() {
                         <CircularProgress />
                       ) : testCaseTip ? (
                         <textarea
-                          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 mb-4"
+                          className="w-1/2 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-300 mb-4 bg-[#022032]"
                           id="testcasetip"
                           name="testcasetip"
                           placeholder="Dica do caso de teste"
@@ -498,7 +520,29 @@ function Home() {
                     </div>
                   </TabPanel>
                 </div>
-              </TabContext>
+              </TabContext>}
+
+              {!executionGrid && (
+                <Grid item xs={12} md={12}>
+                  <div className="flex px-6 py-4 w-full rounded-[2.5rem] border border-solid border-escuros-300 items-center gap-[1rem] bg-escuros-400">
+                    <div className="justify-center text-[#b1c9d7] [font-family:'Nunito-Bold',Helvetica] flex-col font-bold text-xl text-[1.4rem]">
+                      <>Execução</>
+                    </div>
+
+                    <div className='flex gap-1 mt-0.5'
+                      onClick={() => {
+                        handleExecutionGrid();
+                      }}>
+                      <VisibilityOutlined className="relative text-principalverde-escuro" />
+                      <div className="relative text-center [font-family:'Inter-SemiBold',Helvetica] tracking-[0] text-[1.0rem] text-principalverde-escuro font-semibold">
+                        <>Exibir</>
+                      </div>
+                    </div>
+
+                  </div>
+                </Grid>
+              )}
+
             </div>
           </Grid>
         </Grid>

@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
+import CircularProgress from '@mui/material/CircularProgress';
 
 function MonitorTip({ monitorTips, handleMonitorTips, problemDescription }) {
+
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     // Fetch na api pedindo dicas
     const fetchTips = async () => {
       try {
+        setLoading(true);
         const response = await fetch("http://localhost:8000/gpt/", {
           method: "POST",
           headers: {
@@ -22,6 +26,7 @@ function MonitorTip({ monitorTips, handleMonitorTips, problemDescription }) {
         const data = await response.json();
         const tips = data.response.split("\n");
         handleMonitorTips(tips);
+        setLoading(false);
         console.log(data);
       } catch (error) {
         console.log(error);
@@ -33,7 +38,8 @@ function MonitorTip({ monitorTips, handleMonitorTips, problemDescription }) {
 
   return (
     <>
-      <ul>
+      {loading && <div className="flex justify-center"><CircularProgress /></div>}
+      <ul className="text-white">
         {monitorTips.map((tip, index) => {
           if (tip === "") return null;
           return (
