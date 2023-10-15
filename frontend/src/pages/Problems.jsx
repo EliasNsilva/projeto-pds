@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import './Problems.css';
 import Table from '../components/Table';
-
+import Sidebar from '../components/SidebarMenu';
 import SearchIcon from '@mui/icons-material/Search';
 import LightModeIcon from '@mui/icons-material/LightMode';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
@@ -72,6 +72,7 @@ const Problems = () => {
 
     return (
         <Grid container direction="column" className="problems-container rounded">
+            <Sidebar />
             <Grid
                 container
                 item
@@ -80,11 +81,12 @@ const Problems = () => {
                     background: '#F6F6F6',
                     height: '90vh',
                     width: '90vw',
-                    margin: '5vh auto',
+                    margin: '3vh auto',
                     padding: '20px',
                     position: 'relative'
                 }}
             >
+                
                 <Grid
                     container
                     item
