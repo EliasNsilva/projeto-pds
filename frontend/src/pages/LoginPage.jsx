@@ -230,7 +230,6 @@ export default function Login() {
                             borderTopLeftRadius: '26px',
                             borderBottomLeftRadius: '26px',
                             backgroundImage: `url(${PiOneBACKGROUND})`,
-                            backgroundSize: 'cover',
                             backgroundRepeat: 'no-repeat',
                             backgroundPosition: 'center center',
                             backgroundSize: 'contain',
