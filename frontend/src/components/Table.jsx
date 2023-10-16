@@ -1,80 +1,10 @@
-import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import FirstPageIcon from '@mui/icons-material/FirstPage';
-import LastPageIcon from '@mui/icons-material/LastPage';
-import NavigateNextIcon from '@mui/icons-material/NavigateNext';
-import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import AddTaskIcon from '@mui/icons-material/AddTask';
 import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 
-
-
-const Table = ({ data, columns, itemsPerPage = 10 }) => {
-    const [currentPage, setCurrentPage] = useState(1);
-
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = startIndex + itemsPerPage;
-    const visibleData = data.slice(startIndex, endIndex);
-
-    const totalPages = Math.ceil(data.length / itemsPerPage);
-
-    const handleNextPage = () => {
-        if (currentPage < totalPages) {
-            setCurrentPage(currentPage + 1);
-        }
-    };
-
-    const handlePrevPage = () => {
-        if (currentPage > 1) {
-            setCurrentPage(currentPage - 1);
-        }
-    };
-
-    const handleFirstPage = () => {
-        setCurrentPage(1);
-    };
-
-    const handleLastPage = () => {
-        setCurrentPage(totalPages);
-    };
-
-    // cores pros levels
-    const renderLevelIcon = (level) => {
-        let icon = '';
-        let color = '';
-
-        switch (level) {
-            case 1.0:
-                icon = '●';
-                color = 'green';
-                break;
-            case 2.0:
-                icon = '●';
-                color = 'blue';
-                break;
-            case 3.0:
-                icon = '●';
-                color = 'yellow';
-                break;
-            case 4.0:
-                icon = '●';
-                color = 'orange';
-                break;
-            case 5.0:
-                icon = '●';
-                color = 'red';
-                break;
-            default:
-                break;
-        }
-
-        return (
-            <span style={{ color, textAlign: 'center', display: 'block' }}>
-                {icon}
-            </span>
-        );
-    };
-
+const Table = ({ data, currentPage, totalPages, onPageChange }) => {
     const renderLevelColor = (level) => {
         switch (level) {
             case 1.0:
@@ -88,10 +18,9 @@ const Table = ({ data, columns, itemsPerPage = 10 }) => {
             case 5.0:
                 return 'red';
             default:
-                return 'gray'; // ou qualquer outra cor padrão que você deseje
+                return 'gray';
         }
     };
-
 
     const renderStatusIcon = (status) => {
         let icon = '';
@@ -121,19 +50,16 @@ const Table = ({ data, columns, itemsPerPage = 10 }) => {
         );
     };
 
-
-
-
     return (
-        <div style={{ width: '100%', backgroundColor: '#F6F6F6' }}>
-            {visibleData.map((row, rowIndex) => (
-                <div key={rowIndex} style={{ display: 'flex', borderRadius: '14px', border: '2px solid #D0D5DD', padding: '0px 0px 0px 0', height: '125px', backgroundColor: '#FFFFFF', marginBottom: '10px' }}>
-                    <div style={{ flex: 1, display: 'flex', alignItems: 'stretch', backgroundColor: '#FFFFFF', borderRadius: '14px' }}>
+        <div style={{ width: '100%', maxHeight: '1000px', overflowY: 'auto', marginTop: '10px' }}>
+            {data.map((row, rowIndex) => (
+                <div key={rowIndex} style={{ display: 'flex', borderRadius: '14px', border: '2px solid #D0D5DD', padding: '0px 0px 0px 0', height: '110px', marginBottom: '10px' }}>
+                    <div style={{ flex: 1, display: 'flex', alignItems: 'stretch', borderRadius: '14px' }}>
 
                         <div style={{ flex: 0.025, textAlign: 'center', backgroundColor: renderLevelColor(row['level']), borderTopLeftRadius: '14px', borderBottomLeftRadius: '14px' }}></div>
 
-                        <div style={{ flex: 0.8, marginLeft: '40px', backgroundColor: '#FFFFFF', borderRadius: '14px', display: 'flex', flexDirection: 'column', alignItems: 'left' }}>
-                            <div style={{marginBottom: '5px', backgroundColor: '#FFFFFF', marginTop: '30px', color: '#6B8392', fontFamily: 'Inter, sans-serif', fontSize: '17px' }}>
+                        <div style={{ flex: 0.8, marginLeft: '40px', borderRadius: '14px', display: 'flex', flexDirection: 'column', alignItems: 'left' }}>
+                            <div style={{ marginBottom: '5px', marginTop: '20px', color: '#6B8392', fontFamily: 'Inter, sans-serif', fontSize: '17px' }}>
                                 Nome:
                             </div>
                             <div style={{ backgroundColor: '#FFFFFF' }}>
@@ -143,14 +69,14 @@ const Table = ({ data, columns, itemsPerPage = 10 }) => {
                             </div>
                         </div>
 
-                        <div style={{ flex: 0.01, backgroundColor: '#FFFFFF', borderLeft: '2px solid #9BACB6', marginBottom: '20px', marginTop: '20px' }}>
+                        <div style={{ flex: 0.01, borderLeft: '2px solid #9BACB6', marginBottom: '20px', marginTop: '20px' }}>
                         </div>
 
-                        <div style={{ flex: 0.8, marginLeft: '10px', backgroundColor: '#FFFFFF', borderRadius: '14px', display: 'flex', flexDirection: 'column', alignItems: 'left' }}>
-                            <div style={{ marginBottom: '5px', backgroundColor: '#FFFFFF', marginTop: '30px', color: '#6B8392', fontFamily: 'Inter, sans-serif', fontSize: '17px'  }}>
+                        <div style={{ flex: 0.8, marginLeft: '10px', borderRadius: '14px', display: 'flex', flexDirection: 'column', alignItems: 'left' }}>
+                            <div style={{ marginBottom: '5px', marginTop: '20px', color: '#6B8392', fontFamily: 'Inter, sans-serif', fontSize: '17px' }}>
                                 Tópicos:
                             </div>
-                            <div style={{ backgroundColor: '#FFFFFF', display: 'flex', flexDirection: 'row' }}>
+                            <div style={{ display: 'flex', flexDirection: 'row' }}>
                                 {row['topics'].split(',').slice(0, 5).map((topic, index) => (
                                     <div key={index} style={{ marginRight: '10px', backgroundColor: '#E5E8EA', borderRadius: '18px', padding: '3px' }}>{topic.trim()}</div>
                                 ))}
@@ -158,25 +84,20 @@ const Table = ({ data, columns, itemsPerPage = 10 }) => {
                             </div>
                         </div>
 
-
-
-
-                        <div style={{ flex: 0.1, marginLeft: '10px', textAlign: 'center', backgroundColor: '#FFFFFF', borderRadius: '14px' }}>
+                        <div style={{ flex: 0.1, marginLeft: '10px', textAlign: 'center', borderRadius: '14px' }}>
                             {renderStatusIcon(row['status'])}
                         </div>
                     </div>
                 </div>
             ))}
-            <div style={{ marginTop: '20px', textAlign: 'center', backgroundColor: '#F6F6F6', marginBottom: '20px' }}>
-                <button onClick={handleFirstPage} disabled={currentPage === 1} style={{ marginRight: '10px' }}><FirstPageIcon /></button>
-                <button onClick={handlePrevPage} disabled={currentPage === 1} style={{ marginRight: '10px' }}><NavigateBeforeIcon /></button>
-                <span style={{ margin: '0 10px' }}>{`Página ${currentPage} de ${totalPages}`}</span>
-                <button onClick={handleNextPage} disabled={currentPage === totalPages} style={{ marginRight: '10px' }}><NavigateNextIcon /></button>
-                <button onClick={handleLastPage} disabled={currentPage === totalPages}><LastPageIcon /></button>
+
+            <div className='w-full flex justify-center items-center mb-4'>
+                <button onClick={() => onPageChange(currentPage - 1)} disabled={currentPage === 1} style={{ marginRight: '10px' }}><NavigateBeforeIcon /></button>
+                <span style={{ margin: '0 10px' }}>{`Página ${currentPage}`}</span>
+                <button onClick={() => onPageChange(currentPage + 1)} disabled={currentPage === totalPages} style={{ marginRight: '10px' }}><NavigateNextIcon /></button>
             </div>
         </div>
     );
-
 };
 
 export default Table;

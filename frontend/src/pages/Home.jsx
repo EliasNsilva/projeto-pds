@@ -15,6 +15,8 @@ import Tab from '@mui/material/Tab';
 import TabPanel from '@mui/lab/TabPanel';
 import TabContext from '@mui/lab/TabContext';
 import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
 
 import { htmlToPlainText } from '../utils/utils';
 import Sidebar from '../components/SidebarMenu';
@@ -40,9 +42,61 @@ function Home() {
   const [monitorTips, setMonitorTips] = useState([]);
   const [textAreaHelpHeight, setTextAreaHelpHeight] = useState(0);
 
+  const [modalStatus, setModalStatus] = useState(false);
+  const handleOpenModal = () => setModalStatus(true);
+  const handleCloseModal = () => setModalStatus(false);
+
+  const modalStyle = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 600,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    borderRadius: '25px',
+    boxShadow: 24,
+    p: 4,
+  };
+
   if (!id) {
     return <h1 className='text-center mt-4 font-medium'>Sem problema selecionado</h1>;
   }
+
+  useEffect(() => {
+    const fetchLastSubmission = async () => {
+      const token = localStorage.getItem("token");
+      console.log(id)
+      console.log('Bearer ' + token)
+      try {
+        const response = await fetch(`http://localhost:8000/huxley/submission/${id}/last/`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            token: token,
+          }),
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to fetch last submission data.");
+        }
+
+        const data = await response.json();
+        if(data){
+          setCode(data[0].code)
+        }
+        console.log(data)
+
+      } catch (error) {
+        console.error("An error occurred while fetching last submission data:", error);
+      }
+    }
+
+    fetchLastSubmission()
+  }, []);
+
 
   // Fetch problem details when the 'id' parameter changes
   useEffect(() => {
@@ -412,6 +466,7 @@ function Home() {
                     </button>
                     <button
                       onClick={handleSubmit}
+                      disabled={submitting}
                       className="rounded-full bg-[#29C09B] hover:bg-[#1A7F63] focus:outline-none focus:ring focus:ring-primary-verde focus:ring-opacity-50 box-border py-2 px-4 shadow-md relative"
                     >
                       {submitting ? (
@@ -423,6 +478,38 @@ function Home() {
                         "Enviar resposta"
                       )}
                     </button>
+
+                    <div>
+                      <button
+                        onClick={handleOpenModal}
+                        className="rounded-full bg-[escuros-100] hover:bg-escuros-300 text-white focus:outline-none focus:ring focus:ring-blue-400 focus:ring-opacity-50 box-border py-2 px-4 shadow-md relative"
+                      >
+                        ?
+                      </button>
+
+                      <Modal
+                        open={modalStatus}
+                        onClose={handleCloseModal}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                      >
+                        <Box sx={modalStyle}>
+                          <Typography id="modal-modal-title" variant="h6" component="h2">
+                            Explicação da plataforma
+                          </Typography>
+                          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                            <span style={{ fontWeight: 'bold' }}>Botões:</span><br />
+                            Executar código: clique para executar o código e aguarde a saída<br />
+                            Enviar resposta: submeta seu código para ser avaliado<br /><br />
+                            <span style={{ fontWeight: 'bold' }}>Abas:</span><br />
+                            Execução: veja a saída do seu código<br />
+                            Casos de teste: clique nos casos de teste para ver dicas<br />
+                            Ajuda: clique para obter uma ajuda em como fazer o algoritmo (lógica)
+                          </Typography>
+
+                        </Box>
+                      </Modal>
+                    </div>
                   </div>
                 </div>
               </div>
