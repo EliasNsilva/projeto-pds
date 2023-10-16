@@ -236,13 +236,14 @@ function Home() {
     //console.log(testCase)
 
     let body = ""
-    if (testCase.evaluation === "WRONG_ANSWER") {
-      body = `Descriçao: ${problem.description}\nCódigo: ${code}\nDiferença (entrada esperada e saída atual): ${testCase.diff}\n Explique o que posso ajustar para combinar com a descrição do problema (sem código, só lógica)`
-    } else if (testCase.evaluation === "COMPILATION_ERROR") {
-      body = `Código: ${code}\nDiferença (entrada esperada e saída atual): ${testCase.diff}\nErro: ${testCase.errorMsg}\n Explique o que posso melhorar para corrigir o erro de compilação (sem código, só lógica)`
-    } else {
-      body = `Código: ${code}\nDiferença (entrada esperada e saída atual): ${testCase.diff}\n Explique o que posso melhorar para corrigir o erro de compilação (sem código, só lógica)`
-    }
+    // if (testCase.evaluation === "WRONG_ANSWER") {
+    //   body = `Descriçao: ${problem.description}\nCódigo: ${code}\nDiferença (entrada esperada e saída atual): ${testCase.diff}\n Explique o que posso ajustar para combinar com a descrição do problema (sem código, só lógica)`
+    // } else if (testCase.evaluation === "COMPILATION_ERROR") {
+    //   body = `Código: ${code}\nDiferença (entrada esperada e saída atual): ${testCase.diff}\nErro: ${testCase.errorMsg}\n Explique o que posso melhorar para corrigir o erro de compilação (sem código, só lógica)`
+    // } else {
+    //   body = `Código: ${code}\nDiferença (entrada esperada e saída atual): ${testCase.diff}\n Explique o que posso melhorar para corrigir o erro de compilação (sem código, só lógica)`
+    // }
+    body = `Descriçao: ${problem.description}\nFormato de entrada: ${problem.inputFormat}\nFormato de saida: ${problem.outputFormat}\nCódigo: ${code}\nDiferença (entrada esperada e saída atual): ${testCase.diff}\n`
 
     // Fetch na api pedindo dicas
     try {
