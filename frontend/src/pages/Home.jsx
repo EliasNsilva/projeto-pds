@@ -37,6 +37,7 @@ function Home() {
   const [trueTestCases, setTrueTestCases] = useState([]);
   const [falseTestCases, setFalseTestCases] = useState([]);
   const [testCaseTip, setTestCaseTip] = useState('');
+  const [testCaseMonitorTip, setTestCaseMonitorTip] = useState('');
   const [testCaseLoading, setTestCaseLoading] = useState(false);
   const [tabValue, setTabValue] = useState("execution");
   const [monitorTips, setMonitorTips] = useState([]);
@@ -78,18 +79,42 @@ function Home() {
 
   // Resize textarea
   useEffect(() => {
-    const textArea = document.getElementById("testcasetip");
-    if (textArea) {
-      textArea.style.height = "inherit";
-      const computed = window.getComputedStyle(textArea);
+
+    const textCaseArea = document.getElementById("testcasetip");
+    if (textCaseArea) {
+      textCaseArea.style.height = "inherit";
+      const computed = window.getComputedStyle(textCaseArea);
       const height = parseInt(computed.getPropertyValue("border-top-width"), 10)
         + parseInt(computed.getPropertyValue("padding-top"), 10)
-        + textArea.scrollHeight
+        + textCaseArea.scrollHeight
         + parseInt(computed.getPropertyValue("padding-bottom"), 10)
         + parseInt(computed.getPropertyValue("border-bottom-width"), 10);
-      textArea.style.height = height - 10 + "px";
+      textCaseArea.style.height = height - 10 + "px";
     }
-  }, [testCaseTip])
+
+    const textCaseMonitor = document.getElementById("testcasemonitortip");
+    if (textCaseMonitor) {
+      textCaseMonitor.style.height = "inherit";
+      const computed = window.getComputedStyle(textCaseMonitor);
+      const height = parseInt(computed.getPropertyValue("border-top-width"), 10)
+        + parseInt(computed.getPropertyValue("padding-top"), 10)
+        + textCaseMonitor.scrollHeight
+        + parseInt(computed.getPropertyValue("padding-bottom"), 10)
+        + parseInt(computed.getPropertyValue("border-bottom-width"), 10);
+      textCaseMonitor.style.height = height - 10 + "px";
+    }
+
+    // Compare heigth and set big height to two textArea
+    if (textCaseArea && textCaseMonitor) {
+      if (textCaseArea.scrollHeight > textCaseMonitor.scrollHeight) {
+        textCaseMonitor.style.height = textCaseArea.scrollHeight + "px";
+      }
+      else {
+        textCaseArea.style.height = textCaseMonitor.scrollHeight + "px";
+      }
+    }
+
+  }, [testCaseTip, testCaseMonitorTip])
 
   const onChange = useCallback((value, viewUpdate) => {
     setCode(value);
@@ -142,6 +167,18 @@ function Home() {
 
       const trueTestCases = data.testCaseEvaluations?.filter(testCase => testCase.evaluation === "CORRECT") || [];
       const falseTestCases = data.testCaseEvaluations?.filter(testCase => testCase.evaluation !== "CORRECT") || [];
+
+      // Set the execute test output to the first test case false
+      if (falseTestCases.length > 0) {
+        const testCase = falseTestCases[0];
+        if (testCase.diff) {
+          // Parse the JSON data
+          const parsedData = JSON.parse(testCase.diff);
+          setExecuteText({ ...executeText, ["executeoutput"]: parsedData.lines[0].actual });
+        } else if (testCase.errorMsg) {
+          setExecuteText({ ...executeText, ["executeoutput"]: testCase.errorMsg });
+        }
+      }
 
       setTrueTestCases(trueTestCases);
       setFalseTestCases(falseTestCases);
@@ -199,7 +236,7 @@ function Home() {
 
     // Fetch na api pedindo dicas
     try {
-      /* const response = await fetch("http://localhost:8000/gpt/", {
+      const response = await fetch("http://localhost:8000/gpt/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -209,16 +246,13 @@ function Home() {
           "behavior": 2
         }),
       });
+
       const data = await response.json();
       const tips = data.response;
       console.log(tips)
-      if (!(testCase.tip === "")) {
-        setTestCaseTip("-Dicas do huxley:\n" + testCase.tip + "\n\n" + "-Dicas do monitor:\n" + tips)
-      } else {
-        setTestCaseTip("-Dicas do monitor:\n" + tips)
-      } */
 
       setTestCaseTip(testCase.tip)
+      setTestCaseMonitorTip("-Dicas do monitor:\n" + tips)
 
       if (testCase.diff) {
         // Parse the JSON data
@@ -501,14 +535,24 @@ function Home() {
                       {testCaseLoading ? (
                         <CircularProgress />
                       ) : testCaseTip ? (
-                        <textarea
-                          className="w-1/2 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-300 mb-4 bg-[#022032]"
-                          id="testcasetip"
-                          name="testcasetip"
-                          placeholder="Dica do caso de teste"
-                          readOnly={true}
-                          value={testCaseTip}
-                        />
+                        <div className='inline-items'>
+                          <textarea
+                            className="w-11/12 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-300 mb-4 bg-[#022032]"
+                            id="testcasetip"
+                            name="testcasetip"
+                            placeholder="Dica do caso de teste"
+                            readOnly={true}
+                            value={testCaseTip}
+                          />
+                          <textarea
+                            className="w-11/12 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-300 mb-4 bg-[#022032]"
+                            id="testcasemonitortip"
+                            name="testcasemonitortip"
+                            placeholder="Dica do caso de teste"
+                            readOnly={true}
+                            value={testCaseMonitorTip}
+                          />
+                        </div>
                       ) : null}
                     </div>
                   </TabPanel>
