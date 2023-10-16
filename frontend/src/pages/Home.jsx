@@ -47,8 +47,15 @@ function Home() {
   // Fetch problem details when the 'id' parameter changes
   useEffect(() => {
     const fetchProblem = async () => {
+      const token = localStorage.getItem("token");
       try {
-        const response = await fetch(`http://localhost:8000/huxley/problem/${id}`);
+        const response = await fetch(`http://localhost:8000/huxley/problem/${id}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+          },
+        });
         if (!response.ok) {
           throw new Error("Failed to fetch problem data.");
         }
@@ -162,6 +169,8 @@ function Home() {
         toast.error("Erro de compilação, analise a saída");
       } else if (data.evaluation === "WRONG_ANSWER") {
         toast.error("Resposta incorreta, analise os testes");
+      } else if (data.evaluation === "RUNTIME_ERROR") {
+        toast.error("Tempo de execução excedido");
       } else {
         toast.error("Erro de backend na API do Huxley");
       }
