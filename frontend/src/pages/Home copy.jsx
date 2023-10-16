@@ -30,7 +30,7 @@ function Home() {
   useEffect(() => {
     const fetchProblem = async () => {
       try {
-        const response = await fetch(`http://localhost:8000/huxley/problem/${id}`);
+        const response = await fetch(`http://pds-2023-1-06.edge.net.br:9006/huxley/problem/${id}`);
         const data = await response.json();
 
         if (response.ok) {
@@ -79,7 +79,7 @@ function Home() {
           return;
         }
 
-        const response = await fetch(`http://localhost:8000/huxley/submission/${id}`, {
+        const response = await fetch(`http://pds-2023-1-06.edge.net.br:9006/huxley/submission/${id}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -207,7 +207,7 @@ function Home() {
 
     // Fetch na api pedindo dicas
     try {
-      /* const response = await fetch("http://localhost:8000/gpt/", {
+      /* const response = await fetch("http://pds-2023-1-06.edge.net.br:9006/gpt/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

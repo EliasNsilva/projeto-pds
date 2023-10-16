@@ -33,7 +33,7 @@ export default function Login() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch('http://localhost:8000/login/', {
+      const response = await fetch('http://pds-2023-1-06.edge.net.br:9006/login/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

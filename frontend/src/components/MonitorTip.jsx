@@ -10,7 +10,7 @@ function MonitorTip({ monitorTips, handleMonitorTips, problemDescription }) {
     const fetchTips = async () => {
       try {
         setLoading(true);
-        const response = await fetch("http://localhost:8000/gpt/", {
+        const response = await fetch("http://pds-2023-1-06.edge.net.br:9006/gpt/", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

@@ -27,7 +27,7 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 SECRET_KEY = config('SECRET_KEY')
 
 # ALLOWED_HOSTS = ['pds-2023-1-06.edge.net.br', 
-#                 'http://pds-2023-1-06.edge.net.br:9006/',
+#                 'http://pds-2023-1-06.edge.net.br:9006',
 #                 'localhost',]
 ALLOWED_HOSTS = ['*']
 

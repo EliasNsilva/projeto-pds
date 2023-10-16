@@ -69,7 +69,7 @@ function Home() {
       console.log(id)
       console.log('Bearer ' + token)
       try {
-        const response = await fetch(`http://localhost:8000/huxley/submission/${id}/last/`, {
+        const response = await fetch(`http://pds-2023-1-06.edge.net.br:9006/huxley/submission/${id}/last/`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -103,7 +103,7 @@ function Home() {
     const fetchProblem = async () => {
       const token = localStorage.getItem("token");
       try {
-        const response = await fetch(`http://localhost:8000/huxley/problem/${id}`, {
+        const response = await fetch(`http://pds-2023-1-06.edge.net.br:9006/huxley/problem/${id}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -201,7 +201,7 @@ function Home() {
     }
 
     try {
-      const response = await fetch(`http://localhost:8000/huxley/submission/${id}`, {
+      const response = await fetch(`http://pds-2023-1-06.edge.net.br:9006/huxley/submission/${id}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -301,7 +301,7 @@ function Home() {
 
     // Fetch na api pedindo dicas
     try {
-      const response = await fetch("http://localhost:8000/gpt/", {
+      const response = await fetch("http://pds-2023-1-06.edge.net.br:9006/gpt/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
