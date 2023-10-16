@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import CodeMirror from '@uiw/react-codemirror';
 import { cpp } from '@codemirror/lang-cpp';
-import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
@@ -22,8 +21,6 @@ import Sidebar from '../components/SidebarMenu';
 import MonitorTip from '../components/MonitorTip';
 import toast from 'react-hot-toast';
 import { tokyoNight } from '@uiw/codemirror-theme-tokyo-night';
-import { tokyoNightStorm } from '@uiw/codemirror-theme-tokyo-night-storm';
-
 
 function Home() {
   const { id } = useParams();
@@ -41,6 +38,7 @@ function Home() {
   const [testCaseLoading, setTestCaseLoading] = useState(false);
   const [tabValue, setTabValue] = useState("execution");
   const [monitorTips, setMonitorTips] = useState([]);
+  const [textAreaHelpHeight, setTextAreaHelpHeight] = useState(0);
 
   if (!id) {
     return <h1 className='text-center mt-4 font-medium'>Sem problema selecionado</h1>;
@@ -79,7 +77,6 @@ function Home() {
 
   // Resize textarea
   useEffect(() => {
-
     const textCaseArea = document.getElementById("testcasetip");
     if (textCaseArea) {
       textCaseArea.style.height = "inherit";
@@ -108,10 +105,14 @@ function Home() {
     if (textCaseArea && textCaseMonitor) {
       if (textCaseArea.scrollHeight > textCaseMonitor.scrollHeight) {
         textCaseMonitor.style.height = textCaseArea.scrollHeight + "px";
+        setTextAreaHelpHeight(textCaseArea.scrollHeight)
       }
       else {
         textCaseArea.style.height = textCaseMonitor.scrollHeight + "px";
+        setTextAreaHelpHeight(textCaseMonitor.scrollHeight)
       }
+
+      console.log(textCaseArea.scrollHeight, textCaseMonitor.scrollHeight)
     }
 
   }, [testCaseTip, testCaseMonitorTip])
@@ -251,8 +252,8 @@ function Home() {
       const tips = data.response;
       console.log(tips)
 
-      setTestCaseTip(testCase.tip)
-      setTestCaseMonitorTip("-Dicas do monitor:\n" + tips)
+      setTestCaseTip(testCase.tip ? testCase.tip : "Sem dica para esse caso de teste")
+      setTestCaseMonitorTip(tips)
 
       if (testCase.diff) {
         // Parse the JSON data
@@ -502,14 +503,12 @@ function Home() {
                       {trueTestCases.map((testCase, index) => {
                         return (
                           <div key={index} className="mr-2 mb-2">
-                            <Button
-                              variant="contained"
-                              size="small"
+                            <button
                               onClick={() => setTestCaseTip(testCase.tip)}
-                              className="bg-green-500 rounded-full text-white cursor-pointer"
+                              className="bg-green-500 rounded-full text-white cursor-pointer hover:bg-green-700 focus:outline-none focus:ring focus:ring-green focus:ring-opacity-50 box-border py-1 px-2 shadow-md text-white"
                             >
                               {index + 1}
-                            </Button>
+                            </button>
                           </div>
                         );
                       })}
@@ -517,44 +516,52 @@ function Home() {
                     <div className="flex flex-wrap">
                       {falseTestCases.map((testCase, index) => {
                         return (
-                          <div key={index} className="mr-4 mb-4 flex">
-                            <Button
-                              variant="contained"
-                              size="small"
-                              endIcon={testCase.tip ? <TipsAndUpdatesIcon /> : null}
+                          <div key={index} className="mr-2 mb-2 flex">
+                            <button
                               onClick={() => falseTestCaseTip(testCase)}
-                              className="bg-red-500 rounded-full text-white cursor-pointer"
+                              className="bg-red-500 rounded-full text-white cursor-pointer hover:bg-red-700 focus:outline-none focus:ring focus:ring-red focus:ring-opacity-50 box-border py-1 px-2 shadow-md text-white"
                             >
-                              {trueTestCases.length + index + 1}
-                            </Button>
+                              {trueTestCases.length + index + 1} {testCase.tip ? <TipsAndUpdatesIcon /> : null}
+                            </button>
                           </div>
                         );
                       })}
                     </div>
-                    <div className="flex justify-center items-center">
+                    <div>
                       {testCaseLoading ? (
-                        <CircularProgress />
+                        <div className='flex justify-center items-center'>
+                          <CircularProgress className='mt-2' />
+                        </div>
                       ) : testCaseTip ? (
-                        <div className='inline-items'>
+                        <div className="flex gap-x-8">
                           <textarea
-                            className="w-11/12 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-300 mb-4 bg-[#022032]"
+                            className="w-full p-2 m-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-300 bg-[#022032] justify-center"
                             id="testcasetip"
                             name="testcasetip"
                             placeholder="Dica do caso de teste"
                             readOnly={true}
                             value={testCaseTip}
+                            style={{
+                              height: textAreaHelpHeight + "px"
+                            }}
                           />
+
                           <textarea
-                            className="w-11/12 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-300 mb-4 bg-[#022032]"
+                            className="w-full p-2 m-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-300 bg-[#022032] justify-center"
                             id="testcasemonitortip"
                             name="testcasemonitortip"
                             placeholder="Dica do caso de teste"
                             readOnly={true}
                             value={testCaseMonitorTip}
+                            style={{
+                              height: textAreaHelpHeight + "px"
+                            }}
                           />
+
                         </div>
                       ) : null}
                     </div>
+
                   </TabPanel>
 
                   {/* Tab panel 3 (help) */}
@@ -589,8 +596,8 @@ function Home() {
 
             </div>
           </Grid>
-        </Grid>
-      </div>
+        </Grid >
+      </div >
     </div >
   );
 }
